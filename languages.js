@@ -336,3 +336,19 @@
   window.addEventListener('pageshow',function() {selected='default';root.removeAttribute('data-contrast');announcement='';refresh();close(false);});
   root.removeAttribute('data-contrast'); refresh();
 })().catch(function(error){console.error('Contrast menu initialization:',error);});
+
+// Keep the display panel in the same compact vertical layout at every width.
+(function () {
+  const panelLayout = document.createElement('style');
+  panelLayout.textContent = `
+.font-control-region { width: fit-content; max-width: 100%; box-sizing: border-box; }
+.font-control-region .control-btn-group { display: flex; flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 1rem; width: 22rem; max-width: 100%; }
+.font-control-region .theme-contrast-controls { flex: none; width: 100%; align-items: stretch; gap: 1rem; }
+.font-control-region .language-control { flex: none; width: 100%; align-self: stretch; }
+.font-control-region .control-btn-group > button,
+.font-control-region .theme-contrast-controls > button,
+.font-control-region .contrast-control > button,
+.font-control-region .language-control > button { width: 100%; box-sizing: border-box; }
+`;
+  document.head.appendChild(panelLayout);
+})();
