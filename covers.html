@@ -6,21 +6,15 @@
 <title>Song Covers — Virginia R. Jacobs</title>
 <meta property="og:image" content="https://virginiarjacobs.github.io/photo-6bc032c2.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="covers.css?v=5">
-<script src="covers.js?v=6" defer></script>
+<link rel="stylesheet" href="covers.css?v=7">
+<script src="covers.js?v=7" defer></script>
 <style>
-/* All entrance decoration is pointer-transparent and clipped to the waveform. */
-.covers-page .wave{isolation:isolate;} .covers-page .curtains{position:absolute;inset:0;z-index:3;overflow:hidden;border-radius:.3rem;pointer-events:none;} .covers-page .curtain{display:block;z-index:1;background-color:#890c24;background-image:linear-gradient(180deg,rgba(35,0,8,.55),transparent 25%,rgba(35,0,8,.18)),repeating-linear-gradient(90deg,#650717 0%,#c62743 7%,#8b0b22 13%,#510517 18%,#ad1935 25%);border-bottom:6px double #e5bf68;box-shadow:inset 0 8px 14px #480012,inset -6px 0 10px #480012;} .covers-page .title-burst{z-index:1;} .covers-page input.seek{z-index:4;}
-.curtain{position:absolute;top:0;bottom:0;width:51%;background:repeating-linear-gradient(90deg,#650717 0%,#ba1734 10%,#e34050 17%,#8b0b22 25%);border-bottom:4px solid #d9b35a;box-shadow:inset 0 6px 12px #480012;transform-origin:top left;transition:transform 1.3s cubic-bezier(.25,.7,.2,1);}
-.curtain.left{left:0}.curtain.right{right:0;transform-origin:top right;}
-.curtains.open .left{transform:translateX(-101%) scaleX(.75) skewY(-3deg)}
-.curtains.open .right{transform:translateX(101%) scaleX(.75) skewY(3deg)}
-.covers-page .title-burst{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
-.covers-page input.seek{z-index:2;}
-@media(prefers-reduced-motion:reduce){.curtain{transition:none;}}
-</style>
+.covers-page .song-link{display:block;padding:1rem;border:3px solid currentColor;border-radius:.5rem;background:var(--bg,#000);color:var(--fg,#fff);text-align:center;text-decoration:underline;overflow-wrap:anywhere;min-height:44px;}
+html:not([data-contrast]) .covers-page .song-link,html[data-contrast="default"] .covers-page .song-link{background:#000;color:#fff;}
+.song-link:focus-visible{outline:3px dashed #00ffff;outline-offset:5px;box-shadow:0 0 0 4px #000,0 0 0 8px #fff,0 0 0 11px #000;}
+html[data-contrast]:not([data-contrast="default"]) .covers-page .song-link{border-width:4px;} html.light-mode .covers-page .song-link{box-shadow:0 2px 5px #555;} </style>
 </head>
-<body class="covers-page">
+<body class="covers-page" data-setlist="true">
 <div class="container">
 <header>
 <a href="/" data-cover-text="back">Back to Virginia R. Jacobs</a>
@@ -41,44 +35,5 @@
 <footer><p data-cover-text="footer">All covers performed by Virginia R. Jacobs. Original songs belong to their respective rights holders.</p></footer>
 <p id="player-status" class="sr-only" role="status" aria-live="polite"></p>
 </div>
-<script>
-(function(){
- const tracks=document.getElementById('tracks');
- let activeEntrance=null;
- const decorate=()=>tracks.querySelectorAll('.cover-player:not([data-curtain])').forEach(card=>{
-  card.dataset.curtain='ready';
-  const wave=card.querySelector('.wave'), audio=card.querySelector('audio');
-  const overlay=document.createElement('canvas');overlay.className='title-burst';overlay.setAttribute('aria-hidden','true');
-  const curtain=document.createElement('div');curtain.className='curtains';curtain.setAttribute('aria-hidden','true');curtain.innerHTML='<span class="curtain left"></span><span class="curtain right"></span>';
-  wave.append(overlay,curtain);
-  audio.addEventListener('playing',()=>{
-   if(activeEntrance)activeEntrance();
-   curtain.classList.add('open');card.dataset.curtain='opened';card.dataset.titleSequence='playing';
-   const w=Math.max(1,Math.round(wave.clientWidth)),h=Math.max(1,Math.round(wave.clientHeight));overlay.width=w;overlay.height=h;
-   const ctx=overlay.getContext('2d'),mask=document.createElement('canvas');mask.width=w;mask.height=h;
-   const pen=mask.getContext('2d'),title=card.querySelector('h2').textContent.replace(/ - (?:MIDI|QWS) cover$/,'').toUpperCase();
-   let size=Math.min(h*.43,56);pen.font='900 '+size+'px monospace';
-   while(pen.measureText(title).width>w-24&&size>10){size--;pen.font='900 '+size+'px monospace';}
-   pen.fillStyle='#fff';pen.textAlign='center';pen.textBaseline='middle';pen.fillText(title,w/2,h/2);
-   const pixels=pen.getImageData(0,0,w,h).data,points=[],step=matchMedia('(prefers-reduced-motion:reduce)').matches?6:4;
-   for(let y=0;y<h;y+=step)for(let x=0;x<w;x+=step)if(pixels[(y*w+x)*4+3]>100)points.push({x,y,dx:(Math.random()-.5)*w*.6,dy:(Math.random()-.5)*h*1.8,hue:Math.random()*360});
-   let frame=0,done=false,start=performance.now();
-   const finish=()=>{if(done)return;done=true;cancelAnimationFrame(frame);overlay.remove();card.dataset.titleSequence='finished';if(activeEntrance===finish)activeEntrance=null;};activeEntrance=finish;
-   const render=now=>{
-    if(done)return;const t=now-start;ctx.clearRect(0,0,w,h);
-    const bg=getComputedStyle(document.body).backgroundColor,fg=getComputedStyle(document.body).color;
-    if(t<1650){ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);ctx.fillStyle=fg;for(const p of points)ctx.fillRect(p.x,p.y,step-1,step-1);}
-    else{
-     const burst=Math.min(1,(t-1650)/350),settle=Math.max(0,Math.min(1,(t-2000)/600)),ease=1-Math.pow(1-burst,3);
-     ctx.globalAlpha=1-settle;
-     points.forEach((p,i)=>{const bx=p.x+p.dx*ease,by=p.y+p.dy*ease,targetX=(i/points.length)*w,targetY=h/2+Math.sin(i*.4)*h*.25;ctx.fillStyle='hsl('+p.hue+' 80% 78%)';ctx.fillRect(bx*(1-settle)+targetX*settle,by*(1-settle)+targetY*settle,step,step);});ctx.globalAlpha=1;
-    }
-    if(t>=2600){finish();return;}frame=requestAnimationFrame(render);
-   };frame=requestAnimationFrame(render);
-  },{once:true});
- });
- new MutationObserver(decorate).observe(tracks,{childList:true});decorate();
-})();
-</script>
 </body>
 </html>
