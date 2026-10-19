@@ -315,28 +315,35 @@
       border: 0;
     }
 
+    /* Original, heading-confined cinematic typography; no external artwork. */
+    .name-intro { overflow: hidden; }
     .name-effect {
       display: inline-block;
+      max-width: 100%;
       transform-origin: center;
-      animation: name-swirl-flicker 3.2s ease-out 1 both;
+      color: #39ff14;
+      text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14;
+      animation: name-cinematic-intro 5s linear 0s 1 both;
     }
-
-    @keyframes name-swirl-flicker {
-      0% { transform: rotate(-360deg) scale(0.15); opacity: 0; color: var(--text-main); text-shadow: none; }
-      18% { transform: rotate(-250deg) scale(0.45); opacity: 0.55; color: var(--text-main); }
-      36% { transform: rotate(-120deg) scale(0.82); opacity: 0.9; color: var(--text-main); }
-      50% { transform: rotate(0deg) scale(1); opacity: 1; color: var(--text-main); text-shadow: none; }
-      54% { color: #39ff14; text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14; opacity: 0.35; }
-      57% { color: var(--text-main); text-shadow: none; opacity: 1; }
-      60% { color: #39ff14; text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14; opacity: 0.2; }
-      63% { color: var(--text-main); text-shadow: none; opacity: 1; }
-      67% { color: #39ff14; text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14; opacity: 0.45; }
-      72%, 100% { color: #39ff14; text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14; opacity: 1; }
+    @keyframes name-cinematic-intro {
+      0% { transform: perspective(600px) translateX(8%) rotate(-360deg) scale(0.12); opacity: 0; font-size: 1em; font-weight: 700; letter-spacing: 0; }
+      25% { transform: perspective(600px) translateX(6%) rotate(0deg) rotateX(24deg) rotateY(-12deg) scale(0.88); opacity: 1; font-size: 1.2em; font-weight: 900; letter-spacing: 0.035em; color: #eaffbd; text-shadow: 1px 2px #24890e, 2px 4px #196609, 3px 6px #104506, 4px 8px #082b03, 0 0 12px #39ff14; }
+      48% { transform: perspective(600px) translateX(6%) rotateX(24deg) rotateY(-12deg) scale(0.88); opacity: 1; font-size: 1.2em; font-weight: 900; letter-spacing: 0.035em; color: #eaffbd; text-shadow: 1px 2px #24890e, 2px 4px #196609, 3px 6px #104506, 4px 8px #082b03, 0 0 12px #39ff14; }
+      58% { opacity: 1; color: #39ff14; text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14; }
+      /* Exactly three identical dips, 200 ms apart, then no more flicker. */
+      60%, 64%, 68% { opacity: 0.35; }
+      62%, 66%, 70% { opacity: 1; }
+      78% { transform: perspective(600px) translateX(4%) rotateX(8deg) scale(0.95); font-size: 1.05em; font-weight: 700; letter-spacing: 0; }
+      100% { transform: none; opacity: 1; font-size: 1em; font-weight: 700; letter-spacing: 0; color: #39ff14; text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14; }
     }
-
     @media (prefers-reduced-motion: reduce) {
       .name-effect {
         animation: none;
+        transform: none;
+        opacity: 1;
+        font-size: 1em;
+        font-weight: 700;
+        letter-spacing: 0;
         color: #39ff14;
         text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14;
       }
@@ -407,8 +414,8 @@
 
   <div class="container">
     <header role="banner">
-      <h1 aria-describedby="name-effect-description"><span class="name-effect">Virginia R. Jacobs</span></h1>
-      <span id="name-effect-description" class="sr-only">The name swirls in once, then makes one broken neon-green sign flicker, and holds still.</span>
+      <h1 class="name-intro" aria-describedby="name-effect-description"><span class="name-effect">Virginia R. Jacobs</span></h1>
+      <span id="name-effect-description" class="sr-only">The name spins in, holds a bold dimensional title pose, flickers neon green exactly three times, then settles still at the top left. The intro plays once; reduced motion shows the final static name.</span>
       <p class="subtitle">Official Website & Music Portfolio</p>
       
       <!-- Landmark Navigation with Explicit Accessible Names -->
@@ -549,12 +556,7 @@
               YouTube — Official Channel (@virginiarjacobs)
             </a>
           </li>
-          <li>
-            <!-- TODO: Direct Spotify song URL for 'I Wanna Feel' -->
-            <a href="#" aria-label="Spotify - I Wanna Feel Song Release - Placeholder">
-              Spotify — "I Wanna Feel" Song Release
-            </a>
-          </li>
+
           <li>
             <!-- TODO: Direct Apple Music song URL for 'I Wanna Feel' -->
             <a href="#" aria-label="Apple Music - I Wanna Feel Song Release - Placeholder">
@@ -597,13 +599,7 @@
           </p>
         </div>
 
-        <div class="card">
-          <span class="unverified-badge">Status: Unverified</span>
-          <h3>Baltimore Fishbowl Articles (April 2024 & December 2024)</h3>
-          <p>
-            Status: Unverified. Specific article titles, content, and canonical URLs for Baltimore Fishbowl coverage regarding Virginia Jacobs remain unverified offline.
-          </p>
-        </div>
+
 
 
 
@@ -638,26 +634,20 @@
             </a>
           </li>
           <li>
-            <strong>TikTok (Corrected Handle):</strong>
+            <strong>TikTok:</strong>
             <!-- Requires confirmation from Virginia before going live -->
-            <a href="https://www.tiktok.com/@virginiajacobs90" target="_blank" rel="noopener noreferrer" aria-label="TikTok - @virginiajacobs90 - Pending Confirmation (opens in new tab)">
+            <a href="https://www.tiktok.com/@virginiajacobs90" target="_blank" rel="noopener noreferrer" aria-label="TikTok - @virginiajacobs90 (opens in new tab)">
               @virginiajacobs90 (TikTok)
             </a>
           </li>
           <li>
             <strong>Instagram:</strong>
             <!-- Requires confirmation from Virginia before going live -->
-            <a href="https://www.instagram.com/kissitva" target="_blank" rel="noopener noreferrer" aria-label="Instagram - @kissitva - Pending Confirmation (opens in new tab)">
-              @kissitva (Instagram)
+            <a href="https://www.instagram.com/virginiarjacobs" target="_blank" rel="noopener noreferrer" aria-label="Instagram - @virginiarjacobs - Pending Confirmation (opens in new tab)">
+              @virginiarjacobs (Instagram)
             </a>
           </li>
-          <li>
-            <strong>Twitter / X:</strong>
-            <!-- Requires confirmation from Virginia before going live -->
-            <a href="https://twitter.com/virgini05112800" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X - @virgini05112800 - Pending Confirmation (opens in new tab)">
-              @virgini05112800 (Twitter)
-            </a>
-          </li>
+
           <li>
             <strong>Facebook:</strong>
             <!-- TODO: Insert Virginia's verified Facebook profile URL -->
