@@ -10,7 +10,7 @@
     }
   }
   const bindings = [];
-  const english = {24: 'Off', 25: 'On', 26: 'Text size increased to ', 27: ' percent of default.', 28: 'Text size reset to default 19 pixels.'};
+  const english = {24: 'Off', 25: 'On', 26: 'Text size increased to ', 27: ' percent of default.', 28: 'Text size reset to default.'};
   let language = 'en';
   let lastAnnouncement = '';
   // Bind individual text nodes, never replace a paragraph containing a link.
