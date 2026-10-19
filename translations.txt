@@ -1,4 +1,86 @@
 {
+  "contrast": {
+  "en": {
+    "button": "Change Contrast",
+    "default": "Default",
+    "yellow-black": "Yellow on Black",
+    "black-yellow": "Black on Yellow",
+    "dark-blue": "Dark Blue",
+    "white-black": "White on Black",
+    "black-white": "Black on White",
+    "changed": "Contrast scheme: {scheme}.",
+    "light": "Returned to Default contrast. Light mode is on.",
+    "dark": "Returned to Default contrast. Light mode is off.",
+    "descriptions": [
+      "the site’s normal dark and light themes",
+      "bright yellow text on a black background",
+      "black text on a bright yellow background",
+      "bright yellow text on a dark blue background",
+      "white text on a black background",
+      "black text on a white background"
+    ]
+  },
+  "es": {
+    "button": "Cambiar contraste",
+    "default": "Predeterminado",
+    "yellow-black": "Amarillo sobre negro",
+    "black-yellow": "Negro sobre amarillo",
+    "dark-blue": "Azul oscuro",
+    "white-black": "Blanco sobre negro",
+    "black-white": "Negro sobre blanco",
+    "changed": "Esquema de contraste: {scheme}.",
+    "light": "Se ha restablecido el contraste predeterminado. El modo claro está activado.",
+    "dark": "Se ha restablecido el contraste predeterminado. El modo claro está desactivado.",
+    "descriptions": [
+      "los temas habituales del sitio, oscuro y claro",
+      "texto amarillo brillante sobre fondo negro",
+      "texto negro sobre fondo amarillo brillante",
+      "texto amarillo brillante sobre fondo azul oscuro",
+      "texto blanco sobre fondo negro",
+      "texto negro sobre fondo blanco"
+    ]
+  },
+  "fr": {
+    "button": "Modifier le contraste",
+    "default": "Par défaut",
+    "yellow-black": "Jaune sur noir",
+    "black-yellow": "Noir sur jaune",
+    "dark-blue": "Bleu foncé",
+    "white-black": "Blanc sur noir",
+    "black-white": "Noir sur blanc",
+    "changed": "Palette de contraste : {scheme}.",
+    "light": "Le contraste par défaut a été rétabli. Le mode clair est activé.",
+    "dark": "Le contraste par défaut a été rétabli. Le mode clair est désactivé.",
+    "descriptions": [
+      "les thèmes sombre et clair habituels du site",
+      "texte jaune vif sur fond noir",
+      "texte noir sur fond jaune vif",
+      "texte jaune vif sur fond bleu foncé",
+      "texte blanc sur fond noir",
+      "texte noir sur fond blanc"
+    ]
+  },
+  "zh": {
+    "button": "调整对比度",
+    "default": "默认",
+    "yellow-black": "黑底黄字",
+    "black-yellow": "黄底黑字",
+    "dark-blue": "深蓝色",
+    "white-black": "黑底白字",
+    "black-white": "白底黑字",
+    "changed": "对比度配色：{scheme}。",
+    "light": "已恢复默认对比度，浅色模式已开启。",
+    "dark": "已恢复默认对比度，浅色模式已关闭。",
+    "descriptions": [
+      "网站原有的深色和浅色主题",
+      "黑色背景上的亮黄色文字",
+      "亮黄色背景上的黑色文字",
+      "深蓝色背景上的亮黄色文字",
+      "黑色背景上的白色文字",
+      "白色背景上的黑色文字"
+    ]
+  }
+},
   "es": {
     "1": "Virginia R. Jacobs — Sitio web oficial y comunicado de prensa",
     "2": "Sitio web oficial y comunicado de prensa de la cantautora Virginia R. Jacobs, con información sobre su sencillo I Wanna Feel.",
