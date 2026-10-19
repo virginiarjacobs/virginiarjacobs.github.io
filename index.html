@@ -348,6 +348,53 @@
       color: var(--text-secondary);
       font-size: 1.05rem;
     }
+
+    /* Theme changes last only for this view; every load starts dark. */
+    :root { color-scheme: dark; }
+    :root.light-mode {
+      color-scheme: light;
+      --bg-page: #ffffff;
+      --bg-surface: #ffffff;
+      --bg-elevated: #ffffff;
+      --text-main: #111111;
+      --text-secondary: #333333;
+      --border-main: #555555;
+      --border-accent: #004b87;
+      --link-color: #004b87;
+      --link-hover: #002f56;
+      --focus-ring: #6b21a8;
+    }
+    a { color: var(--link-color); }
+    a:hover { color: var(--link-hover); }
+    .light-mode h4 { color: #17365d; }
+    .light-mode .accessible-btn { border-color: #111111; }
+    .light-mode .skip-link { background: #6b21a8; color: #ffffff; }
+    .light-mode .name-effect {
+      --text-main: #ffffff;
+      background-color: #000000;
+      border-radius: 0.15em;
+    }
+    .theme-switch-track {
+      display: inline-block;
+      width: 2.5em;
+      height: 1.3em;
+      border: 2px solid currentColor;
+      border-radius: 1em;
+      vertical-align: middle;
+      margin-left: 0.5em;
+    }
+    .theme-switch-track::before {
+      content: "";
+      display: block;
+      width: 0.9em;
+      height: 0.9em;
+      margin: 0.1em;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    #btn-light-mode[aria-checked="true"] .theme-switch-track::before {
+      transform: translateX(1.1em);
+    }
   </style>
 </head>
 <body>
@@ -380,6 +427,9 @@
           </button>
           <button type="button" class="accessible-btn" id="btn-reset-font" aria-label="Reset text size to default 19 pixels">
             Reset Text Size
+          </button>
+          <button type="button" class="accessible-btn" id="btn-light-mode" role="switch" aria-checked="false" aria-label="Light mode switch">
+            Light mode <span class="theme-switch-track" aria-hidden="true"></span> <span id="theme-state" aria-hidden="true">Off</span>
           </button>
         </div>
         <span id="font-status-message" class="sr-only" aria-live="polite"></span>
@@ -497,31 +547,31 @@
           </li>
           <li>
             <!-- TODO: Direct Spotify song URL for 'I Wanna Feel' -->
-            <a href="#" aria-label="Stream I Wanna Feel on Spotify">
+            <a href="#" aria-label="Spotify - I Wanna Feel Song Release - Placeholder">
               Spotify — "I Wanna Feel" Song Release
             </a>
           </li>
           <li>
             <!-- TODO: Direct Apple Music song URL for 'I Wanna Feel' -->
-            <a href="#" aria-label="Stream I Wanna Feel on Apple Music">
+            <a href="#" aria-label="Apple Music - I Wanna Feel Song Release - Placeholder">
               Apple Music — "I Wanna Feel" Song Release
             </a>
           </li>
           <li>
             <!-- TODO: Direct TikTok sound/song URL for 'I Wanna Feel' -->
-            <a href="https://www.tiktok.com/t/ZTfYs5JRB/" aria-label="Stream I Wanna Feel on TikTok">
+            <a href="https://www.tiktok.com/t/ZTfYs5JRB/" aria-label="TikTok - I Wanna Feel Sound Release - Placeholder">
               TikTok — "I Wanna Feel" Sound Release
             </a>
           </li>
           <li>
             <!-- TODO: Direct Facebook media song URL for 'I Wanna Feel' -->
-            <a href="#" aria-label="Stream I Wanna Feel on Facebook">
+            <a href="#" aria-label="Facebook - I Wanna Feel Media Release - Placeholder">
               Facebook — "I Wanna Feel" Media Release
             </a>
           </li>
           <li>
             <!-- TODO: Direct YouTube track/video URL for 'I Wanna Feel' -->
-            <a href="#" aria-label="Watch I Wanna Feel on YouTube">
+            <a href="#" aria-label="YouTube - I Wanna Feel Official Song Video - Placeholder">
               YouTube — "I Wanna Feel" Official Song Video
             </a>
           </li>
@@ -591,35 +641,35 @@
           <li>
             <strong>TikTok (Corrected Handle):</strong>
             <!-- Requires confirmation from Virginia before going live -->
-            <a href="https://www.tiktok.com/@virginiajacobs90" target="_blank" rel="noopener noreferrer" aria-label="Visit TikTok profile @virginiajacobs90 (opens in new tab)">
+            <a href="https://www.tiktok.com/@virginiajacobs90" target="_blank" rel="noopener noreferrer" aria-label="TikTok - @virginiajacobs90 - Pending Confirmation (opens in new tab)">
               @virginiajacobs90 (TikTok)
             </a>
           </li>
           <li>
             <strong>Instagram:</strong>
             <!-- Requires confirmation from Virginia before going live -->
-            <a href="https://www.instagram.com/kissitva" target="_blank" rel="noopener noreferrer" aria-label="Visit Instagram profile @kissitva (opens in new tab)">
+            <a href="https://www.instagram.com/kissitva" target="_blank" rel="noopener noreferrer" aria-label="Instagram - @kissitva - Pending Confirmation (opens in new tab)">
               @kissitva (Instagram)
             </a>
           </li>
           <li>
             <strong>Twitter / X:</strong>
             <!-- Requires confirmation from Virginia before going live -->
-            <a href="https://twitter.com/virgini05112800" target="_blank" rel="noopener noreferrer" aria-label="Visit Twitter profile @virgini05112800 (opens in new tab)">
+            <a href="https://twitter.com/virgini05112800" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X - @virgini05112800 - Pending Confirmation (opens in new tab)">
               @virgini05112800 (Twitter)
             </a>
           </li>
           <li>
             <strong>Facebook:</strong>
             <!-- TODO: Insert Virginia's verified Facebook profile URL -->
-            <a href="https://www.facebook.com/virginiarjacobs/" aria-label="Virginia R. Jacobs on Facebook">
+            <a href="https://www.facebook.com/virginiarjacobs/" aria-label="Facebook - Virginia R. Jacobs - Placeholder">
               Virginia R. Jacobs (Facebook)
             </a>
           </li>
           <li>
             <strong>LinkedIn:</strong>
             <!-- TODO: Insert Virginia's verified LinkedIn profile URL -->
-            <a href="#" aria-label="Virginia Jacobs on LinkedIn">
+            <a href="#" aria-label="LinkedIn - Virginia Jacobs - Placeholder">
               Virginia Jacobs (LinkedIn)
             </a>
           </li>
@@ -640,6 +690,20 @@
       const btnIncrease = document.getElementById('btn-increase-font');
       const btnReset = document.getElementById('btn-reset-font');
       const liveRegion = document.getElementById('font-status-message');
+
+
+      const themeSwitch = document.getElementById('btn-light-mode');
+      const themeState = document.getElementById('theme-state');
+      function setLightMode(enabled) {
+        document.documentElement.classList.toggle('light-mode', enabled);
+        themeSwitch.setAttribute('aria-checked', String(enabled));
+        themeState.textContent = enabled ? 'On' : 'Off';
+      }
+      setLightMode(false);
+      window.addEventListener('pageshow', function () { setLightMode(false); });
+      themeSwitch.addEventListener('click', function () {
+        setLightMode(themeSwitch.getAttribute('aria-checked') !== 'true');
+      });
 
       let currentScale = 1.0;
 
