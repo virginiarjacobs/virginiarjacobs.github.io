@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/">
+<title>{{ page.title | escape }} — Virginia R. Jacobs</title>
+<meta property="og:image" content="https://virginiarjacobs.github.io/photo-6bc032c2.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="covers.css?v=7">
+<script src="covers.js?v=7" defer></script>
+<style>
+.wave{isolation:isolate;}
+.velvet-stage{position:absolute;inset:0;z-index:5;overflow:hidden;border-radius:.3rem;pointer-events:none;}
+.velvet-panel{position:absolute;top:0;bottom:0;width:51%;height:100%;background-color:#980d29;background-image:linear-gradient(180deg,#510012aa,transparent 30%,#42000b44),repeating-linear-gradient(90deg,#580014 0%,#c72c48 7%,#8f102d 13%,#510015 18%,#b51e3b 25%);border-bottom:6px double #e5bf68;box-shadow:inset 0 8px 14px #480012,inset -6px 0 10px #480012;transition:transform 1.3s cubic-bezier(.25,.7,.2,1);}
+.velvet-left{left:0;transform-origin:top left;}.velvet-right{right:0;transform-origin:top right;}
+.velvet-stage.open .velvet-left{transform:translateX(-101%) scaleX(.75) skewY(-3deg);}.velvet-stage.open .velvet-right{transform:translateX(101%) scaleX(.75) skewY(3deg);}
+.covers-page .title-burst{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;}
+.covers-page input.seek{z-index:6;opacity:.001;}
+.covers-page .wave:focus-within{outline:3px dashed #00ffff;outline-offset:5px;box-shadow:0 0 0 4px #000,0 0 0 8px #fff,0 0 0 11px #000;}
+@media(prefers-reduced-motion:reduce){.velvet-panel{transition:none;}}
+</style>
+</head>
+<body class="covers-page" data-song="{{ page.song | escape }}">
+<div class="container">
+<header>
+<a href="/covers.html" data-cover-text="backSetlist">Back to Song Covers</a>
+<h1>{{ page.title | escape }}</h1>
+<p data-cover-text="subtitle">Unreleased covers, shared here for you.</p>
+<div id="display-controls" class="display-panel" role="region" aria-label="Font Size Display Controls">
+<p id="display-label">Display Adjustment:</p>
+<div class="control-row">
+<button id="btn-increase-font" type="button" aria-label="Increase text size for entire website">Increase Text Size</button>
+<button id="btn-reset-font" type="button" aria-label="Reset text size to default">Reset Text Size</button>
+<button id="btn-light-mode" type="button" role="switch" aria-checked="false" aria-label="Light mode"><span id="light-label">Light mode</span> <span id="theme-state" aria-hidden="true">Off</span></button>
+<div class="menu-control"><button id="contrast-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="contrast-menu">Change Contrast</button><div id="contrast-menu" class="menu" role="menu" aria-label="Change Contrast" hidden></div></div>
+<div class="menu-control"><button id="language-trigger" type="button" aria-label="Switch Languages" aria-haspopup="menu" aria-expanded="false" aria-controls="language-menu"><span class="globe" aria-hidden="true">◎</span> <span id="language-label">Languages</span></button><div id="language-menu" class="menu" role="menu" aria-label="Switch Languages" hidden></div></div>
+</div></div>
+</header>
+<main id="tracks"></main>
+<footer><p data-cover-text="footer">All covers performed by Virginia R. Jacobs. Original songs belong to their respective rights holders.</p></footer>
+<p id="player-status" class="sr-only" role="status" aria-live="polite"></p>
+</div>
+<script>
+(function(){
+ const tracks=document.getElementById('tracks');
+ const decorate=()=>tracks.querySelectorAll('.cover-player:not([data-curtain])').forEach(card=>{
+  const wave=card.querySelector('.wave'),audio=card.querySelector('audio');if(!wave||!audio)return;
+  card.dataset.curtain='ready';
+  const overlay=document.createElement('canvas');overlay.className='title-burst';overlay.setAttribute('aria-hidden','true');
+  const curtain=document.createElement('div');curtain.className='velvet-stage';curtain.setAttribute('aria-hidden','true');curtain.innerHTML='<div class="velvet-panel velvet-left"></div><div class="velvet-panel velvet-right"></div>';
+  wave.append(overlay,curtain);
+  audio.addEventListener('playing',()=>{
+   curtain.classList.add('open');card.dataset.curtain='opened';card.dataset.titleSequence='playing';
+   const w=Math.max(1,Math.round(wave.clientWidth)),h=Math.max(1,Math.round(wave.clientHeight));overlay.width=w;overlay.height=h;
+   const ctx=overlay.getContext('2d'),mask=document.createElement('canvas');mask.width=w;mask.height=h;
+   const pen=mask.getContext('2d'),title=card.querySelector('h2').textContent.replace(/ - (?:MIDI|QWS) cover$/,'').toUpperCase();
+   let size=Math.min(h*.43,56);pen.font='900 '+size+'px monospace';
+   while(pen.measureText(title).width>w-24&&size>10){size--;pen.font='900 '+size+'px monospace';}
+   pen.fillStyle='#fff';pen.textAlign='center';pen.textBaseline='middle';pen.fillText(title,w/2,h/2);
+   const pixels=pen.getImageData(0,0,w,h).data,points=[],step=matchMedia('(prefers-reduced-motion:reduce)').matches?6:4;
+   for(let y=0;y<h;y+=step)for(let x=0;x<w;x+=step)if(pixels[(y*w+x)*4+3]>100)points.push({x,y,dx:(Math.random()-.5)*w*.6,dy:(Math.random()-.5)*h*1.8,hue:Math.random()*360});
+   const start=performance.now();
+   const render=now=>{
+    const t=now-start;ctx.clearRect(0,0,w,h);
+    const bg=getComputedStyle(document.body).backgroundColor,fg=getComputedStyle(document.body).color;
+    if(t<1650){ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);ctx.fillStyle=fg;for(const p of points)ctx.fillRect(p.x,p.y,step-1,step-1);}
+    else{
+     const burst=Math.min(1,(t-1650)/350),settle=Math.max(0,Math.min(1,(t-2000)/600)),ease=1-Math.pow(1-burst,3);ctx.globalAlpha=1-settle;
+     points.forEach((p,i)=>{const bx=p.x+p.dx*ease,by=p.y+p.dy*ease,targetX=(i/points.length)*w,targetY=h/2+Math.sin(i*.4)*h*.25;ctx.fillStyle='hsl('+p.hue+' 80% 78%)';ctx.fillRect(bx*(1-settle)+targetX*settle,by*(1-settle)+targetY*settle,step,step);});ctx.globalAlpha=1;
+    }
+    if(t>=2600){overlay.remove();card.dataset.titleSequence='finished';return;}requestAnimationFrame(render);
+   };requestAnimationFrame(render);
+  },{once:true});
+ });
+ new MutationObserver(decorate).observe(tracks,{childList:true});decorate();
+})();
+</script>
+</body>
+</html>
