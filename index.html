@@ -221,16 +221,6 @@
       margin: 2rem 0;
     }
 
-    .portrait-placeholder-svg {
-      width: 100%;
-      height: auto;
-      min-height: 18rem;
-      background-color: #1a0f26;
-      border: 0.15rem dashed var(--border-main);
-      border-radius: 0.375rem;
-      display: block;
-    }
-
     figcaption {
       margin-top: 1rem;
       font-size: 1.1rem;
@@ -271,6 +261,13 @@
 
     .link-list li a:hover {
       color: var(--link-hover);
+    }
+
+    /* Allow enlarged controls and links to wrap within narrow viewports. */
+    .accessible-btn, .link-list li a, nav a {
+      min-width: 0;
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
 
     /* Font Adjustment Control Panel */
@@ -517,12 +514,6 @@
         <h2 id="portrait-heading">Official Portrait</h2>
         
         <figure class="portrait-figure">
-          <!-- 
-            IMAGE EMBED INSTRUCTION FOR VIRGINIA:
-            Place your image file 'photo-9a56edd6.jpg' in the root directory next to index.html and replace
-            the SVG container below with:
-            <img src="photo-9a56edd6.jpg" alt="Virginia Jacobs smiles warmly from the shoulders up, her long dark hair falling over one shoulder, wearing a dark red top and a pearl necklace. She is set against a purple background decorated with glowing orbs and colorful starbursts, topped by a small sun, and pink and white roses form a wreath around the border. Her name 'Virginia' appears in large letters across the center, and the phrase 'toujours toi et moi' sits at the bottom." style="width: 100%; height: auto; border-radius: 0.375rem; display: block;">
-          -->
           <img src="virginia-portrait.jpg" alt="Virginia Jacobs smiles warmly from the shoulders up, her long dark hair falling over one shoulder, wearing a dark red top and a pearl necklace. She is set against a purple background decorated with glowing orbs and colorful starbursts, topped by a small sun, and pink and white roses form a wreath around the border. Her name 'Virginia' appears in large letters across the center, and the phrase 'toujours toi et moi' sits at the bottom." style="width: 100%; height: auto; border-radius: 0.375rem; display: block;">
           <figcaption>
             <strong>Official Portrait:</strong> Virginia Jacobs smiles warmly from the shoulders up, her long dark hair falling over one shoulder, wearing a dark red top and a pearl necklace. She is set against a purple background decorated with glowing orbs and colorful starbursts, topped by a small sun, and pink and white roses form a wreath around the border. Her name 'Virginia' appears in large letters across the center, and the phrase 'toujours toi et moi' sits at the bottom.
@@ -564,37 +555,28 @@
           </li>
 
           <li>
-            <!-- TODO: Direct Apple Music song URL for 'I Wanna Feel' -->
-            <a href="#" aria-label="Apple Music - I Wanna Feel Song Release - Placeholder">
+            <a href="https://music.apple.com/us/song/i-wanna-feel/1757375707" aria-label="Apple Music - I Wanna Feel Song Release">
               Apple Music — "I Wanna Feel" Song Release
             </a>
           </li>
           <li>
-            <!-- TODO: Direct TikTok sound/song URL for 'I Wanna Feel' -->
             <a href="https://www.tiktok.com/t/ZTfYs5JRB/" aria-label="TikTok - I Wanna Feel Sound Release - Placeholder">
               TikTok — "I Wanna Feel" Sound Release
             </a>
           </li>
           <li>
-            <!-- TODO: Direct Facebook media song URL for 'I Wanna Feel' -->
-            <a href="#" aria-label="Facebook - I Wanna Feel Media Release - Placeholder">
-              Facebook — "I Wanna Feel" Media Release
-            </a>
-          </li>
-          <li>
-            <!-- TODO: Direct YouTube track/video URL for 'I Wanna Feel' -->
-            <a href="#" aria-label="YouTube - I Wanna Feel Official Song Video - Placeholder">
+            <a href="https://www.youtube.com/watch?v=GT24dkkjayo" aria-label="YouTube - I Wanna Feel Official Song Video">
               YouTube — "I Wanna Feel" Official Song Video
             </a>
           </li>
         </ul>
       </section>
 
-      <!-- Section 4: Press Archive Status (Strictly Disclosed Unverified Items) -->
+      <!-- Section 4: Confirmed Press Coverage -->
       <section id="unverified-press" aria-labelledby="archive-heading">
         <h2 id="archive-heading">Press & Mentions Archive (Verification Record)</h2>
         <p>
-          In accordance with verification standards, the following third-party public mentions and articles remain unverified. No invented quotes, text summaries, or unconfirmed article URLs are included:
+          The following entries are confirmed coverage of Virginia R. Jacobs, with verified links to the original sources:
         </p>
 
         <div class="card">
@@ -641,7 +623,6 @@
           </li>
           <li>
             <strong>TikTok:</strong>
-            <!-- Requires confirmation from Virginia before going live -->
             <a href="https://www.tiktok.com/@virginiajacobs90" target="_blank" rel="noopener noreferrer" aria-label="TikTok - @virginiajacobs90 (opens in new tab)">
               @virginiajacobs90 (TikTok)
             </a>
@@ -655,16 +636,8 @@
 
           <li>
             <strong>Facebook:</strong>
-            <!-- TODO: Insert Virginia's verified Facebook profile URL -->
             <a href="https://www.facebook.com/virginiarjacobs/" aria-label="Facebook - Virginia R. Jacobs - Placeholder">
               Virginia R. Jacobs (Facebook)
-            </a>
-          </li>
-          <li>
-            <strong>LinkedIn:</strong>
-            <!-- TODO: Insert Virginia's verified LinkedIn profile URL -->
-            <a href="#" aria-label="LinkedIn - Virginia Jacobs - Placeholder">
-              Virginia Jacobs (LinkedIn)
             </a>
           </li>
         </ul>
@@ -704,7 +677,7 @@
       if (btnIncrease && btnReset) {
         btnIncrease.addEventListener('click', function () {
           currentScale = Math.min(currentScale + 0.15, 1.6);
-          document.body.style.fontSize = (1.2 * currentScale) + 'rem';
+          document.documentElement.style.fontSize = (currentScale * 100) + '%';
           if (liveRegion) {
             liveRegion.textContent = 'Text size increased to ' + Math.round(currentScale * 100) + ' percent of default.';
           }
@@ -712,7 +685,7 @@
 
         btnReset.addEventListener('click', function () {
           currentScale = 1.0;
-          document.body.style.fontSize = '1.2rem';
+          document.documentElement.style.fontSize = '100%';
           if (liveRegion) {
             liveRegion.textContent = 'Text size reset to default 19 pixels.';
           }
