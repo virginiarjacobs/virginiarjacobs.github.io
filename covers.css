@@ -56,3 +56,7 @@ html:has(.covers-page){font-size:calc(125% * var(--scale));}
 .covers-page .play-button{min-height:6rem;}
 }
 @media(min-width:1280px){.covers-page .control-row{flex-wrap:nowrap;}.covers-page .control-row>button,.covers-page .menu-control{flex:1 1 0;}}
+/* Keep drop-downs within the display panel at narrow widths and enlarged text. */
+.covers-page .display-panel{position:relative;}
+.covers-page .menu-control{position:static;}
+.covers-page .menu{width:min(22rem,100%);max-width:100%;}
