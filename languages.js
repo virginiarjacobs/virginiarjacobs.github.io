@@ -214,3 +214,102 @@
   window.addEventListener('pageshow', function () { selectLanguage('en'); closeMenu(false); });
   selectLanguage('en');
 })().catch(function (error) { console.error('Language menu initialization:', error); });
+
+/* Per-view low-vision palettes; no stored preferences. */
+(async function () {
+  'use strict';
+  const response = await fetch('translations.txt');
+  if (!response.ok) throw new Error('Contrast translations unavailable');
+  const data = (await response.json()).contrast;
+  const root = document.documentElement;
+  const theme = document.getElementById('btn-light-mode');
+  const schemes = ['default', 'yellow-black', 'black-yellow', 'dark-blue', 'white-black', 'black-white'];
+  let selected = 'default';
+  let announcement = '';
+  const style = document.createElement('style');
+  style.textContent = `
+    .theme-contrast-controls { display:flex; flex-direction:column; gap:1rem; align-items:flex-start; flex:0 1 20rem; min-width:0; max-width:100%; }
+    .contrast-control { position:relative; width:100%; min-width:0; max-width:100%; }
+    .contrast-control > button { max-width:100%; }
+    .contrast-menu { position:absolute; top:100%; left:0; width:100%; margin:.5rem 0 0; padding:.65rem; list-style:none; background:#000; color:#fff; border:.2rem solid #fff; border-radius:.375rem; z-index:60; box-shadow:0 0 0 1px #555,0 3px 8px #0005; }
+    .contrast-menu[hidden] { display:none; }
+    .contrast-menu li { margin:0; padding:0; }
+    .contrast-option { display:block; width:100%; min-width:0; font:inherit; font-weight:700; text-align:left; padding:.6rem; color:#fff; background:#000; border:.125rem solid transparent; border-radius:.2rem; overflow-wrap:anywhere; cursor:pointer; }
+    .contrast-option[aria-checked="true"] { border-color:currentColor; text-decoration:underline; text-decoration-thickness:.12em; }
+    .contrast-option:hover { text-decoration:underline; }
+    html[data-contrast] { --contrast-glow:none; }
+    html[data-contrast="yellow-black"] { --contrast-fg:#ffff00; --contrast-bg:#000; --contrast-glow:0 0 2px #ffff0040; }
+    html[data-contrast="black-yellow"] { --contrast-fg:#000; --contrast-bg:#ffff00; }
+    html[data-contrast="dark-blue"] { --contrast-fg:#ffff00; --contrast-bg:#000080; --contrast-glow:0 0 2px #ffff0040; }
+    html[data-contrast="white-black"] { --contrast-fg:#fff; --contrast-bg:#000; }
+    html[data-contrast="black-white"] { --contrast-fg:#000; --contrast-bg:#fff; }
+    html[data-contrast] body, html[data-contrast] body * {
+      color:var(--contrast-fg)!important; border-color:var(--contrast-fg)!important;
+      background-color:var(--contrast-bg)!important; background-image:none!important;
+      text-shadow:var(--contrast-glow)!important; box-shadow:none!important;
+    }
+    html[data-contrast] a { text-decoration:underline!important; text-underline-offset:.15em; }
+    html[data-contrast] button, html[data-contrast] input, html[data-contrast] select, html[data-contrast] textarea, html[data-contrast] .resource-download {
+      border: max(4px,.25rem) solid var(--contrast-fg)!important; min-height:44px; min-width:44px; max-width:100%; box-sizing:border-box;
+    }
+    html[data-contrast] a { display:inline-block; min-height:44px; min-width:44px; max-width:100%; overflow-wrap:anywhere; }
+    html[data-contrast] .skip-link { z-index:100; }
+    html[data-contrast] body :focus-visible { outline:.25rem solid var(--contrast-fg)!important; outline-offset:.35rem!important; }
+    html[data-contrast] [role="menuitemradio"][aria-checked="true"] { border-style:double!important; text-decoration:underline!important; }
+    html[data-contrast] .theme-switch-track::after { background:var(--contrast-fg)!important; }
+    @media (prefers-reduced-motion:reduce), (prefers-contrast:more) {
+      html[data-contrast] { --contrast-glow:none; }
+    }
+  `;
+  document.head.append(style);
+  const group = document.createElement('div');
+  group.className = 'theme-contrast-controls';
+  theme.before(group); group.append(theme);
+  const wrapper = document.createElement('div');
+  wrapper.className = 'contrast-control';
+  wrapper.innerHTML = '<button type="button" id="btn-contrast" class="accessible-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="contrast-menu"></button><ul id="contrast-menu" class="contrast-menu" role="menu" aria-labelledby="btn-contrast" hidden></ul>';
+  group.append(wrapper);
+  const trigger = wrapper.querySelector('button');
+  const menu = wrapper.querySelector('ul');
+  const live = document.createElement('div');
+  live.id = 'contrast-status'; live.className = 'sr-only'; live.setAttribute('role','status'); live.setAttribute('aria-live','polite'); live.setAttribute('aria-atomic','true');
+  group.append(live);
+  const options = schemes.map(function (scheme) {
+    const li = document.createElement('li'); li.setAttribute('role','none');
+    const option = document.createElement('button'); option.type='button'; option.className='contrast-option'; option.dataset.scheme=scheme;
+    option.setAttribute('role','menuitemradio'); option.tabIndex=-1;
+    option.addEventListener('click',function () { select(scheme); close(true); });
+    li.append(option); menu.append(li); return option;
+  });
+  function words() { return data[root.lang] || data.en; }
+  function refresh() {
+    const t=words(); trigger.textContent=t.button; trigger.setAttribute('aria-label',t.button);
+    options.forEach(function (option,i) { option.textContent=t[schemes[i]]; option.setAttribute('aria-label',t[schemes[i]]+', '+t.descriptions[i]); option.setAttribute('aria-checked',String(schemes[i]===selected)); });
+    live.textContent=announcement==='changed' ? t.changed.replace('{scheme}',t[selected]) : (announcement ? t[announcement] : '');
+  }
+  function select(scheme) {
+    selected=scheme;
+    if(scheme==='default') root.removeAttribute('data-contrast'); else root.dataset.contrast=scheme;
+    announcement='changed'; refresh();
+  }
+  function focusOption(i) { options.forEach((o,j)=>{o.tabIndex=i===j?0:-1;}); options[i].focus(); }
+  function open(i) { menu.hidden=false; trigger.setAttribute('aria-expanded','true'); focusOption(i); }
+  function close(restore) { menu.hidden=true; trigger.setAttribute('aria-expanded','false'); options.forEach(o=>{o.tabIndex=-1;}); if(restore) trigger.focus(); }
+  trigger.addEventListener('click',()=>menu.hidden?open(schemes.indexOf(selected)):close(true));
+  trigger.addEventListener('keydown',function(e) { if(e.key==='ArrowDown'||e.key==='ArrowUp') { e.preventDefault(); open(e.key==='ArrowDown'?0:5); } });
+  menu.addEventListener('keydown',function(e) {
+    const i=options.indexOf(document.activeElement); let next;
+    if(e.key==='ArrowDown') next=(i+1)%6; if(e.key==='ArrowUp') next=(i+5)%6;
+    if(e.key==='Home') next=0; if(e.key==='End') next=5;
+    if(next!==undefined) { e.preventDefault(); focusOption(next); }
+    if(e.key==='Escape') {e.preventDefault(); close(true);} if(e.key==='Tab') close(true);
+  });
+  document.addEventListener('click',e=>{if(!wrapper.contains(e.target)) close(false);});
+  wrapper.addEventListener('focusout',e=>{if(!wrapper.contains(e.relatedTarget)) close(false);});
+  let returning=false;
+  theme.addEventListener('click',function() { returning=selected!=='default'; if(returning) { selected='default'; root.removeAttribute('data-contrast'); } },true);
+  theme.addEventListener('click',function() { if(returning) { announcement=theme.getAttribute('aria-checked')==='true'?'light':'dark'; refresh(); returning=false; } });
+  new MutationObserver(refresh).observe(root,{attributes:true,attributeFilter:['lang']});
+  window.addEventListener('pageshow',function() {selected='default';root.removeAttribute('data-contrast');announcement='';refresh();close(false);});
+  root.removeAttribute('data-contrast'); refresh();
+})().catch(function(error){console.error('Contrast menu initialization:',error);});
