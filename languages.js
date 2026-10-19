@@ -238,9 +238,9 @@
     .contrast-option[aria-checked="true"] { border-color:currentColor; text-decoration:underline; text-decoration-thickness:.12em; }
     .contrast-option:hover { text-decoration:underline; }
     html[data-contrast] { --contrast-glow:none; }
-    html[data-contrast="yellow-black"] { --contrast-fg:#ffff00; --contrast-bg:#000; --contrast-glow:0 0 2px #ffff0040; }
-    html[data-contrast="black-yellow"] { --contrast-fg:#000; --contrast-bg:#ffff00; }
-    html[data-contrast="dark-blue"] { --contrast-fg:#ffff00; --contrast-bg:#000080; --contrast-glow:0 0 2px #ffff0040; }
+    html[data-contrast="yellow-black"] { --contrast-fg:#e8ff00; --contrast-bg:#000; --contrast-glow:0 0 2px #e8ff0040; }
+    html[data-contrast="black-yellow"] { --contrast-fg:#000; --contrast-bg:#e8ff00; }
+    html[data-contrast="dark-blue"] { --contrast-fg:#e8ff00; --contrast-bg:#0000aa; --contrast-glow:0 0 2px #e8ff0040; }
     html[data-contrast="white-black"] { --contrast-fg:#fff; --contrast-bg:#000; }
     html[data-contrast="black-white"] { --contrast-fg:#000; --contrast-bg:#fff; }
     html[data-contrast] body, html[data-contrast] body * {
@@ -257,6 +257,29 @@
     html[data-contrast] body :focus-visible { outline:.25rem solid var(--contrast-fg)!important; outline-offset:.35rem!important; }
     html[data-contrast] [role="menuitemradio"][aria-checked="true"] { border-style:double!important; text-decoration:underline!important; }
     html[data-contrast] .theme-switch-track::after { background:var(--contrast-fg)!important; }
+
+    /* Distinct focus, selection, and menu states without changing names or behavior. */
+    html { --highlight-accent:#00ffff; --menu-mark-fg:#000; --menu-mark-bg:#fff; }
+    html.light-mode { --highlight-accent:#0000aa; }
+    html[data-contrast] { --menu-mark-fg:var(--contrast-bg); --menu-mark-bg:var(--contrast-fg); --highlight-accent:#00ffff; }
+    html[data-contrast="black-yellow"], html[data-contrast="black-white"] { --highlight-accent:#0000aa; }
+    html body :is(a,button,input,select,textarea,[tabindex]):focus-visible:focus {
+      outline:.25rem dashed var(--highlight-accent)!important; outline-offset:.65rem!important;
+      box-shadow:0 0 0 .2rem #000,0 0 0 .45rem #fff,0 0 0 .65rem #000!important;
+    }
+    html body ::selection { color:#fff!important; background:#005fcc!important; text-shadow:none!important; }
+    html body :is(.language-option,.contrast-option)[aria-checked="true"],
+    html body :is(.language-option,.contrast-option):hover {
+      color:var(--menu-mark-fg)!important; background-color:var(--menu-mark-bg)!important;
+      text-shadow:none!important; border-color:var(--menu-mark-fg)!important;
+    }
+    html body :is(.language-option,.contrast-option)[aria-checked="true"] {
+      border-style:double!important; text-decoration:underline!important; text-decoration-thickness:.15em;
+      box-shadow:inset .3rem 0 0 var(--menu-mark-fg)!important;
+    }
+    html body :is(.language-option,.contrast-option):hover {
+      outline:.15rem dashed var(--menu-mark-fg); outline-offset:-.4rem;
+    }
     @media (prefers-reduced-motion:reduce), (prefers-contrast:more) {
       html[data-contrast] { --contrast-glow:none; }
     }
