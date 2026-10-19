@@ -263,6 +263,12 @@
       display: inline-block;
     }
 
+    /* Keep the contact address inside narrow cards. */
+    .link-list li a[href^="mailto:"] {
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+
     .link-list li a:hover {
       color: var(--link-hover);
     }
