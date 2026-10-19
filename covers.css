@@ -60,3 +60,5 @@ html:has(.covers-page){font-size:calc(125% * var(--scale));}
 .covers-page .display-panel{position:relative;}
 .covers-page .menu-control{position:static;}
 .covers-page .menu{width:min(22rem,100%);max-width:100%;}
+
+/* Trigger Pages redeploy: staged recovery, October 19, 2026. */
