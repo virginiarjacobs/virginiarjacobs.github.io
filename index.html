@@ -409,6 +409,31 @@
     #btn-light-mode[aria-checked="true"] .theme-switch-track::before {
       transform: translateX(1.1em);
     }
+
+    /* Self-contained, compact resource download. */
+    .resources { margin: 0 0 1.5rem; }
+    .resources h2 {
+      font-size: 1rem;
+      margin: 0 0 0.5rem;
+      padding: 0;
+      border: 0;
+    }
+    .resource-download,
+    .resource-download:visited,
+    .resource-download:hover,
+    .resource-download:active {
+      display: inline-block;
+      max-width: 100%;
+      padding: 0.25rem 0.5rem;
+      border: 1px solid #3388dd;
+      border-radius: 0.2rem;
+      background: #000000;
+      color: #3388dd;
+      font-size: 0.875rem;
+      line-height: 1.4;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
   </style>
 </head>
 <body>
@@ -645,6 +670,10 @@
     </main>
 
     <footer role="contentinfo">
+      <section id="resources" class="resources" aria-labelledby="resources-heading">
+        <h2 id="resources-heading">Resources</h2>
+        <a class="resource-download" href="i-wanna-feel-sheet-music.pdf" download="i-wanna-feel-sheet-music.pdf" aria-label="I Wanna Feel sheet music, PDF download">I Wanna Feel - Sheet Music (PDF)</a>
+      </section>
       <p>&copy; 2026 Virginia R. Jacobs. All rights reserved.</p>
       <p>Semantic HTML5, WCAG AAA contrast standard, and zero external runtime dependencies.</p>
     </footer>
