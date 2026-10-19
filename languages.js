@@ -124,6 +124,7 @@
 
   const style = document.createElement('style');
   style.textContent = `
+    .press-release-card > .confirmed-badge { max-width: 100%; overflow-wrap: anywhere; }
     .language-control { position: relative; flex: 0 1 18rem; min-width: 0; max-width: 100%; align-self: flex-start; }
     .language-control .language-trigger { border-color: #79b8ff; color: #79b8ff; max-width: 100%; }
     .language-globe { display: inline-block; width: 1.1em; height: 1.1em; vertical-align: -0.15em; margin-right: 0.3em; }
