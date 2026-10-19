@@ -9,12 +9,13 @@
 <link rel="stylesheet" href="covers.css?v=5">
 <script src="covers.js?v=5" defer></script>
 <style>
-/* Curtains are decorative, pointer-transparent and confined to the waveform. */
+/* All entrance decoration is pointer-transparent and clipped to the waveform. */
 .curtains{position:absolute;inset:0;overflow:hidden;border-radius:.3rem;pointer-events:none;}
 .curtain{position:absolute;top:0;bottom:0;width:51%;background:repeating-linear-gradient(90deg,#650717 0%,#ba1734 10%,#e34050 17%,#8b0b22 25%);border-bottom:4px solid #d9b35a;box-shadow:inset 0 6px 12px #480012;transform-origin:top left;transition:transform 1.3s cubic-bezier(.25,.7,.2,1);}
 .curtain.left{left:0}.curtain.right{right:0;transform-origin:top right;}
 .curtains.open .left{transform:translateX(-101%) scaleX(.75) skewY(-3deg)}
 .curtains.open .right{transform:translateX(101%) scaleX(.75) skewY(3deg)}
+.covers-page .title-burst{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
 .covers-page input.seek{z-index:2;}
 @media(prefers-reduced-motion:reduce){.curtain{transition:none;}}
 </style>
@@ -43,9 +44,38 @@
 <script>
 (function(){
  const tracks=document.getElementById('tracks');
+ let activeEntrance=null;
  const decorate=()=>tracks.querySelectorAll('.cover-player:not([data-curtain])').forEach(card=>{
-  card.dataset.curtain='ready';const curtain=document.createElement('div');curtain.className='curtains';curtain.setAttribute('aria-hidden','true');curtain.innerHTML='<span class="curtain left"></span><span class="curtain right"></span>';card.querySelector('.wave').append(curtain);
-  card.querySelector('audio').addEventListener('playing',()=>{curtain.classList.add('open');card.dataset.curtain='opened';},{once:true});
+  card.dataset.curtain='ready';
+  const wave=card.querySelector('.wave'), audio=card.querySelector('audio');
+  const overlay=document.createElement('canvas');overlay.className='title-burst';overlay.setAttribute('aria-hidden','true');
+  const curtain=document.createElement('div');curtain.className='curtains';curtain.setAttribute('aria-hidden','true');curtain.innerHTML='<span class="curtain left"></span><span class="curtain right"></span>';
+  wave.append(overlay,curtain);
+  audio.addEventListener('playing',()=>{
+   if(activeEntrance)activeEntrance();
+   curtain.classList.add('open');card.dataset.curtain='opened';card.dataset.titleSequence='playing';
+   const w=Math.max(1,Math.round(wave.clientWidth)),h=Math.max(1,Math.round(wave.clientHeight));overlay.width=w;overlay.height=h;
+   const ctx=overlay.getContext('2d'),mask=document.createElement('canvas');mask.width=w;mask.height=h;
+   const pen=mask.getContext('2d'),title=card.querySelector('h2').textContent.replace(/ - (?:MIDI|QWS) cover$/,'').toUpperCase();
+   let size=Math.min(h*.43,56);pen.font='900 '+size+'px monospace';
+   while(pen.measureText(title).width>w-24&&size>10){size--;pen.font='900 '+size+'px monospace';}
+   pen.fillStyle='#fff';pen.textAlign='center';pen.textBaseline='middle';pen.fillText(title,w/2,h/2);
+   const pixels=pen.getImageData(0,0,w,h).data,points=[],step=matchMedia('(prefers-reduced-motion:reduce)').matches?6:4;
+   for(let y=0;y<h;y+=step)for(let x=0;x<w;x+=step)if(pixels[(y*w+x)*4+3]>100)points.push({x,y,dx:(Math.random()-.5)*w*.6,dy:(Math.random()-.5)*h*1.8,hue:Math.random()*360});
+   let frame=0,done=false,start=performance.now();
+   const finish=()=>{if(done)return;done=true;cancelAnimationFrame(frame);overlay.remove();card.dataset.titleSequence='finished';if(activeEntrance===finish)activeEntrance=null;};activeEntrance=finish;
+   const render=now=>{
+    if(done)return;const t=now-start;ctx.clearRect(0,0,w,h);
+    const bg=getComputedStyle(document.body).backgroundColor,fg=getComputedStyle(document.body).color;
+    if(t<1650){ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);ctx.fillStyle=fg;for(const p of points)ctx.fillRect(p.x,p.y,step-1,step-1);}
+    else{
+     const burst=Math.min(1,(t-1650)/350),settle=Math.max(0,Math.min(1,(t-2000)/600)),ease=1-Math.pow(1-burst,3);
+     ctx.globalAlpha=1-settle;
+     points.forEach((p,i)=>{const bx=p.x+p.dx*ease,by=p.y+p.dy*ease,targetX=(i/points.length)*w,targetY=h/2+Math.sin(i*.4)*h*.25;ctx.fillStyle='hsl('+p.hue+' 80% 78%)';ctx.fillRect(bx*(1-settle)+targetX*settle,by*(1-settle)+targetY*settle,step,step);});ctx.globalAlpha=1;
+    }
+    if(t>=2600){finish();return;}frame=requestAnimationFrame(render);
+   };frame=requestAnimationFrame(render);
+  },{once:true});
  });
  new MutationObserver(decorate).observe(tracks,{childList:true});decorate();
 })();
