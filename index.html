@@ -10,12 +10,12 @@
   <meta name="twitter:card" content="summary_large_image">
   <script src="languages.js?v=4" defer></script>
   <style>
-    /* Center the desktop title and linear controls; preserve phone layout. */
+    /* Center and enlarge desktop controls; retain the original phone layout. */
     @media (min-width: 768px) {
       header > .name-intro, header > .subtitle { text-align: center; }
-      header > .font-control-region { margin-left: auto; margin-right: auto; }
+      header > .font-control-region { width: 100%; margin-left: auto; margin-right: auto; }
       header .font-control-region .control-btn-group {
-        width: auto; flex-direction: row; flex-wrap: wrap;
+        width: 100%; flex-direction: row; flex-wrap: wrap;
         justify-content: center; align-items: stretch;
       }
       header .font-control-region .theme-contrast-controls { display: contents; }
@@ -23,13 +23,20 @@
       header .font-control-region .theme-contrast-controls > button,
       header .font-control-region .contrast-control,
       header .font-control-region .language-control {
-        flex: 1 1 calc((100% - 2rem) / 3); width: auto; min-width: 0; max-width: 100%;
+        flex: 1 1 calc((100% - 2rem) / 3); width: auto; min-width: 0; max-width: 100%; box-sizing: border-box;
       }
+      header .font-control-region .accessible-btn,
+      header .font-control-region .language-trigger { min-height: 6rem; padding: 1rem .6rem; }
       header .font-control-region .contrast-control > button,
       header .font-control-region .language-control > button { height: 100%; }
+      header .font-control-region .theme-switch-track { max-width: 100%; box-sizing: border-box; }
     }
     @media (min-width: 1280px) {
       header .font-control-region .control-btn-group { flex-wrap: nowrap; }
+      header .font-control-region .control-btn-group > button,
+      header .font-control-region .theme-contrast-controls > button,
+      header .font-control-region .contrast-control,
+      header .font-control-region .language-control { flex-basis: calc((100% - 4rem) / 5); }
     }
   </style>
   <style>
