@@ -87,8 +87,8 @@
   bind(78, '#social li:nth-child(2) a', 'aria-label');
   [79, 80, 81].forEach((id, i) => bind(id, '#social li:nth-child(' + (i + 3) + ') a', 'aria-label'));
   bind(82, '#resources-heading');
-  bind(83, '.resource-download');
-  bind(84, '.resource-download', 'aria-label');
+  bind(83, '#resources .resource-download');
+  bind(84, '#resources .resource-download', 'aria-label');
   bind(85, 'footer p:first-child');
   bind(86, 'footer p:last-child');
 
@@ -137,11 +137,12 @@
     .light-mode .language-control .language-trigger { border-color: #79b8ff; }
   `;
   document.head.append(style);
-  const wrapper = document.createElement('div');
+  const wrapper = document.querySelector('.language-control') || document.createElement('div');
   wrapper.className = 'language-control';
-  wrapper.innerHTML = `<button type="button" id="btn-languages" class="accessible-btn language-trigger" lang="en" aria-label="Switch Languages" aria-haspopup="menu" aria-expanded="false" aria-controls="language-menu"><svg class="language-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></svg>Languages</button><ul id="language-menu" class="language-menu" role="menu" aria-labelledby="btn-languages" hidden></ul>`;
+  if (!wrapper.querySelector('#btn-languages')) wrapper.innerHTML = `<button type="button" id="btn-languages" class="accessible-btn language-trigger" lang="en" aria-label="Switch Languages" aria-haspopup="menu" aria-expanded="false" aria-controls="language-menu"><svg class="language-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></svg>Languages</button><ul id="language-menu" class="language-menu" role="menu" aria-labelledby="btn-languages" hidden></ul>`;
   const trigger = wrapper.querySelector('button');
   const menu = wrapper.querySelector('ul');
+  menu.replaceChildren();
   const options = [];
   [['en', 'English'], ['es', 'Español'], ['fr', 'Français'], ['zh', '简体中文']].forEach(function ([code, label]) {
     const li = document.createElement('li');
@@ -160,7 +161,7 @@
     li.append(option);
     menu.append(li);
   });
-  document.querySelector('.control-btn-group').append(wrapper);
+  if (!wrapper.isConnected) document.querySelector('.control-btn-group').append(wrapper);
   function selectLanguage(code) {
     language = code;
     document.documentElement.lang = code;
