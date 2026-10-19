@@ -352,3 +352,24 @@
 `;
   document.head.appendChild(panelLayout);
 })();
+// Larger desktop reading column; phone layout and user scale steps stay unchanged.
+(function () {
+  const root = document.documentElement;
+  const desktopLayout = document.createElement('style');
+  desktopLayout.textContent = `
+@media (min-width: 768px) {
+  html { font-size: calc(125% * var(--desktop-text-scale, 1)) !important; }
+  .container { width: 84%; max-width: 1200px; }
+}
+`;
+  function syncDesktopScale() {
+    const scale = (parseFloat(root.style.fontSize) || 100) / 100;
+    const value = String(scale);
+    if (root.style.getPropertyValue('--desktop-text-scale') !== value) {
+      root.style.setProperty('--desktop-text-scale', value);
+    }
+  }
+  syncDesktopScale();
+  new MutationObserver(syncDesktopScale).observe(root, { attributes: true, attributeFilter: ['style'] });
+  document.head.appendChild(desktopLayout);
+})();
