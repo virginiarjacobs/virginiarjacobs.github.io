@@ -466,7 +466,7 @@
           <button type="button" class="accessible-btn" id="btn-increase-font" aria-label="Increase text size for entire website">
             Increase Text Size
           </button>
-          <button type="button" class="accessible-btn" id="btn-reset-font" aria-label="Reset text size to default 19 pixels">
+          <button type="button" class="accessible-btn" id="btn-reset-font" aria-label="Reset text size to default">
             Reset Text Size
           </button>
           <button type="button" class="accessible-btn" id="btn-light-mode" role="switch" aria-checked="false" aria-label="Light mode">
@@ -718,7 +718,7 @@
           currentScale = 1.0;
           document.documentElement.style.fontSize = '100%';
           if (liveRegion) {
-            liveRegion.textContent = 'Text size reset to default 19 pixels.';
+            liveRegion.textContent = 'Text size reset to default.';
           }
         });
       }
