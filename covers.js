@@ -8,7 +8,7 @@ es:{heading:'Versiones de canciones',subtitle:'Versiones inéditas, compartidas 
 fr:{heading:'Reprises de chansons',subtitle:'Des reprises inédites, partagées ici pour vous.',visit:'Écouter les reprises',back:'Retour à Virginia R. Jacobs',artist:'Artiste d’origine : {artist}',play:'Écouter {title}',pause:'Mettre {title} en pause',seek:'Se déplacer dans {title}',time:'{elapsed} sur {total}',error:'Impossible de lire cet enregistrement. Veuillez réessayer.',footer:'Toutes les reprises sont interprétées par Virginia R. Jacobs. Les chansons originales appartiennent à leurs ayants droit respectifs.',languages:'Langues',switchLanguages:'Changer de langue'},
 zh:{heading:'翻唱作品',subtitle:'在这里与你分享尚未发行的翻唱作品。',visit:'聆听翻唱作品',back:'返回 Virginia R. Jacobs 主页',artist:'原唱：{artist}',play:'播放 {title}',pause:'暂停 {title}',seek:'调整 {title} 的播放进度',time:'{elapsed}，共 {total}',error:'无法播放此录音，请重试。',footer:'所有翻唱均由 Virginia R. Jacobs 演绎。原作版权归各自的权利人所有。',languages:'语言',switchLanguages:'切换语言'}
 };
-Object.assign(words.en,{rewind:'Backward 10 seconds',forward:'Forward 10 seconds'}); Object.assign(words.es,{rewind:'Retroceder 10 segundos',forward:'Avanzar 10 segundos'}); Object.assign(words.fr,{rewind:'Reculer de 10 secondes',forward:'Avancer de 10 secondes'}); Object.assign(words.zh,{rewind:'后退 10 秒',forward:'快进 10 秒'}); const language=()=>words[root.lang]?root.lang:'en';
+Object.assign(words.en,{rewind:'Backward 10 seconds',forward:'Forward 10 seconds'}); Object.assign(words.es,{rewind:'Retroceder 10 segundos',forward:'Avanzar 10 segundos'}); Object.assign(words.fr,{rewind:'Reculer de 10 secondes',forward:'Avancer de 10 secondes'}); Object.assign(words.zh,{rewind:'后退 10 秒',forward:'快进 10 秒'}); Object.assign(words.en,{backSetlist:'Back to Song Covers'});Object.assign(words.es,{backSetlist:'Volver a las versiones de canciones'});Object.assign(words.fr,{backSetlist:'Retour aux reprises de chansons'});Object.assign(words.zh,{backSetlist:'返回翻唱作品'});const language=()=>words[root.lang]?root.lang:'en';
 const tr=(key,values={})=>Object.entries(values).reduce((s,[k,v])=>s.replaceAll('{'+k+'}',v),words[language()][key]);
 const $=(s)=>document.querySelector(s);
 const all=(s)=>Array.from(document.querySelectorAll(s));
@@ -61,7 +61,7 @@ $('#btn-increase-font').addEventListener('click',()=>{scale=Math.min(1.6,Math.ro
 $('#btn-reset-font').addEventListener('click',()=>{scale=1;applyScale();say(standard(28));});
 $('#btn-light-mode').addEventListener('click',()=>{const changed=scheme!=='default';scheme='default';light=!light;applyTheme();translate();if(changed)say(contrast()[light?'light':'dark']);});
 const clock=s=>{s=Number.isFinite(s)?Math.max(0,Math.floor(s)):0;return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
-const players=tracks.map(([title,artist,file,tag],i)=>{
+const songSlug=document.body.dataset.song; const setlist=document.body.dataset.setlist==='true'; const selectedTracks=songSlug?tracks.filter(t=>t[2].replace(/\.[^.]+$/,'')===songSlug):tracks; const players=selectedTracks.map(([title,artist,file,tag],i)=>{ if(setlist){const article=document.createElement('article');article.className='cover-player';const h=document.createElement('h2'),a=document.createElement('a'),credit=document.createElement('p');a.className='song-link';a.href='/covers/'+file.replace(/\.[^.]+$/,'')+'.html';a.textContent=title+' - '+tag+' cover';h.append(a);article.append(h,credit);$('#tracks').append(article);return{article,draw(){},update(){credit.textContent=tr('artist',{artist});}};}
  const article=document.createElement('article');article.className='cover-player';article.setAttribute('aria-labelledby','track-'+i);
  const h=document.createElement('h2');h.id='track-'+i;h.textContent=title+' - '+tag+' cover';article.append(h);
  const credit=document.createElement('p');article.append(credit);
@@ -91,8 +91,8 @@ const players=tracks.map(([title,artist,file,tag],i)=>{
  seek.addEventListener('input',()=>{if(Number.isFinite(audio.duration)){audio.currentTime=Number(seek.value)/1000*audio.duration;update();draw(last);}});
  new ResizeObserver(()=>draw(last)).observe(wave);return {audio,update,draw,article};
 });
-function translate(){
- all('[data-cover-text]').forEach(e=>e.textContent=tr(e.dataset.coverText));document.title=tr('heading')+' — Virginia R. Jacobs';
+function translate(){ if(songSlug){const t=selectedTracks[0];const h=document.querySelector('h1');h.removeAttribute('data-cover-text');h.textContent=t[0]+' - '+t[3]+' cover';const b=document.querySelector('header a');b.href='/covers.html';b.dataset.coverText='backSetlist';} 
+ all('[data-cover-text]').forEach(e=>e.textContent=tr(e.dataset.coverText));document.title=(songSlug?selectedTracks[0][0]:tr('heading'))+' — Virginia R. Jacobs';
  $('#display-controls').setAttribute('aria-label',standard(17));$('#display-label').textContent=standard(18);
  $('#btn-increase-font').textContent=standard(19);$('#btn-increase-font').setAttribute('aria-label',standard(20));$('#btn-reset-font').textContent=standard(21);$('#btn-reset-font').setAttribute('aria-label',standard(22));$('#btn-light-mode').setAttribute('aria-label',standard(23));$('#light-label').textContent=standard(23);$('#theme-state').textContent=standard(light?25:24);
  $('#language-label').textContent=tr('languages');$('#language-trigger').setAttribute('aria-label',tr('switchLanguages'));
