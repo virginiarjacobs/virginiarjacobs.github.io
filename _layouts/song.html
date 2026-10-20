@@ -42,5 +42,40 @@
 </div>
 <p id="player-status" class="sr-only" role="status" aria-live="polite"></p>
 </div>
+<script>
+(function(){
+ const tracks=document.getElementById('tracks');
+ const decorate=()=>tracks.querySelectorAll('.cover-player:not([data-curtain])').forEach(card=>{
+  const wave=card.querySelector('.wave'),audio=card.querySelector('audio');if(!wave||!audio)return;
+  card.dataset.curtain='ready';
+  const overlay=document.createElement('canvas');overlay.className='title-burst';overlay.setAttribute('aria-hidden','true');
+  const curtain=document.createElement('div');curtain.className='velvet-stage';curtain.setAttribute('aria-hidden','true');curtain.innerHTML='<div class="velvet-panel velvet-left"></div><div class="velvet-panel velvet-right"></div>';
+  wave.append(overlay,curtain);
+  audio.addEventListener('playing',()=>{
+   curtain.classList.add('open');card.dataset.curtain='opened';card.dataset.titleSequence='playing';
+   const w=Math.max(1,Math.round(wave.clientWidth)),h=Math.max(1,Math.round(wave.clientHeight));overlay.width=w;overlay.height=h;
+   const ctx=overlay.getContext('2d'),mask=document.createElement('canvas');mask.width=w;mask.height=h;
+   const pen=mask.getContext('2d'),title=card.querySelector('h2').textContent.replace(/ - (?:MIDI|QWS) cover$/,'').toUpperCase();
+   let size=Math.min(h*.43,56);pen.font='900 '+size+'px monospace';
+   while(pen.measureText(title).width>w-24&&size>10){size--;pen.font='900 '+size+'px monospace';}
+   pen.fillStyle='#fff';pen.textAlign='center';pen.textBaseline='middle';pen.fillText(title,w/2,h/2);
+   const pixels=pen.getImageData(0,0,w,h).data,points=[],step=matchMedia('(prefers-reduced-motion:reduce)').matches?6:4;
+   for(let y=0;y<h;y+=step)for(let x=0;x<w;x+=step)if(pixels[(y*w+x)*4+3]>100)points.push({x,y,dx:(Math.random()-.5)*w*.6,dy:(Math.random()-.5)*h*1.8,hue:Math.random()*360});
+   const start=performance.now();
+   const render=now=>{
+    const t=now-start;ctx.clearRect(0,0,w,h);
+    const bg=getComputedStyle(document.body).backgroundColor,fg=getComputedStyle(document.body).color;
+    if(t<1650){ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);ctx.fillStyle=fg;for(const p of points)ctx.fillRect(p.x,p.y,step-1,step-1);}
+    else{
+     const burst=Math.min(1,(t-1650)/350),settle=Math.max(0,Math.min(1,(t-2000)/600)),ease=1-Math.pow(1-burst,3);ctx.globalAlpha=1-settle;
+     points.forEach((p,i)=>{const bx=p.x+p.dx*ease,by=p.y+p.dy*ease,targetX=(i/points.length)*w,targetY=h/2+Math.sin(i*.4)*h*.25;ctx.fillStyle='hsl('+p.hue+' 80% 78%)';ctx.fillRect(bx*(1-settle)+targetX*settle,by*(1-settle)+targetY*settle,step,step);});ctx.globalAlpha=1;
+    }
+    if(t>=2600){overlay.remove();card.dataset.titleSequence='finished';return;}requestAnimationFrame(render);
+   };requestAnimationFrame(render);
+  },{once:true});
+ });
+ new MutationObserver(decorate).observe(tracks,{childList:true});decorate();
+})();
+</script>
 </body>
 </html>
