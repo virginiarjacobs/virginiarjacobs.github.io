@@ -512,3 +512,15 @@ try {
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind); else bind();
 })();
+
+/* Final sizing guard for homepage display controls. */
+(function () {
+  'use strict';
+  function install() {
+    var s = document.getElementById('vrj-control-size-style');
+    if (!s) { s = document.createElement('style'); s.id = 'vrj-control-size-style'; document.head.appendChild(s); }
+    s.textContent = 'body:not(.covers-page) .font-control-region .control-btn-group,body:not(.covers-page) .font-control-region .theme-contrast-controls{box-sizing:border-box!important;min-height:0!important;height:auto!important;align-items:center!important;}body:not(.covers-page) .font-control-region .control-btn-group>*,body:not(.covers-page) .font-control-region .theme-contrast-controls>*{box-sizing:border-box!important;flex:0 1 auto!important;width:auto!important;height:auto!important;min-width:0!important;min-height:2.75rem!important;max-height:none!important;align-self:center!important;}body:not(.covers-page) .font-control-region button.accessible-btn,body:not(.covers-page) .font-control-region [role="switch"]{box-sizing:border-box!important;width:auto!important;height:auto!important;min-width:8rem!important;min-height:2.75rem!important;max-width:18rem!important;max-height:6rem!important;white-space:normal!important;overflow:visible!important;}@media(min-width:768px){body:not(.covers-page) .font-control-region .control-btn-group{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:flex-start!important;gap:.6rem!important;}body:not(.covers-page) .font-control-region .theme-contrast-controls{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:.6rem!important;flex:0 1 auto!important;}}@media(max-width:767px){body:not(.covers-page) .font-control-region .control-btn-group,body:not(.covers-page) .font-control-region .theme-contrast-controls{display:flex!important;flex-direction:column!important;align-items:stretch!important;height:auto!important;}body:not(.covers-page) .font-control-region button.accessible-btn,body:not(.covers-page) .font-control-region [role="switch"]{width:100%!important;max-width:24rem!important;}}';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install); else install();
+  window.addEventListener('load', install);
+})();
