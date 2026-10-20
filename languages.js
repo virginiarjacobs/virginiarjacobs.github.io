@@ -374,3 +374,11 @@
   new MutationObserver(syncDesktopScale).observe(root, { attributes: true, attributeFilter: ['style'] });
   document.head.appendChild(desktopLayout);
 })();
+
+/* Persist the selected homepage language and restore the default dark state only for new visitors. */
+try {
+  const savedLanguage = localStorage.getItem('vrj-language');
+  if (savedLanguage && ['en','es','fr','zh'].includes(savedLanguage)) {
+    language = savedLanguage;
+  }
+} catch (error) {}
