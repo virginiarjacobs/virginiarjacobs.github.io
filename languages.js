@@ -524,3 +524,44 @@ try {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install); else install();
   window.addEventListener('load', install);
 })();
+/* Contrast-menu and homepage theme repair: preserve existing ARIA/menu semantics while giving the menu an opaque, bounded surface and one authoritative theme path. */
+(function () {
+  'use strict';
+  function install() {
+    var root = document.documentElement;
+    var style = document.getElementById('vrj-contrast-repair-style') || document.createElement('style');
+    style.id = 'vrj-contrast-repair-style';
+    style.textContent = '.contrast-control{position:relative!important;isolation:isolate!important}.contrast-menu{position:absolute!important;top:calc(100% + .5rem)!important;left:0!important;width:min(22rem,calc(100vw - 2rem))!important;max-width:calc(100vw - 2rem)!important;box-sizing:border-box!important;margin:0!important;padding:.5rem!important;background:#000!important;color:#fff!important;opacity:1!important;visibility:visible!important;z-index:1000!important;border:.125rem solid #fff!important;border-radius:.375rem!important;box-shadow:0 .5rem 1rem rgba(0,0,0,.85)!important}.contrast-menu[hidden]{display:none!important}.contrast-menu li{display:block!important;margin:0!important;padding:0!important}.contrast-option{display:block!important;width:100%!important;box-sizing:border-box!important;min-height:2.75rem!important;margin:0!important;padding:.55rem .75rem!important;background:#000!important;color:#fff!important;border:.125rem solid transparent!important;border-radius:.25rem!important;white-space:normal!important;overflow-wrap:anywhere!important;text-align:left!important}.contrast-option[aria-checked="true"]{border-color:#fff!important}.contrast-option:focus-visible{outline:.2rem solid #79b8ff!important;outline-offset:.1rem!important}@media(max-width:767px){.font-control-region .contrast-menu{position:static!important;width:100%!important;max-width:100%!important;margin:.5rem 0 0!important}.font-control-region .contrast-control{width:100%!important}.font-control-region .contrast-option{width:100%!important}.font-control-region .theme-contrast-controls,.font-control-region .theme-contrast-controls>*{width:100%!important;max-width:100%!important}}';
+    if (!style.isConnected) document.head.appendChild(style);
+    var light = document.getElementById('btn-light-mode');
+    function applyTheme(mode) {
+      var isLight = mode === 'light';
+      root.setAttribute('data-vrj-theme', isLight ? 'light' : 'dark');
+      root.style.setProperty('--vrj-bg', isLight ? '#fff' : '#000');
+      root.style.setProperty('--vrj-fg', isLight ? '#000' : '#fff');
+      root.style.backgroundColor = isLight ? '#fff' : '#000';
+      root.style.color = isLight ? '#000' : '#fff';
+      document.body.classList.toggle('light-mode', isLight);
+      document.body.style.backgroundColor = isLight ? '#fff' : '#000';
+      document.body.style.color = isLight ? '#000' : '#fff';
+      if (light) { light.setAttribute('aria-checked', isLight ? 'true' : 'false'); var state=document.getElementById('theme-state'); if(state) state.textContent=isLight?'On':'Off'; }
+    }
+    var saved = localStorage.getItem('vrj-theme');
+    if (saved !== 'light' && saved !== 'dark') saved = 'dark';
+    applyTheme(saved);
+    if (light && !light.dataset.vrjRepairBound) {
+      light.dataset.vrjRepairBound = 'true';
+      light.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        var next = localStorage.getItem('vrj-theme') === 'light' ? 'dark' : 'light';
+        localStorage.setItem('vrj-theme', next);
+        applyTheme(next);
+        var status = document.getElementById('font-status-message') || document.querySelector('.font-control-region [role="status"]');
+        if (status) status.textContent = next === 'light' ? 'Light mode is on.' : 'Light mode is off.';
+      }, true);
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install); else install();
+  window.addEventListener('load', install);
+})();
