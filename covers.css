@@ -57,17 +57,19 @@ html[data-contrast=yellow-black] .covers-page,html[data-contrast=dark-blue] .cov
  html:has(.covers-page){font-size:calc(87.5% * var(--scale));}
  .covers-page .container{padding:.75rem .65rem;display:flex;flex-direction:column;}
  .covers-page header{display:contents;}
- .covers-page header > .display-panel{order:3;}
  .covers-page main{order:1;}
  .covers-page footer{order:2;}
+ .covers-page .display-panel{order:3;padding:.75rem;}
  .covers-page h1{font-size:1.6rem;}
  .covers-page h2{font-size:1.25rem;}
- .covers-page .display-panel{padding:.75rem;}
  .covers-page .control-row{flex-direction:column;gap:.35rem;}
- .covers-page button{font-size:.875rem;padding:.45rem .55rem;min-height:40px;min-width:40px;}
+ .covers-page button{font-size:calc(14px * var(--scale));padding:.35rem .5rem;min-height:36px;min-width:36px;}
+ .covers-page .display-panel .control-row{gap:.35rem;}
  .covers-page .wave{min-height:8rem;}
  .covers-page .cover-player{margin:.75rem 0 1.25rem;padding:.75rem;}
  .covers-page .playback-controls{gap:.35rem;}
- .covers-page .velvet-stage,.covers-page .velvet-panel{max-height:34vh;}
- .covers-page .play-button{min-height:3rem;}
+ .covers-page .velvet-stage{height:24vh;max-height:12rem;}
+ .covers-page .velvet-panel{max-height:12rem;}
+ .covers-page .play-button{min-height:2.5rem;}
+ .covers-page .cover-player button{min-height:36px;}
 }
