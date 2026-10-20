@@ -382,3 +382,86 @@ try {
     language = savedLanguage;
   }
 } catch (error) {}
+
+/* Final display-state and homepage layout repair. */
+(function () {
+  'use strict';
+  var root = document.documentElement;
+  var languages = ['en', 'es', 'fr', 'zh'];
+  function read(key, fallback) { try { return localStorage.getItem(key) || fallback; } catch (error) { return fallback; } }
+  function write(key, value) { try { localStorage.setItem(key, value); } catch (error) {} }
+  function announce(message) {
+    var status = document.getElementById('font-status-message') || document.getElementById('contrast-status');
+    if (status) status.textContent = message;
+  }
+  function installStyle() {
+    var style = document.getElementById('vrj-final-display-style');
+    if (!style) { style = document.createElement('style'); style.id = 'vrj-final-display-style'; document.head.appendChild(style); }
+    style.textContent = [
+      'body:not(.covers-page) header nav ul{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.35rem!important;}',
+      'body:not(.covers-page) header nav li{width:auto!important;}',
+      'body:not(.covers-page) .font-control-region{width:100%!important;max-width:100%!important;}',
+      'body:not(.covers-page) .font-control-region .control-btn-group{display:flex!important;align-items:center!important;gap:.6rem!important;width:100%!important;}',
+      'body:not(.covers-page) .font-control-region .theme-contrast-controls{display:flex!important;align-items:center!important;gap:.6rem!important;}',
+      'body:not(.covers-page) .font-control-region .accessible-btn{border:.2rem solid currentColor!important;border-radius:.45rem!important;background:transparent!important;color:var(--vrj-fg,#fff)!important;padding:.45rem .7rem!important;min-height:2.75rem!important;}',
+      '@media(max-width:767px){body:not(.covers-page) .font-control-region .control-btn-group,body:not(.covers-page) .font-control-region .theme-contrast-controls{flex-direction:column!important;align-items:stretch!important;width:100%!important;}body:not(.covers-page) .font-control-region .accessible-btn{width:100%!important;max-width:24rem!important;align-self:flex-start!important;}}',
+      'html[data-vrj-theme="light"],html[data-vrj-theme="light"] body{background:#fff!important;color:#000!important;}',
+      'html[data-vrj-theme="light"] body *{color:#000!important;}',
+      'html[data-vrj-theme="light"] body a{color:#06c!important;}',
+      'html[data-vrj-theme="light"] body button{color:#000!important;background:#fff!important;border-color:#000!important;}',
+      'html[data-vrj-theme="dark"] body,html[data-vrj-theme="dark"]{background:#000!important;color:#fff!important;}'
+    ].join('');
+  }
+  function applyTheme() {
+    var theme = read('vrj-theme', 'dark');
+    var contrast = read('vrj-contrast', 'default');
+    root.setAttribute('data-vrj-theme', theme);
+    root.setAttribute('data-contrast', contrast);
+    root.style.setProperty('--vrj-fg', theme === 'light' ? '#000' : '#fff');
+    root.style.setProperty('--vrj-bg', theme === 'light' ? '#fff' : '#000');
+    var toggle = document.getElementById('btn-light-mode');
+    if (toggle) {
+      toggle.setAttribute('aria-checked', theme === 'light' ? 'true' : 'false');
+      toggle.setAttribute('aria-label', 'Light mode ' + (theme === 'light' ? 'On' : 'Off'));
+    }
+  }
+  function restoreLanguage() {
+    var saved = read('vrj-language', 'en');
+    if (!languages.includes(saved)) saved = 'en';
+    var option = document.querySelector('#language-menu [data-language="' + saved + '"],#language-menu [data-value="' + saved + '"]');
+    if (option && root.lang !== saved) option.click();
+    root.lang = saved;
+  }
+  function saveScale() {
+    var value = parseFloat(root.style.fontSize);
+    if (isFinite(value) && value > 0) write('vrj-text-scale', String(value / 100));
+  }
+  function bindRepair() {
+    if (window.__vrjFinalRepairBound) return;
+    window.__vrjFinalRepairBound = true;
+    installStyle();
+    document.addEventListener('click', function (event) {
+      var target = event.target && event.target.closest ? event.target.closest('button,a,[role="button"]') : null;
+      if (!target) return;
+      if (target.id === 'btn-light-mode') {
+        setTimeout(function () { var next = read('vrj-theme', 'dark') !== 'light'; write('vrj-theme', next ? 'light' : 'dark'); applyTheme(); announce(next ? 'Light mode is on.' : 'Light mode is off.'); }, 0);
+      } else if (target.id === 'btn-increase-font') {
+        setTimeout(function () { saveScale(); announce('Text size increased.'); }, 0);
+      } else if (target.id === 'btn-reset-font') {
+        setTimeout(function () { write('vrj-text-scale', '1'); saveScale(); announce('Text size reset to default.'); }, 0);
+      } else if (target.matches('.contrast-option,[data-scheme]')) {
+        setTimeout(function () { var value = target.dataset.scheme || target.dataset.value || 'default'; write('vrj-contrast', value); applyTheme(); announce('Contrast changed.'); }, 0);
+      } else if (target.closest('#language-menu')) {
+        var code = target.dataset.language || target.dataset.value;
+        if (languages.includes(code)) write('vrj-language', code);
+      }
+    });
+    var savedScale = parseFloat(read('vrj-text-scale', '1'));
+    if (isFinite(savedScale) && savedScale > 0) root.style.fontSize = (savedScale * 100) + '%';
+    applyTheme();
+    restoreLanguage();
+    window.addEventListener('pageshow', function () { setTimeout(function () { applyTheme(); restoreLanguage(); }, 0); });
+    window.addEventListener('load', function () { setTimeout(function () { installStyle(); applyTheme(); restoreLanguage(); }, 0); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindRepair); else bindRepair();
+})();
