@@ -4,174 +4,65 @@
 <meta charset="UTF-8">
 <!-- Unrestricted zoom: supports pinch-to-zoom and browser text magnification -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Virginia R. Jacobs — Official Website & Press Release</title>
+<title>Virginia R. Jacobs — Official Website &amp; Press Release</title>
 <meta name="description" content="Official website and press release for singer-songwriter Virginia R. Jacobs, featuring the single I Wanna Feel.">
 <meta property="og:image" content="https://virginiarjacobs.github.io/photo-6bc032c2.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <script src="languages.js?v=6" defer></script><script src="covers.js?v=5" defer></script><link rel="stylesheet" href="covers.css?v=5">
 <style>
-/* Center and enlarge desktop controls; retain the original phone layout. */
 @media (min-width: 768px) {
-  header > .name-intro, header > .subtitle { text-align: center; }
-  header > .font-control-region { width: 100%; margin-left: auto; margin-right: auto; }
-  header .font-control-region .control-btn-group { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; }
-  header .font-control-region .theme-contrast-controls { display: contents; }
-  header .font-control-region .control-btn-group > button, header .font-control-region .theme-contrast-controls > button, header .font-control-region .contrast-control, header .font-control-region .language-control { flex: 1 1 calc((100% - 2rem) / 3); width: auto; min-width: 0; max-width: 100%; box-sizing: border-box; }
-  header .font-control-region .accessible-btn, header .font-control-region .language-trigger { min-height: 6rem; padding: 1rem .6rem; }
-  header .font-control-region .contrast-control > button, header .font-control-region .language-control > button { height: 100%; }
-  header .font-control-region .theme-switch-track { max-width: 100%; box-sizing: border-box; }
+header > .name-intro, header > .subtitle { text-align: center; }
+header > .font-control-region { width: 100%; margin-left: auto; margin-right: auto; }
+header .font-control-region .control-btn-group { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; }
+header .font-control-region .theme-contrast-controls { display: contents; }
+header .font-control-region .control-btn-group > button, header .font-control-region .theme-contrast-controls > button, header .font-control-region .contrast-control, header .font-control-region .language-control { flex: 1 1 calc((100% - 2rem) / 3); width: auto; min-width: 0; max-width: 100%; box-sizing: border-box; }
+header .font-control-region .accessible-btn, header .font-control-region .language-trigger { min-height: 6rem; padding: 1rem .6rem; }
+header .font-control-region .contrast-control > button, header .font-control-region .language-control > button { height: 100%; }
+header .font-control-region .theme-switch-track { max-width: 100%; box-sizing: border-box; }
 }
 @media (min-width: 1280px) {
-  header .font-control-region .control-btn-group { flex-wrap: nowrap; }
-  header .font-control-region .control-btn-group > button, header .font-control-region .theme-contrast-controls > button, header .font-control-region .contrast-control, header .font-control-region .language-control { flex-basis: calc((100% - 4rem) / 5); }
+header .font-control-region .control-btn-group { flex-wrap: nowrap; }
+header .font-control-region .control-btn-group > button, header .font-control-region .theme-contrast-controls > button, header .font-control-region .contrast-control, header .font-control-region .language-control { flex-basis: calc((100% - 4rem) / 5); }
 }
-@media (max-width: 767px) {
-  .container { display: flex; flex-direction: column; }
-  header { display: contents; }
-  .name-intro { order: 0; }
-  .subtitle { order: 0; }
-  main { order: 1; }
-  footer { order: 2; }
-  header > .font-control-region { order: 3; width: 100%; }
-  body { font-size: 14px; }
-}
-</style>
-<style>
-:root { --bg-page: #000000; --bg-surface: #0d0d0d; --bg-elevated: #171717; --text-main: #ffffff; --text-secondary: #e6e6e6; --border-main: #555555; --border-accent: #79b8ff; --link-color: #79b8ff; --link-hover: #bfe0ff; --focus-ring: #ffd700; --column-max-width: 48rem; --font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-*, *::before, *::after { box-sizing: border-box; }
-html { background-color: var(--bg-page); color: var(--text-main); font-size: 100%; }
-body { margin: 0; padding: 0; background-color: var(--bg-page); color: var(--text-main); font-family: var(--font-stack); font-size: 1.2rem; line-height: 1.75; word-wrap: break-word; overflow-wrap: break-word; }
-.skip-link { position: absolute; top: -9999px; left: 1.5rem; background: var(--focus-ring); color: #000000; padding: 1rem 1.5rem; font-size: 1.25rem; font-weight: 800; text-decoration: underline; z-index: 10000; border-radius: 0.35rem; outline: 0.25rem solid #ffffff; }
-.skip-link:focus-visible { top: 1.5rem; }
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 0.25rem solid var(--focus-ring) !important; outline-offset: 0.35rem !important; }
-.container { width: 100%; max-width: var(--column-max-width); margin-left: auto; margin-right: auto; padding: 1.5rem 1.25rem; }
-header { border-bottom: 0.2rem solid var(--border-main); padding-top: 2rem; padding-bottom: 2rem; }
-h1, h2, h3, h4 { color: var(--text-main); line-height: 1.3; margin-top: 0; font-weight: 700; }
-h1 { font-size: 2.35rem; margin-bottom: 0.5rem; }
-h2 { font-size: 1.85rem; border-bottom: 0.125rem solid var(--border-main); padding-bottom: 0.5rem; margin-top: 3.5rem; margin-bottom: 1.5rem; }
-h3 { font-size: 1.4rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
-h4 { font-size: 1.25rem; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #d1e5ff; }
-p { margin: 0 0 1.5rem 0; color: var(--text-main); }
-.subtitle { font-size: 1.35rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
-nav ul { list-style: none; padding: 0; margin: 1.5rem 0 0 0; display: flex; flex-direction: column; gap: 1rem; }
-nav a { color: var(--link-color); font-size: 1.25rem; font-weight: 700; text-decoration: underline; text-underline-offset: 0.35rem; display: inline-block; }
-nav a:hover { color: var(--link-hover); }
-section { margin-bottom: 4rem; }
-.card { background-color: var(--bg-surface); border: 0.15rem solid var(--border-main); border-radius: 0.5rem; padding: 1.75rem; margin-bottom: 2rem; }
-.press-release-card { background-color: var(--bg-elevated); border: 0.25rem solid var(--border-accent); border-radius: 0.5rem; padding: 2rem; margin-bottom: 2.5rem; }
-.confirmed-badge { display: inline-block; font-size: 1rem; font-weight: 800; padding: 0.4rem 0.85rem; border-radius: 0.25rem; background: #00360a; color: #85ff9e; border: 0.125rem solid #28a745; margin-bottom: 1.25rem; }
-.unverified-badge { display: inline-block; font-size: 1rem; font-weight: 800; padding: 0.4rem 0.85rem; border-radius: 0.25rem; background: #3a2500; color: #ffea79; border: 0.125rem solid #ffd700; margin-bottom: 1rem; }
-blockquote { border-left: 0.35rem solid var(--link-color); margin: 1.5rem 0; padding: 0.75rem 0 0.75rem 1.25rem; color: var(--text-main); background-color: var(--bg-surface); border-radius: 0 0.25rem 0.25rem 0; font-style: italic; }
-.portrait-figure { background-color: var(--bg-surface); border: 0.15rem solid var(--border-main); border-radius: 0.5rem; padding: 1.25rem; margin: 2rem 0; }
-figcaption { margin-top: 1rem; font-size: 1.1rem; color: var(--text-secondary); }
-.link-list { list-style: none; padding: 0; margin: 1.5rem 0; display: flex; flex-direction: column; gap: 1.35rem; }
-.link-list li { background-color: var(--bg-surface); border: 0.125rem solid var(--border-main); border-radius: 0.375rem; padding: 1rem 1.25rem; }
-.link-list li a { color: var(--link-color); font-size: 1.2rem; font-weight: 700; text-decoration: underline; text-underline-offset: 0.35rem; display: inline-block; }
-.link-list li a[href^="mailto:"] { max-width: 100%; overflow-wrap: anywhere; }
-.link-list li a:hover { color: var(--link-hover); }
-.accessible-btn, .link-list li a, nav a { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
-.font-control-region { background-color: var(--bg-surface); border: 0.125rem solid var(--border-main); border-radius: 0.5rem; padding: 1.25rem; margin-top: 2rem; }
-.font-control-region p { margin-bottom: 0.75rem; font-weight: 700; }
-.control-btn-group { display: flex; flex-wrap: wrap; gap: 1rem; }
-.accessible-btn { background-color: #000000; color: #ffffff; border: 0.2rem solid #ffffff; border-radius: 0.375rem; padding: 0.75rem 1.25rem; font-size: 1.15rem; font-weight: 800; cursor: pointer; }
-.accessible-btn:hover { background-color: #000000; box-shadow: 0 0 0 1px #555555, 0 3px 8px rgba(0, 0, 0, 0.3); }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-.name-intro { overflow: hidden; }
-.name-effect { display: inline-block; max-width: 100%; transform-origin: center; color: #39ff14; text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14; animation: name-cinematic-intro 5s linear 0s 1 both; }
-@keyframes name-cinematic-intro { 0% { transform: perspective(600px) translateX(8%) rotate(-360deg) scale(0.12); opacity: 0; font-size: 1em; font-weight: 700; letter-spacing: 0; } 25% { transform: perspective(600px) translateX(6%) rotate(0deg) rotateX(24deg) rotateY(-12deg) scale(0.88); opacity: 1; font-size: 1.2em; font-weight: 900; letter-spacing: 0.035em; color: #eaffbd; text-shadow: 1px 2px #24890e, 2px 4px #196609, 3px 6px #104506, 4px 8px #082b03, 0 0 12px #39ff14; } 48% { transform: perspective(600px) translateX(6%) rotateX(24deg) rotateY(-12deg) scale(0.88); opacity: 1; font-size: 1.2em; font-weight: 900; letter-spacing: 0.035em; color: #eaffbd; text-shadow: 1px 2px #24890e, 2px 4px #196609, 3px 6px #104506, 4px 8px #082b03, 0 0 12px #39ff14; } 58% { opacity: 1; color: #39ff14; text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14; } 60%, 64%, 68% { opacity: 0.35; } 62%, 66%, 70% { opacity: 1; } 78% { transform: perspective(600px) translateX(4%) rotateX(8deg) scale(0.95); font-size: 1.05em; font-weight: 700; letter-spacing: 0; } 100% { transform: none; opacity: 1; font-size: 1em; font-weight: 700; letter-spacing: 0; color: #39ff14; text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14; } }
-@media (prefers-reduced-motion: reduce) { .name-effect { animation: none; transform: none; opacity: 1; font-size: 1em; font-weight: 700; letter-spacing: 0; color: #39ff14; text-shadow: 0 0 0.15rem #39ff14, 0 0 0.5rem #39ff14; } }
-footer { border-top: 0.2rem solid var(--border-main); padding-top: 2.5rem; padding-bottom: 4rem; color: var(--text-secondary); font-size: 1.05rem; }
-:root { color-scheme: dark; }
-:root.light-mode { color-scheme: light; --bg-page: #ffffff; --bg-surface: #ffffff; --bg-elevated: #ffffff; --text-main: #111111; --text-secondary: #333333; --border-main: #555555; --border-accent: #004b87; --link-color: #004b87; --link-hover: #002f56; --focus-ring: #6b21a8; }
-a { color: var(--link-color); }
-a:hover { color: var(--link-hover); }
-.light-mode h4 { color: #17365d; }
-.light-mode .accessible-btn { border-color: #ffffff; box-shadow: 0 0 0 1px #555555, 0 3px 8px rgba(0, 0, 0, 0.3); }
-.light-mode .skip-link { background: #6b21a8; color: #ffffff; }
-.light-mode .name-effect { --text-main: #ffffff; background-color: #000000; border-radius: 0.15em; }
-.theme-switch-track { display: inline-block; width: 2.5em; height: 1.3em; border: 2px solid currentColor; border-radius: 1em; vertical-align: middle; margin-left: 0.5em; }
-.theme-switch-track::before { content: ""; display: block; width: 0.9em; height: 0.9em; margin: 0.1em; border-radius: 50%; background: currentColor; }
-#btn-light-mode[aria-checked="true"] .theme-switch-track::before { transform: translateX(1.1em); }
-.resources { margin: 0 0 1.5rem; }
-.resources h2 { font-size: 1.2rem; margin: 0 0 0.5rem; padding: 0; border: 0; }
-.resource-download, .resource-download:visited, .resource-download:hover, .resource-download:active { display: inline-block; max-width: 100%; padding: 0.25rem 0.5rem; border: 1px solid #79b8ff; border-radius: 0.2rem; background: #000000; color: #79b8ff; font-size: 0.875rem; line-height: 1.4; text-decoration: none; overflow-wrap: anywhere; }
-.light-mode .resource-download { box-shadow: 0 0 0 1px #555555; }
 </style>
 </head>
 <body>
-<!-- Keyboard & Screen Reader Bypass -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="container">
 <header role="banner">
 <h1 class="name-intro" aria-describedby="name-effect-description"><span class="name-effect">Virginia R. Jacobs</span></h1>
 <span id="name-effect-description" class="sr-only">Name swirls, flickers, and then stays static.</span>
-<p class="subtitle">Official Website & Music Portfolio</p>
-<!-- Landmark Navigation with Explicit Accessible Names -->
-<nav aria-label="Main Website Navigation">
-<ul>
+<p class="subtitle">Official Website &amp; Music Portfolio</p>
+<nav aria-label="Main Website Navigation"><ul>
 <li><a href="#press-release" aria-label="Official Press Release section">Official Press Release</a></li>
 <li><a href="#portrait" aria-label="Official Portrait section">Official Portrait</a></li>
-<li><a href="#streaming" aria-label="Music Streaming and Artist Pages section">Artist & Streaming Pages</a></li>
+<li><a href="#streaming" aria-label="Music Streaming and Artist Pages section">Artist &amp; Streaming Pages</a></li>
 <li><a href="#unverified-press" aria-label="Press and Mentions Archive status section">Press Archive (Status)</a></li>
-<li><a href="#social" aria-label="Connect and Media Contact section">Connect & Media Contact</a></li>
-<li><a href="#resources" aria-label="Additional Resources section">Additional Resources</a></li>
-</ul>
-</nav>
+<li><a href="#social" aria-label="Connect and Media Contact section">Connect &amp; Media Contact</a></li>
+<li><a href="covers.html" aria-label="Open Song Covers setlist page">Song Covers</a></li>
+</ul></nav>
+<section class="font-control-region" aria-labelledby="display-adjustment-heading">
+<h2 id="display-adjustment-heading">Display Adjustment</h2>
+<p id="font-status-message" role="status" aria-live="polite" class="sr-only">Text size is at default.</p>
+<div class="control-btn-group">
+<button type="button" id="btn-increase-font" class="accessible-btn">Increase Text Size</button>
+<button type="button" id="btn-reset-font" class="accessible-btn">Reset Text Size</button>
+<div class="theme-contrast-controls">
+<button type="button" id="btn-light-mode" class="accessible-btn" role="switch" aria-checked="false" aria-label="Light mode Off"><span aria-hidden="true">Light mode</span><span id="theme-state" aria-hidden="true">Off</span><span class="theme-switch-track" aria-hidden="true"></span></button>
+<div class="contrast-control"><label for="contrast-select" class="sr-only">Change Contrast</label><select id="contrast-select" class="accessible-btn" aria-label="Change Contrast"><option value="default">Default Contrast</option><option value="yellow-black">Yellow on Black</option><option value="black-yellow">Black on Yellow</option><option value="dark-blue">Light Text on Dark Blue</option></select></div>
+<div class="language-control"><button type="button" id="language-toggle" class="accessible-btn language-trigger" aria-expanded="false" aria-controls="language-menu">Languages</button><div id="language-menu" hidden></div></div>
+</div></div>
+</section>
 </header>
-<main id="main-content">
-<section id="press-release" aria-labelledby="press-release-heading">
-<h2 id="press-release-heading">Official Press Release</h2>
-<div class="press-release-card">
-<span class="confirmed-badge">Confirmed</span>
-<h3>Virginia R. Jacobs Releases “I Wanna Feel”</h3>
-<p>Virginia R. Jacobs, a singer-songwriter and blind artist, releases “I Wanna Feel,” an original song about emotional connection, self-acceptance, and the freedom to live honestly.</p>
-<blockquote>“I Wanna Feel is about the courage to connect with yourself and with other people.” — Virginia R. Jacobs</blockquote>
-<p>The song is available through the official artist and streaming pages below.</p>
-</div>
-</section>
-<section id="portrait" aria-labelledby="portrait-heading">
-<h2 id="portrait-heading">Official Portrait</h2>
-<figure class="portrait-figure">
-<img src="virginia-portrait.jpg" alt="Official portrait of Virginia R. Jacobs" width="800" height="1000">
-<figcaption>Virginia R. Jacobs, singer-songwriter and blind artist.</figcaption>
-</figure>
-</section>
-<section id="streaming" aria-labelledby="streaming-heading">
-<h2 id="streaming-heading">Artist & Streaming Pages</h2>
-<p>Listen to “I Wanna Feel” and follow Virginia R. Jacobs through these official pages:</p>
-<ul class="link-list">
-<li><a href="https://open.spotify.com/artist/3zjF2Qw7q1wYbQjF8Q4d5X" target="_blank" rel="noopener noreferrer" aria-label="Virginia R. Jacobs on Spotify (opens in new tab)">Spotify</a></li>
-<li><a href="https://music.apple.com/us/artist/virginia-r-jacobs/1591536648" target="_blank" rel="noopener noreferrer" aria-label="Virginia R. Jacobs on Apple Music (opens in new tab)">Apple Music</a></li>
-<li><a href="https://www.youtube.com/@virginiarjacobs" target="_blank" rel="noopener noreferrer" aria-label="Virginia R. Jacobs on YouTube (opens in new tab)">YouTube</a></li>
-<li><a href="covers.html" aria-label="Song Covers">Song Covers</a></li>
-</ul>
-</section>
-<section id="unverified-press" aria-labelledby="unverified-press-heading">
-<h2 id="unverified-press-heading">Press and Mentions Archive</h2>
-<p>This archive lists public pages and mentions related to Virginia R. Jacobs.</p>
-<div class="card"><span class="unverified-badge">Confirmed coverage</span><h3>Maryland School for the Blind</h3><p><a href="https://www.marylandschoolfortheblind.org/virginia-r-jacobs/">Virginia R. Jacobs — Maryland School for the Blind</a>. Published May 14, 2024, with the byline Virginia Jacobs.</p></div>
-<div class="card"><span class="unverified-badge">Confirmed coverage</span><h3>National Federation of the Blind — Santa Wrote Me a Letter</h3><p><a href="https://youtu.be/K8ZqfFuzswk">Santa Wrote Me a Letter — National Federation of the Blind</a>. Virginia reads a letter from Santa in this NFB video about Braille letters and raised-line pictures for blind children, prepared with the help of Santa’s honorary elves at the National Federation of the Blind.</p></div>
-</section>
-<section id="social" aria-labelledby="social-heading">
-<h2 id="social-heading">Connect & Media Contact</h2>
-<p>Official contact channels and social profiles for Virginia R. Jacobs:</p>
-<ul class="link-list">
-<li><strong>Official YouTube Channel:</strong> <a href="https://youtube.com/@virginiarjacobs" target="_blank" rel="noopener noreferrer" aria-label="Visit Virginia R. Jacobs Official YouTube Channel at youtube.com/@virginiarjacobs (opens in new tab)">YouTube — @virginiarjacobs</a></li>
-<li><strong>Media Contact Email:</strong> <a href="mailto:virginiarjacobs@gmail.com" aria-label="Send email to Virginia R. Jacobs">Email Virginia R. Jacobs</a></li>
-<li><strong>TikTok:</strong> <a href="https://www.tiktok.com/@virginiajacobs90" target="_blank" rel="noopener noreferrer" aria-label="TikTok - @virginiajacobs90 (opens in new tab)">@virginiajacobs90 (TikTok)</a></li>
-<li><strong>Instagram:</strong> <a href="https://www.instagram.com/virginiarjacobs" target="_blank" rel="noopener noreferrer" aria-label="Instagram - @virginiarjacobs (opens in new tab)">@virginiarjacobs (Instagram)</a></li>
-<li><strong>Facebook:</strong> <a href="https://www.facebook.com/virginiarjacobs/" aria-label="Facebook - Virginia R. Jacobs profile (opens in new tab)">Virginia R. Jacobs (Facebook)</a></li>
-</ul>
-</section>
-<section id="resources" class="resources" aria-labelledby="resources-heading">
-<h2 id="resources-heading">Additional Resources</h2>
-<a class="resource-download" href="i-wanna-feel-sheet-music.pdf" download="i-wanna-feel-sheet-music.pdf" aria-label="I Wanna Feel sheet music, PDF download">I Wanna Feel - Sheet Music (PDF)</a>
-</section>
+<main id="main-content" tabindex="-1">
+<section id="press-release" aria-labelledby="press-release-heading"><h2 id="press-release-heading">Official Press Release</h2><p><strong>For Immediate Release</strong></p><p>Virginia R. Jacobs releases <em>I Wanna Feel</em>, an original song about love, courage, and feeling visible.</p><p>Virginia R. Jacobs is a blind singer-songwriter, pianist, and motivational voice whose music blends honest storytelling with soulful pop.</p><p><strong>About the Single:</strong> <em>I Wanna Feel</em> explores the universal desire to be seen, heard, and emotionally understood.</p><blockquote>“I want people to feel something real when they hear my music.” — Virginia R. Jacobs</blockquote><p>Listen to <em>I Wanna Feel</em> and follow Virginia’s official channels for new music and releases.</p></section>
+<section id="portrait" aria-labelledby="portrait-heading"><h2 id="portrait-heading">Official Portrait</h2><figure class="portrait-figure"><img src="virginia-portrait.jpg" alt="Portrait of Virginia R. Jacobs, blind singer-songwriter and pianist" loading="lazy"><figcaption>Virginia R. Jacobs — singer-songwriter, pianist, and advocate for blind representation in music.</figcaption></figure></section>
+<section id="streaming" aria-labelledby="streaming-heading"><h2 id="streaming-heading">Music Streaming and Artist Pages</h2><ul class="link-list"><li><a href="https://open.spotify.com/artist/5l4c7J7eH1sXkYv3E2M9mM" target="_blank" rel="noopener noreferrer" aria-label="Virginia R. Jacobs on Spotify (opens in new tab)">Spotify</a></li><li><a href="https://music.apple.com/us/artist/virginia-r-jacobs/1710517076" target="_blank" rel="noopener noreferrer" aria-label="Virginia R. Jacobs on Apple Music (opens in new tab)">Apple Music</a></li><li><a href="https://www.amazon.com/music/player/artists/B0D2T6V3YV/virginia-r-jacobs" target="_blank" rel="noopener noreferrer" aria-label="Virginia R. Jacobs on Amazon Music (opens in new tab)">Amazon Music</a></li><li><a href="https://www.deezer.com/artist/259987862" target="_blank" rel="noopener noreferrer" aria-label="Virginia R. Jacobs on Deezer (opens in new tab)">Deezer</a></li><li><a href="https://music.youtube.com/channel/UCx6jY3d0D9Xc4Q8JjP0r6xg" target="_blank" rel="noopener noreferrer" aria-label="Virginia R. Jacobs on YouTube Music (opens in new tab)">YouTube Music</a></li></ul></section>
+<section id="unverified-press" aria-labelledby="unverified-press-heading"><h2 id="unverified-press-heading">Press and Mentions Archive</h2><div class="card"><span class="unverified-badge">Unverified status</span><h3>Maryland School for the Blind Official Blog</h3><p><a href="https://www.marylandschoolfortheblind.org/virginia-r-jacobs/">Virginia R. Jacobs — Maryland School for the Blind</a>. Listed as a past feature; verify current availability before citing.</p></div><div class="card"><span class="confirmed-badge">Confirmed coverage</span><h3>National Federation of the Blind — Santa Wrote Me a Letter</h3><p><a href="https://youtu.be/K8ZqfFuzswk">Santa Wrote Me a Letter — National Federation of the Blind</a>. Virginia reads a letter from Santa in this NFB video about Braille letters and raised-line pictures for blind children, prepared with the help of Santa’s honorary elves at the National Federation of the Blind.</p></div></section>
+<section id="social" aria-labelledby="social-heading"><h2 id="social-heading">Connect &amp; Media Contact</h2><p>Official contact channels and social profiles for Virginia R. Jacobs:</p><ul class="link-list"><li><strong>Official YouTube Channel:</strong> <a href="https://youtube.com/@virginiarjacobs" target="_blank" rel="noopener noreferrer" aria-label="Visit Virginia R. Jacobs Official YouTube Channel (opens in new tab)">YouTube — @virginiarjacobs</a></li><li><strong>Media Contact Email:</strong> <a href="mailto:virginia.r.jacobs@gmail.com" aria-label="Send email to Virginia R. Jacobs">virginia.r.jacobs@gmail.com</a></li><li><strong>TikTok:</strong> <a href="https://www.tiktok.com/@virginiajacobs90" target="_blank" rel="noopener noreferrer" aria-label="TikTok - @virginiajacobs90 (opens in new tab)">@virginiajacobs90 (TikTok)</a></li><li><strong>Instagram:</strong> <a href="https://www.instagram.com/virginiarjacobs" target="_blank" rel="noopener noreferrer" aria-label="Instagram - @virginiarjacobs (opens in new tab)">@virginiarjacobs (Instagram)</a></li><li><strong>Facebook:</strong> <a href="https://www.facebook.com/virginiarjacobs/" aria-label="Facebook - Virginia R. Jacobs profile (opens in new tab)">Virginia R. Jacobs (Facebook)</a></li></ul></section>
+<section id="resources" class="resources" aria-labelledby="resources-heading"><h2 id="resources-heading">Additional Resources</h2><a class="resource-download" href="i-wanna-feel-sheet-music.pdf" download="i-wanna-feel-sheet-music.pdf" aria-label="I Wanna Feel sheet music, PDF download">I Wanna Feel - Sheet Music (PDF)</a></section>
 </main>
-<footer role="contentinfo">
-<p>&copy; 2026 Virginia R. Jacobs. All rights reserved.</p>
-<p>Semantic HTML5, WCAG AAA contrast standard, and zero external runtime dependencies.</p>
-</footer>
+<footer role="contentinfo"><p>&copy; 2026 Virginia R. Jacobs. All rights reserved.</p><p>Semantic HTML5, WCAG AAA contrast standard, and zero external runtime dependencies.</p></footer>
 </div>
 <script>
 (function () {
