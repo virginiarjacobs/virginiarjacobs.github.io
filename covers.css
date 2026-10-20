@@ -34,3 +34,7 @@ html:has(.covers-page){--scale:1;--fg:#fff;--bg:#000;--accent:#79b8ff;--control-
 .covers-page input.seek::-webkit-slider-runnable-track{background:transparent;height:100%;}
 .covers-page input.seek::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:12px;height:100%;border:3px solid #fff;background:#000;box-shadow:0 0 0 2px #000;border-radius:4px;}
 .covers-page input.seek::-moz-range-track{background:transparent;}
+
+
+/* Homepage mobile navigation: compact, touch-friendly bars without changing labels or DOM order. */
+@media(max-width:767px), (pointer:coarse) and (max-width:1280px){body:not(.covers-page) header{padding-top:.5rem;}body:not(.covers-page) header > .name-intro{margin:.25rem 0 .35rem;}body:not(.covers-page) header > .subtitle{margin:.25rem 0 .65rem;}body:not(.covers-page) header nav ul{gap:.45rem;margin:.5rem 0 .75rem;}body:not(.covers-page) header nav li{flex:0 1 auto;width:min(100%,22rem);margin:0 auto;}body:not(.covers-page) header nav li a{width:100%;min-height:3rem;padding:.45rem .65rem;border:.2rem solid #fff;border-radius:.5rem;font-family:inherit;line-height:1.25;}}
