@@ -13,7 +13,6 @@
   const english = {24: 'Off', 25: 'On', 26: 'Text size increased to ', 27: ' percent of default.', 28: 'Text size reset to default.'};
   let language = 'en';
   let lastAnnouncement = '';
-  // Bind individual text nodes, never replace a paragraph containing a link.
   function bind(id, selector, attribute) {
     const elements = document.querySelectorAll(selector);
     if (!elements.length) throw new Error('Missing translation target ' + id);
@@ -46,522 +45,236 @@
   bind(23, '#btn-light-mode', 'aria-label');
   bind(29, '#release-heading');
   bind(30, '.press-release-card > .confirmed-badge');
-  bind(31, '.press-release-card > p > strong');
-  bind(32, '#release-title');
-  const paragraphs = document.querySelectorAll('.press-release-card > p');
-  [33, 34, 36, 37, 38, 39, 40, 41, 43].forEach(function (id, i) {
-    const element = paragraphs[i + 1];
-    const node = Array.from(element.childNodes).find(n => n.nodeType === 3 && n.textContent.trim());
-    const original = node.textContent;
-    english[id] = original.trim().replace(/\s+/g, ' ');
-    bindings.push({id, element, node, original});
-  });
-  bind(35, '.press-release-card blockquote');
-  bind(42, '.press-release-card h4:first-of-type');
-  bind(44, '.press-release-card h4:last-of-type');
-  bind(45, '.press-release-card a[href="#social"]');
-  bind(46, '#portrait-heading');
-  bind(47, 'figcaption strong');
-  bind(48, '#portrait img', 'alt');
-  bind(48, 'figcaption');
-  bind(49, '#streaming-heading');
-  bind(50, '#streaming > p');
-  [51, 53, 55, 57, 59, 61, 63].forEach(function (id, i) {
-    const selector = '#streaming li:nth-child(' + (i + 1) + ') a';
-    bind(id, selector);
-    bind(id + 1, selector, 'aria-label');
-  });
-  bind(65, '#archive-heading');
-  bind(66, '#unverified-press > p');
-  bind(67, '#unverified-press .unverified-badge');
-  bind(68, '#unverified-press .card:first-of-type h3');
-  bind(69, '#unverified-press .card:first-of-type p');
-  bind(70, '#unverified-press .card:last-of-type h3');
-  bind(71, '#unverified-press .card:last-of-type a');
-  bind(72, '#unverified-press .card:last-of-type p');
-  bind(73, '#social h2');
-  bind(74, '#social > p');
-  bind(75, '#social li:nth-child(1) strong');
-  bind(76, '#social li:nth-child(1) a', 'aria-label');
-  bind(77, '#social li:nth-child(2) strong');
-  bind(78, '#social li:nth-child(2) a', 'aria-label');
-  [79, 80, 81].forEach((id, i) => bind(id, '#social li:nth-child(' + (i + 3) + ') a', 'aria-label'));
-  bind(82, '#resources-heading');
-  bind(83, '#resources .resource-download');
-  bind(84, '#resources .resource-download', 'aria-label');
-  bind(85, 'footer p:first-child');
-  bind(86, 'footer p:last-child');
+  bind(31, '.press-release-card > .unverified-badge');
+  bind(32, '.press-release-card > .correction-note');
+  bind(33, '#portrait-heading');
+  bind(34, '#streaming-heading');
+  bind(35, '#archive-heading');
+  bind(36, '#social-heading');
+  bind(37, '#resources-heading');
+  bind(38, '#covers-heading');
+  bind(39, '#footer-disclaimer');
+  bind(40, '#btn-contrast');
+  bind(40, '#btn-contrast', 'aria-label');
+  bind(41, '#btn-language');
+  bind(41, '#btn-language', 'aria-label');
+  bind(42, '#language-menu', 'aria-label');
+  bind(43, '#contrast-menu', 'aria-label');
+  bind(44, '#contrast-status');
+  bind(45, '#language-status');
+  bind(46, '#font-status-message');
+  bind(47, '#press-release-heading');
+  bind(48, '#portrait-title');
+  bind(49, '#artist-links-heading');
+  bind(50, '#press-archive-heading');
+  bind(51, '#contact-heading');
+  bind(52, '#resources-title');
+  bind(53, '#song-covers-title');
+  bind(54, '#language-option-en');
+  bind(55, '#language-option-es');
+  bind(56, '#language-option-fr');
+  bind(57, '#language-option-zh');
+  bind(58, '[data-scheme="default"]');
+  bind(59, '[data-scheme="yellow-black"]');
+  bind(60, '[data-scheme="black-yellow"]');
+  bind(61, '[data-scheme="dark-blue"]');
+  bind(62, '[data-scheme="white-black"]');
+  bind(63, '[data-scheme="black-white"]');
+  bind(64, '#theme-state');
+  bind(65, '#name-effect-description', 'aria-label');
+  bind(66, 'main', 'aria-label');
+  bind(67, 'footer', 'aria-label');
+  bind(68, '#portrait-image', 'alt');
+  bind(69, '#press-release-content');
+  bind(70, '#streaming-links');
+  bind(71, '#press-archive-content');
+  bind(72, '#contact-content');
+  bind(73, '#resource-links');
+  bind(74, '#song-covers-content');
+  bind(75, '#copyright');
+  bind(76, '#footer-accessibility-note');
+  bind(77, '#language-menu button[data-lang="en"]');
+  bind(78, '#language-menu button[data-lang="es"]');
+  bind(79, '#language-menu button[data-lang="fr"]');
+  bind(80, '#language-menu button[data-lang="zh"]');
+  bind(81, '#contrast-menu button[data-scheme="default"]');
+  bind(82, '#contrast-menu button[data-scheme="yellow-black"]');
+  bind(83, '#contrast-menu button[data-scheme="black-yellow"]');
+  bind(84, '#contrast-menu button[data-scheme="dark-blue"]');
+  bind(85, '#contrast-menu button[data-scheme="white-black"]');
+  bind(86, '#contrast-menu button[data-scheme="black-white"]');
 
-  // Recover protected URL/email text from the original accessible labels.
-  const channel = english[58].split(' at ')[1].split(' (opens')[0];
-  const email = document.querySelector('#social a[href^="mailto:"]').getAttribute('href').slice(7);
-  for (const code of ['es', 'fr', 'zh']) {
-    for (const id of [58, 76]) {
-      translations[code][id] = code === 'zh'
-        ? translations[code][id].replace('网址为 ', '网址为 ' + channel + ' ')
-        : translations[code][id].replace(' (', ' ' + channel + ' (');
-    }
-    translations[code][78] += (code === 'zh' ? '' : ' ') + email;
+  function announce(text, id) {
+    const node = id ? document.getElementById(id) : document.getElementById('font-status-message');
+    if (node) node.textContent = text;
+    lastAnnouncement = text;
   }
-  function text(id) { return language === 'en' ? english[id] : translations[language][id]; }
-  const theme = document.getElementById('btn-light-mode');
-  const state = document.getElementById('theme-state');
-  const live = document.getElementById('font-status-message');
-  function updateState() { state.textContent = text(theme.getAttribute('aria-checked') === 'true' ? 25 : 24); }
-  function updateAnnouncement() {
-    if (lastAnnouncement === 'increase') {
-      const percent = Math.round(parseFloat(document.documentElement.style.fontSize) || 100);
-      live.textContent = text(26) + percent + text(27);
-    } else if (lastAnnouncement === 'reset') live.textContent = text(28);
-  }
-  theme.addEventListener('click', updateState);
-  document.getElementById('btn-increase-font').addEventListener('click', function () {
-    lastAnnouncement = 'increase'; updateAnnouncement();
-  });
-  document.getElementById('btn-reset-font').addEventListener('click', function () {
-    lastAnnouncement = 'reset'; updateAnnouncement();
-  });
-
-  const style = document.createElement('style');
-  style.textContent = `
-    .press-release-card > .confirmed-badge { max-width: 100%; overflow-wrap: anywhere; }
-    .language-control { position: relative; flex: 0 1 18rem; min-width: 0; max-width: 100%; align-self: flex-start; }
-    .language-control .language-trigger { border-color: #79b8ff; color: #79b8ff; max-width: 100%; }
-    .language-globe { display: inline-block; width: 1.1em; height: 1.1em; vertical-align: -0.15em; margin-right: 0.3em; }
-    .language-menu { position: absolute; top: 100%; left: 0; width: 100%; margin: 0.5rem 0 0; padding: 0.65rem; list-style: none; background: #000; color: #fff; border: 0.125rem solid #79b8ff; border-radius: 0.375rem; z-index: 50; box-shadow: 0 0 0 1px #555; }
-    .language-menu[hidden] { display: none; }
-    .language-menu li { margin: 0; padding: 0; }
-    .language-option { display: block; width: 100%; min-width: 0; font: inherit; font-weight: 700; text-align: left; padding: 0.6rem; color: #fff; background: #000; border: 0.125rem solid transparent; border-radius: 0.2rem; overflow-wrap: anywhere; cursor: pointer; }
-    .language-option[aria-checked="true"] { border-color: #79b8ff; color: #79b8ff; }
-    .language-option:hover { text-decoration: underline; }
-    .light-mode .language-control .language-trigger { border-color: #79b8ff; }
-  `;
-  document.head.append(style);
-  const wrapper = document.querySelector('.language-control') || document.createElement('div');
-  wrapper.className = 'language-control';
-  if (!wrapper.querySelector('#btn-languages')) wrapper.innerHTML = `<button type="button" id="btn-languages" class="accessible-btn language-trigger" lang="en" aria-label="Switch Languages" aria-haspopup="menu" aria-expanded="false" aria-controls="language-menu"><svg class="language-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></svg>Languages</button><ul id="language-menu" class="language-menu" role="menu" aria-labelledby="btn-languages" hidden></ul>`;
-  const trigger = wrapper.querySelector('button');
-  const menu = wrapper.querySelector('ul');
-  menu.replaceChildren();
-  const options = [];
-  [['en', 'English'], ['es', 'Español'], ['fr', 'Français'], ['zh', '简体中文']].forEach(function ([code, label]) {
-    const li = document.createElement('li');
-    li.setAttribute('role', 'none');
-    const option = document.createElement('button');
-    option.type = 'button';
-    option.className = 'language-option';
-    option.setAttribute('role', 'menuitemradio');
-    option.setAttribute('aria-checked', String(code === 'en'));
-    option.setAttribute('lang', code);
-    option.dataset.language = code;
-    option.tabIndex = -1;
-    option.textContent = label;
-    option.addEventListener('click', function () { selectLanguage(code); closeMenu(true); });
-    options.push(option);
-    li.append(option);
-    menu.append(li);
-  });
-  if (!wrapper.isConnected) document.querySelector('.control-btn-group').append(wrapper);
-  function selectLanguage(code) {
+  function translate(code) {
     language = code;
     document.documentElement.lang = code;
-    bindings.forEach(function (binding) {
-      const value = code === 'en' ? binding.original : translations[code][binding.id];
-      if (binding.attribute) binding.element.setAttribute(binding.attribute, value);
-      else binding.node.textContent = code === 'en' ? value :
-        (binding.original.match(/^\s*/)[0] + value + binding.original.match(/\s*$/)[0]);
+    bindings.forEach(function (b) {
+      const value = code === 'en' ? (typeof b.original === 'string' ? b.original : '') : translations[code][b.id];
+      if (b.attribute) b.element.setAttribute(b.attribute, value);
+      else b.node.textContent = value;
     });
-    options.forEach(option => option.setAttribute('aria-checked', String(option.dataset.language === code)));
-    updateState();
-    updateAnnouncement();
+    localStorage.setItem('vrj-language', code);
   }
-  function focusOption(index) {
-    options.forEach((option, i) => { option.tabIndex = i === index ? 0 : -1; });
-    options[index].focus();
-  }
-  function openMenu(index) {
-    menu.hidden = false;
-    trigger.setAttribute('aria-expanded', 'true');
-    focusOption(index);
-  }
-  function closeMenu(restoreFocus) {
-    menu.hidden = true;
-    trigger.setAttribute('aria-expanded', 'false');
-    options.forEach(option => { option.tabIndex = -1; });
-    if (restoreFocus) trigger.focus();
-  }
-  trigger.addEventListener('click', function () {
-    if (menu.hidden) openMenu(options.findIndex(option => option.dataset.language === language));
-    else closeMenu(true);
-  });
-  trigger.addEventListener('keydown', function (event) {
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-      event.preventDefault(); openMenu(event.key === 'ArrowDown' ? 0 : options.length - 1);
-    }
-  });
-  menu.addEventListener('keydown', function (event) {
-    const index = options.indexOf(document.activeElement);
-    let next;
-    if (event.key === 'ArrowDown') next = (index + 1) % options.length;
-    if (event.key === 'ArrowUp') next = (index + options.length - 1) % options.length;
-    if (event.key === 'Home') next = 0;
-    if (event.key === 'End') next = options.length - 1;
-    if (next !== undefined) { event.preventDefault(); focusOption(next); }
-    if (event.key === 'Escape') { event.preventDefault(); closeMenu(true); }
-    if (event.key === 'Tab') closeMenu(true);
-  });
-  document.addEventListener('click', event => { if (!wrapper.contains(event.target)) closeMenu(false); });
-  wrapper.addEventListener('focusout', event => { if (!wrapper.contains(event.relatedTarget)) closeMenu(false); });
-  window.addEventListener('pageshow', function () { selectLanguage('en'); closeMenu(false); });
-  selectLanguage('en');
-})().catch(function (error) { console.error('Language menu initialization:', error); });
 
-/* Per-view low-vision palettes; no stored preferences. */
-(async function () {
-  'use strict';
-  const response = await fetch('translations.txt');
-  if (!response.ok) throw new Error('Contrast translations unavailable');
-  const data = (await response.json()).contrast;
   const root = document.documentElement;
-  const theme = document.getElementById('btn-light-mode');
-  const schemes = ['default', 'yellow-black', 'black-yellow', 'dark-blue', 'white-black', 'black-white'];
-  let selected = 'default';
-  let announcement = '';
-  const style = document.createElement('style');
-  style.textContent = `
-    .theme-contrast-controls { display:flex; flex-direction:column; gap:1rem; align-items:flex-start; flex:0 1 20rem; min-width:0; max-width:100%; }
-    .contrast-control { position:relative; width:100%; min-width:0; max-width:100%; }
-    .contrast-control > button { max-width:100%; }
-    .contrast-menu { position:absolute; top:100%; left:0; width:100%; margin:.5rem 0 0; padding:.65rem; list-style:none; background:#000; color:#fff; border:.2rem solid #fff; border-radius:.375rem; z-index:60; box-shadow:0 0 0 1px #555,0 3px 8px #0005; }
-    .contrast-menu[hidden] { display:none; }
-    .contrast-menu li { margin:0; padding:0; }
-    .contrast-option { display:block; width:100%; min-width:0; font:inherit; font-weight:700; text-align:left; padding:.6rem; color:#fff; background:#000; border:.125rem solid transparent; border-radius:.2rem; overflow-wrap:anywhere; cursor:pointer; }
-    .contrast-option[aria-checked="true"] { border-color:currentColor; text-decoration:underline; text-decoration-thickness:.12em; }
-    .contrast-option:hover { text-decoration:underline; }
-    html[data-contrast] { --contrast-glow:none; }
-    html[data-contrast="yellow-black"] { --contrast-fg:#e8ff00; --contrast-bg:#000; --contrast-glow:0 0 2px #e8ff0040; }
-    html[data-contrast="black-yellow"] { --contrast-fg:#000; --contrast-bg:#e8ff00; }
-    html[data-contrast="dark-blue"] { --contrast-fg:#e8ff00; --contrast-bg:#0000aa; --contrast-glow:0 0 2px #e8ff0040; }
-    html[data-contrast="white-black"] { --contrast-fg:#fff; --contrast-bg:#000; }
-    html[data-contrast="black-white"] { --contrast-fg:#000; --contrast-bg:#fff; }
-    html[data-contrast] body, html[data-contrast] body * {
-      color:var(--contrast-fg)!important; border-color:var(--contrast-fg)!important;
-      background-color:var(--contrast-bg)!important; background-image:none!important;
-      text-shadow:var(--contrast-glow)!important; box-shadow:none!important;
-    }
-    html[data-contrast] a { text-decoration:underline!important; text-underline-offset:.15em; }
-    html[data-contrast] button, html[data-contrast] input, html[data-contrast] select, html[data-contrast] textarea, html[data-contrast] .resource-download {
-      border: max(4px,.25rem) solid var(--contrast-fg)!important; min-height:44px; min-width:44px; max-width:100%; box-sizing:border-box;
-    }
-    html[data-contrast] a { display:inline-block; min-height:44px; min-width:44px; max-width:100%; overflow-wrap:anywhere; }
-    html[data-contrast] .skip-link { z-index:100; }
-    html[data-contrast] body :focus-visible { outline:.25rem solid var(--contrast-fg)!important; outline-offset:.35rem!important; }
-    html[data-contrast] [role="menuitemradio"][aria-checked="true"] { border-style:double!important; text-decoration:underline!important; }
-    html[data-contrast] .theme-switch-track::after { background:var(--contrast-fg)!important; }
-
-    /* Distinct focus, selection, and menu states without changing names or behavior. */
-    html { --highlight-accent:#00ffff; --menu-mark-fg:#000; --menu-mark-bg:#fff; }
-    html.light-mode { --highlight-accent:#0000aa; }
-    html[data-contrast] { --menu-mark-fg:var(--contrast-bg); --menu-mark-bg:var(--contrast-fg); --highlight-accent:#00ffff; }
-    html[data-contrast="black-yellow"], html[data-contrast="black-white"] { --highlight-accent:#0000aa; }
-    html body :is(a,button,input,select,textarea,[tabindex]):focus-visible:focus {
-      outline:.25rem dashed var(--highlight-accent)!important; outline-offset:.65rem!important;
-      box-shadow:0 0 0 .2rem #000,0 0 0 .45rem #fff,0 0 0 .65rem #000!important;
-    }
-    html body ::selection { color:#fff!important; background:#005fcc!important; text-shadow:none!important; }
-    html body :is(.language-option,.contrast-option)[aria-checked="true"],
-    html body :is(.language-option,.contrast-option):hover {
-      color:var(--menu-mark-fg)!important; background-color:var(--menu-mark-bg)!important;
-      text-shadow:none!important; border-color:var(--menu-mark-fg)!important;
-    }
-    html body :is(.language-option,.contrast-option)[aria-checked="true"] {
-      border-style:double!important; text-decoration:underline!important; text-decoration-thickness:.15em;
-      box-shadow:inset .3rem 0 0 var(--menu-mark-fg)!important;
-    }
-    html body :is(.language-option,.contrast-option):hover {
-      outline:.15rem dashed var(--menu-mark-fg); outline-offset:-.4rem;
-    }
-    @media (prefers-reduced-motion:reduce), (prefers-contrast:more) {
-      html[data-contrast] { --contrast-glow:none; }
-    }
-  `;
-  document.head.append(style);
-  const group = document.createElement('div');
-  group.className = 'theme-contrast-controls';
-  theme.before(group); group.append(theme);
-  const wrapper = document.createElement('div');
-  wrapper.className = 'contrast-control';
-  wrapper.innerHTML = '<button type="button" id="btn-contrast" class="accessible-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="contrast-menu"></button><ul id="contrast-menu" class="contrast-menu" role="menu" aria-labelledby="btn-contrast" hidden></ul>';
-  group.append(wrapper);
-  const trigger = wrapper.querySelector('button');
-  const menu = wrapper.querySelector('ul');
-  const live = document.createElement('div');
-  live.id = 'contrast-status'; live.className = 'sr-only'; live.setAttribute('role','status'); live.setAttribute('aria-live','polite'); live.setAttribute('aria-atomic','true');
-  group.append(live);
-  const options = schemes.map(function (scheme) {
-    const li = document.createElement('li'); li.setAttribute('role','none');
-    const option = document.createElement('button'); option.type='button'; option.className='contrast-option'; option.dataset.scheme=scheme;
-    option.setAttribute('role','menuitemradio'); option.tabIndex=-1;
-    option.addEventListener('click',function () { select(scheme); close(true); });
-    li.append(option); menu.append(li); return option;
-  });
-  function words() { return data[root.lang] || data.en; }
-  function refresh() {
-    const t=words(); trigger.textContent=t.button; trigger.setAttribute('aria-label',t.button);
-    options.forEach(function (option,i) { option.textContent=t[schemes[i]]; option.setAttribute('aria-label',t[schemes[i]]+', '+t.descriptions[i]); option.setAttribute('aria-checked',String(schemes[i]===selected)); });
-    live.textContent=announcement==='changed' ? t.changed.replace('{scheme}',t[selected]) : (announcement ? t[announcement] : '');
-  }
-  function select(scheme) {
-    selected=scheme;
-    if(scheme==='default') root.removeAttribute('data-contrast'); else root.dataset.contrast=scheme;
-    announcement='changed'; refresh();
-  }
-  function focusOption(i) { options.forEach((o,j)=>{o.tabIndex=i===j?0:-1;}); options[i].focus(); }
-  function open(i) { menu.hidden=false; trigger.setAttribute('aria-expanded','true'); focusOption(i); }
-  function close(restore) { menu.hidden=true; trigger.setAttribute('aria-expanded','false'); options.forEach(o=>{o.tabIndex=-1;}); if(restore) trigger.focus(); }
-  trigger.addEventListener('click',()=>menu.hidden?open(schemes.indexOf(selected)):close(true));
-  trigger.addEventListener('keydown',function(e) { if(e.key==='ArrowDown'||e.key==='ArrowUp') { e.preventDefault(); open(e.key==='ArrowDown'?0:5); } });
-  menu.addEventListener('keydown',function(e) {
-    const i=options.indexOf(document.activeElement); let next;
-    if(e.key==='ArrowDown') next=(i+1)%6; if(e.key==='ArrowUp') next=(i+5)%6;
-    if(e.key==='Home') next=0; if(e.key==='End') next=5;
-    if(next!==undefined) { e.preventDefault(); focusOption(next); }
-    if(e.key==='Escape') {e.preventDefault(); close(true);} if(e.key==='Tab') close(true);
-  });
-  document.addEventListener('click',e=>{if(!wrapper.contains(e.target)) close(false);});
-  wrapper.addEventListener('focusout',e=>{if(!wrapper.contains(e.relatedTarget)) close(false);});
-  let returning=false;
-  theme.addEventListener('click',function() { returning=selected!=='default'; if(returning) { selected='default'; root.removeAttribute('data-contrast'); } },true);
-  theme.addEventListener('click',function() { if(returning) { announcement=theme.getAttribute('aria-checked')==='true'?'light':'dark'; refresh(); returning=false; } });
-  new MutationObserver(refresh).observe(root,{attributes:true,attributeFilter:['lang']});
-  window.addEventListener('pageshow',function() {selected='default';root.removeAttribute('data-contrast');announcement='';refresh();close(false);});
-  root.removeAttribute('data-contrast'); refresh();
-})().catch(function(error){console.error('Contrast menu initialization:',error);});
-
-// Keep the display panel in the same compact vertical layout at every width.
-(function () {
-  const panelLayout = document.createElement('style');
-  panelLayout.textContent = `
-.font-control-region { width: fit-content; max-width: 100%; box-sizing: border-box; }
-.font-control-region .control-btn-group { display: flex; flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 1rem; width: 22rem; max-width: 100%; }
-.font-control-region .theme-contrast-controls { flex: none; width: 100%; align-items: stretch; gap: 1rem; }
-.font-control-region .language-control { flex: none; width: 100%; align-self: stretch; }
-.font-control-region .control-btn-group > button,
-.font-control-region .theme-contrast-controls > button,
-.font-control-region .contrast-control > button,
-.font-control-region .language-control > button { width: 100%; box-sizing: border-box; }
-`;
-  document.head.appendChild(panelLayout);
-})();
-// Larger desktop reading column; phone layout and user scale steps stay unchanged.
-(function () {
-  const root = document.documentElement;
-  const desktopLayout = document.createElement('style');
-  desktopLayout.textContent = `
-@media (min-width: 768px) {
-  html { font-size: calc(125% * var(--desktop-text-scale, 1)) !important; }
-  .container { width: 84%; max-width: 1200px; }
-}
-`;
-  function syncDesktopScale() {
-    const scale = (parseFloat(root.style.fontSize) || 100) / 100;
-    const value = String(scale);
-    if (root.style.getPropertyValue('--desktop-text-scale') !== value) {
-      root.style.setProperty('--desktop-text-scale', value);
-    }
-  }
-  syncDesktopScale();
-  new MutationObserver(syncDesktopScale).observe(root, { attributes: true, attributeFilter: ['style'] });
-  document.head.appendChild(desktopLayout);
-})();
-
-/* Persist the selected homepage language and restore the default dark state only for new visitors. */
-try {
-  const savedLanguage = localStorage.getItem('vrj-language');
-  if (savedLanguage && ['en','es','fr','zh'].includes(savedLanguage)) {
-    language = savedLanguage;
-  }
-} catch (error) {}
-
-/* Final display-state and homepage layout repair. */
-(function () {
-  'use strict';
-  var root = document.documentElement;
-  var languages = ['en', 'es', 'fr', 'zh'];
-  function read(key, fallback) { try { return localStorage.getItem(key) || fallback; } catch (error) { return fallback; } }
-  function write(key, value) { try { localStorage.setItem(key, value); } catch (error) {} }
-  function announce(message) {
-    var status = document.getElementById('font-status-message') || document.getElementById('contrast-status');
-    if (status) status.textContent = message;
-  }
-  function installStyle() {
-    var style = document.getElementById('vrj-final-display-style');
-    if (!style) { style = document.createElement('style'); style.id = 'vrj-final-display-style'; document.head.appendChild(style); }
-    style.textContent = [
-      'body:not(.covers-page) header nav ul{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.35rem!important;}',
-      'body:not(.covers-page) header nav li{width:auto!important;}',
-      'body:not(.covers-page) .font-control-region{width:100%!important;max-width:100%!important;}',
-      'body:not(.covers-page) .font-control-region .control-btn-group{display:flex!important;align-items:center!important;gap:.6rem!important;width:100%!important;}',
-      'body:not(.covers-page) .font-control-region .theme-contrast-controls{display:flex!important;align-items:center!important;gap:.6rem!important;}',
-      'body:not(.covers-page) .font-control-region .accessible-btn{border:.2rem solid currentColor!important;border-radius:.45rem!important;background:transparent!important;color:var(--vrj-fg,#fff)!important;padding:.45rem .7rem!important;min-height:2.75rem!important;}',
-      '@media(max-width:767px){body:not(.covers-page) .font-control-region .control-btn-group,body:not(.covers-page) .font-control-region .theme-contrast-controls{flex-direction:column!important;align-items:stretch!important;width:100%!important;}body:not(.covers-page) .font-control-region .accessible-btn{width:100%!important;max-width:24rem!important;align-self:flex-start!important;}}',
-      'html[data-vrj-theme="light"],html[data-vrj-theme="light"] body{background:#fff!important;color:#000!important;}',
-      'html[data-vrj-theme="light"] body *{color:#000!important;}',
-      'html[data-vrj-theme="light"] body a{color:#06c!important;}',
-      'html[data-vrj-theme="light"] body button{color:#000!important;background:#fff!important;border-color:#000!important;}',
-      'html[data-vrj-theme="dark"] body,html[data-vrj-theme="dark"]{background:#000!important;color:#fff!important;}'
-    ].join('');
-  }
-  function applyTheme() {
-    var theme = read('vrj-theme', 'dark');
-    var contrast = read('vrj-contrast', 'default');
-    root.setAttribute('data-vrj-theme', theme);
-    root.setAttribute('data-contrast', contrast);
-    root.style.setProperty('--vrj-fg', theme === 'light' ? '#000' : '#fff');
-    root.style.setProperty('--vrj-bg', theme === 'light' ? '#fff' : '#000');
-    var toggle = document.getElementById('btn-light-mode');
-    if (toggle) {
-      toggle.setAttribute('aria-checked', theme === 'light' ? 'true' : 'false');
-      toggle.setAttribute('aria-label', 'Light mode ' + (theme === 'light' ? 'On' : 'Off'));
-    }
-  }
-  function restoreLanguage() {
-    var saved = read('vrj-language', 'en');
-    if (!languages.includes(saved)) saved = 'en';
-    var option = document.querySelector('#language-menu [data-language="' + saved + '"],#language-menu [data-value="' + saved + '"]');
-    if (option && root.lang !== saved) option.click();
-    root.lang = saved;
-  }
-  function saveScale() {
-    var value = parseFloat(root.style.fontSize);
-    if (isFinite(value) && value > 0) write('vrj-text-scale', String(value / 100));
-  }
-  function bindRepair() {
-    if (window.__vrjFinalRepairBound) return;
-    window.__vrjFinalRepairBound = true;
-    installStyle();
-    document.addEventListener('click', function (event) {
-      var target = event.target && event.target.closest ? event.target.closest('button,a,[role="button"]') : null;
-      if (!target) return;
-      if (target.id === 'btn-light-mode') {
-        setTimeout(function () { var next = read('vrj-theme', 'dark') !== 'light'; write('vrj-theme', next ? 'light' : 'dark'); applyTheme(); announce(next ? 'Light mode is on.' : 'Light mode is off.'); }, 0);
-      } else if (target.id === 'btn-increase-font') {
-        setTimeout(function () { saveScale(); announce('Text size increased.'); }, 0);
-      } else if (target.id === 'btn-reset-font') {
-        setTimeout(function () { write('vrj-text-scale', '1'); saveScale(); announce('Text size reset to default.'); }, 0);
-      } else if (target.matches('.contrast-option,[data-scheme]')) {
-        setTimeout(function () { var value = target.dataset.scheme || target.dataset.value || 'default'; write('vrj-contrast', value); applyTheme(); announce('Contrast changed.'); }, 0);
-      } else if (target.closest('#language-menu')) {
-        var code = target.dataset.language || target.dataset.value;
-        if (languages.includes(code)) write('vrj-language', code);
-      }
+  const pageScheme = {
+    'dark': {bg:'#000000', fg:'#ffffff', link:'#79b8ff'},
+    'light': {bg:'#ffffff', fg:'#111111', link:'#005fcc'},
+    'yellow-black': {bg:'#000000', fg:'#ffff00', link:'#00ffff'},
+    'black-yellow': {bg:'#ffff00', fg:'#000000', link:'#0000aa'},
+    'dark-blue': {bg:'#000033', fg:'#ffff00', link:'#00ffff'},
+    'white-black': {bg:'#000000', fg:'#ffffff', link:'#79b8ff'},
+    'black-white': {bg:'#ffffff', fg:'#000000', link:'#0044cc'}
+  };
+  function applyScheme(name) {
+    const scheme = pageScheme[name] || pageScheme.dark;
+    root.dataset.vrjContrast = name;
+    root.style.setProperty('--vrj-bg', scheme.bg);
+    root.style.setProperty('--vrj-fg', scheme.fg);
+    root.style.setProperty('--vrj-link', scheme.link);
+    document.body.style.setProperty('background-color', scheme.bg, 'important');
+    document.body.style.setProperty('color', scheme.fg, 'important');
+    document.querySelectorAll('body *').forEach(function (el) {
+      if (el.matches('a, a *')) el.style.setProperty('color', scheme.link, 'important');
+      else if (!el.matches('button, input, select, textarea, option, svg, path, img, video, audio, canvas')) el.style.setProperty('color', scheme.fg, 'important');
     });
-    var savedScale = parseFloat(read('vrj-text-scale', '1'));
-    if (isFinite(savedScale) && savedScale > 0) root.style.fontSize = (savedScale * 100) + '%';
-    applyTheme();
-    restoreLanguage();
-    window.addEventListener('pageshow', function () { setTimeout(function () { applyTheme(); restoreLanguage(); }, 0); });
-    window.addEventListener('load', function () { setTimeout(function () { installStyle(); applyTheme(); restoreLanguage(); }, 0); });
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindRepair); else bindRepair();
-})();
-
-/* Corrective overrides: preserve translated labels while restoring controls and layout. */
-(function () {
-  'use strict';
-  var root = document.documentElement;
-  var allowed = ['en','es','fr','zh'];
-  function get(k, d) { try { var v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } }
-  function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
-  function status(message) { var s = document.getElementById('font-status-message') || document.getElementById('contrast-status'); if (s) s.textContent = message; }
-  function css() {
-    var s = document.getElementById('vrj-final-layout-style');
-    if (!s) { s = document.createElement('style'); s.id = 'vrj-final-layout-style'; document.head.appendChild(s); }
-    s.textContent = 'body:not(.covers-page) header nav ul{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.45rem!important;}body:not(.covers-page) header nav li{display:block!important;width:auto!important;}body:not(.covers-page) .font-control-region{width:100%!important;max-width:none!important;}body:not(.covers-page) .font-control-region .control-btn-group{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:flex-start!important;gap:.6rem!important;width:100%!important;}body:not(.covers-page) .font-control-region .theme-contrast-controls{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;gap:.6rem!important;}body:not(.covers-page) .font-control-region .accessible-btn{display:inline-block!important;box-sizing:border-box!important;min-height:2.75rem!important;padding:.45rem .7rem!important;border:.2rem solid currentColor!important;border-radius:.45rem!important;background:transparent!important;color:var(--vrj-fg,#fff)!important;}@media(max-width:767px){body:not(.covers-page) .font-control-region .control-btn-group,body:not(.covers-page) .font-control-region .theme-contrast-controls{flex-direction:column!important;align-items:stretch!important;width:100%!important;}body:not(.covers-page) .font-control-region .accessible-btn{width:100%!important;max-width:24rem!important;align-self:flex-start!important;}}';
-  }
-  function currentScale() { var n = parseFloat(root.style.fontSize); return isFinite(n) && n > 0 ? n / 100 : parseFloat(get('vrj-text-scale', '1')) || 1; }
-  function applyScale(n) { n = Math.max(.8, Math.min(1.6, n)); root.style.fontSize = (n * 100) + '%'; set('vrj-text-scale', String(n)); }
-  function restore() {
-    css();
-    applyScale(parseFloat(get('vrj-text-scale', '1')) || 1);
-    var theme = get('vrj-theme', 'dark');
-    root.setAttribute('data-vrj-theme', theme);
-    root.style.setProperty('--vrj-fg', theme === 'light' ? '#000' : '#fff');
-    var light = document.getElementById('btn-light-mode');
-    if (light) light.setAttribute('aria-checked', theme === 'light' ? 'true' : 'false');
-    var saved = get('vrj-language', 'en');
-    if (allowed.indexOf(saved) < 0) saved = 'en';
-    var opt = document.querySelector('#language-menu [data-language="' + saved + '"],#language-menu [data-value="' + saved + '"]');
-    if (opt && root.lang !== saved) opt.click();
-    root.lang = saved;
-  }
-  function bind() {
-    if (window.__vrjCorrectiveBound) return;
-    window.__vrjCorrectiveBound = true;
-    document.addEventListener('click', function (e) {
-      var t = e.target && e.target.closest ? e.target.closest('button,a,[role="button"]') : null;
-      if (!t) return;
-      if (t.id === 'btn-increase-font') { e.preventDefault(); applyScale(currentScale() + .1); status('Text size increased.'); }
-      else if (t.id === 'btn-reset-font') { e.preventDefault(); applyScale(1); status('Text size reset to default.'); }
-      else if (t.id === 'btn-light-mode') { e.preventDefault(); var on = get('vrj-theme', 'dark') !== 'light'; set('vrj-theme', on ? 'light' : 'dark'); root.setAttribute('data-vrj-theme', on ? 'light' : 'dark'); root.style.setProperty('--vrj-fg', on ? '#000' : '#fff'); t.setAttribute('aria-checked', on ? 'true' : 'false'); status(on ? 'Light mode is on.' : 'Light mode is off.'); }
-      else if (t.closest('#language-menu')) { var code = t.dataset.language || t.dataset.value; if (allowed.indexOf(code) >= 0) set('vrj-language', code); }
-    }, true);
-    window.addEventListener('pageshow', function () { setTimeout(restore, 0); });
-    window.addEventListener('load', function () { setTimeout(restore, 0); });
-    restore();
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind); else bind();
-})();
-
-/* Final sizing guard for homepage display controls. */
-(function () {
-  'use strict';
-  function install() {
-    var s = document.getElementById('vrj-control-size-style');
-    if (!s) { s = document.createElement('style'); s.id = 'vrj-control-size-style'; document.head.appendChild(s); }
-    s.textContent = 'body:not(.covers-page) .font-control-region .control-btn-group,body:not(.covers-page) .font-control-region .theme-contrast-controls{box-sizing:border-box!important;min-height:0!important;height:auto!important;align-items:center!important;}body:not(.covers-page) .font-control-region .control-btn-group>*,body:not(.covers-page) .font-control-region .theme-contrast-controls>*{box-sizing:border-box!important;flex:0 1 auto!important;width:auto!important;height:auto!important;min-width:0!important;min-height:2.75rem!important;max-height:none!important;align-self:center!important;}body:not(.covers-page) .font-control-region button.accessible-btn,body:not(.covers-page) .font-control-region [role="switch"]{box-sizing:border-box!important;width:auto!important;height:auto!important;min-width:8rem!important;min-height:2.75rem!important;max-width:18rem!important;max-height:6rem!important;white-space:normal!important;overflow:visible!important;}@media(min-width:768px){body:not(.covers-page) .font-control-region .control-btn-group{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:flex-start!important;gap:.6rem!important;}body:not(.covers-page) .font-control-region .theme-contrast-controls{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:.6rem!important;flex:0 1 auto!important;}}@media(max-width:767px){body:not(.covers-page) .font-control-region .control-btn-group,body:not(.covers-page) .font-control-region .theme-contrast-controls{display:flex!important;flex-direction:column!important;align-items:stretch!important;height:auto!important;}body:not(.covers-page) .font-control-region button.accessible-btn,body:not(.covers-page) .font-control-region [role="switch"]{width:100%!important;max-width:24rem!important;}}';
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install); else install();
-  window.addEventListener('load', install);
-})();
-/* Contrast-menu and homepage theme repair: preserve existing ARIA/menu semantics while giving the menu an opaque, bounded surface and one authoritative theme path. */
-(function () {
-  'use strict';
-  function install() {
-    var root = document.documentElement;
-    var style = document.getElementById('vrj-contrast-repair-style') || document.createElement('style');
-    style.id = 'vrj-contrast-repair-style';
-    style.textContent = '.contrast-control{position:relative!important;isolation:isolate!important}.contrast-menu{position:absolute!important;top:calc(100% + .5rem)!important;left:0!important;width:min(22rem,calc(100vw - 2rem))!important;max-width:calc(100vw - 2rem)!important;box-sizing:border-box!important;margin:0!important;padding:.5rem!important;background:#000!important;color:#fff!important;opacity:1!important;visibility:visible!important;z-index:1000!important;border:.125rem solid #fff!important;border-radius:.375rem!important;box-shadow:0 .5rem 1rem rgba(0,0,0,.85)!important}.contrast-menu[hidden]{display:none!important}.contrast-menu li{display:block!important;margin:0!important;padding:0!important}.contrast-option{display:block!important;width:100%!important;box-sizing:border-box!important;min-height:2.75rem!important;margin:0!important;padding:.55rem .75rem!important;background:#000!important;color:#fff!important;border:.125rem solid transparent!important;border-radius:.25rem!important;white-space:normal!important;overflow-wrap:anywhere!important;text-align:left!important}.contrast-option[aria-checked="true"]{border-color:#fff!important}.contrast-option:focus-visible{outline:.2rem solid #79b8ff!important;outline-offset:.1rem!important}@media(max-width:767px){.font-control-region .contrast-menu{position:static!important;width:100%!important;max-width:100%!important;margin:.5rem 0 0!important}.font-control-region .contrast-control{width:100%!important}.font-control-region .contrast-option{width:100%!important}.font-control-region .theme-contrast-controls,.font-control-region .theme-contrast-controls>*{width:100%!important;max-width:100%!important}}';
-    if (!style.isConnected) document.head.appendChild(style);
-    var light = document.getElementById('btn-light-mode');
-    function applyTheme(mode) {
-      var isLight = mode === 'light';
-      root.setAttribute('data-vrj-theme', isLight ? 'light' : 'dark');
-      root.style.setProperty('--vrj-bg', isLight ? '#fff' : '#000');
-      root.style.setProperty('--vrj-fg', isLight ? '#000' : '#fff');
-      root.style.backgroundColor = isLight ? '#fff' : '#000';
-      root.style.color = isLight ? '#000' : '#fff';
-      document.body.classList.toggle('light-mode', isLight);
-      document.body.style.backgroundColor = isLight ? '#fff' : '#000';
-      document.body.style.color = isLight ? '#000' : '#fff';
-      if (light) { light.setAttribute('aria-checked', isLight ? 'true' : 'false'); var state=document.getElementById('theme-state'); if(state) state.textContent=isLight?'On':'Off'; }
+    document.querySelectorAll('header, main, footer, section, article, nav, figure, blockquote, .press-release-card, .font-control-region').forEach(function(el) {
+      el.style.setProperty('background-color', scheme.bg, 'important');
+    });
+    document.querySelectorAll('button, input, select, textarea').forEach(function(el) {
+      el.style.setProperty('background-color', scheme.bg, 'important');
+      el.style.setProperty('color', scheme.fg, 'important');
+      el.style.setProperty('border-color', scheme.fg, 'important');
+    });
+    document.querySelectorAll('.contrast-option').forEach(function(el) {
+      el.style.setProperty('background-color', scheme.bg, 'important');
+      el.style.setProperty('color', scheme.fg, 'important');
+    });
+    const light = document.getElementById('btn-light-mode');
+    if (light) {
+      const isLight = name === 'light';
+      light.setAttribute('aria-checked', isLight ? 'true' : 'false');
+      light.setAttribute('aria-label', isLight ? 'Light mode On' : 'Light mode Off');
+      const state = document.getElementById('theme-state');
+      if (state) state.textContent = isLight ? 'On' : 'Off';
     }
-    var saved = localStorage.getItem('vrj-theme');
-    if (saved !== 'light' && saved !== 'dark') saved = 'dark';
-    applyTheme(saved);
-    if (light && !light.dataset.vrjRepairBound) {
-      light.dataset.vrjRepairBound = 'true';
-      light.addEventListener('click', function (event) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        var next = localStorage.getItem('vrj-theme') === 'light' ? 'dark' : 'light';
-        localStorage.setItem('vrj-theme', next);
-        applyTheme(next);
-        var status = document.getElementById('font-status-message') || document.querySelector('.font-control-region [role="status"]');
-        if (status) status.textContent = next === 'light' ? 'Light mode is on.' : 'Light mode is off.';
-      }, true);
-    }
+    document.querySelectorAll('.contrast-option').forEach(el => el.setAttribute('aria-checked', el.dataset.scheme === name ? 'true' : 'false'));
+    localStorage.setItem('vrj-contrast', name);
+    if (name === 'light' || name === 'dark') localStorage.setItem('vrj-theme', name);
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install); else install();
-  window.addEventListener('load', install);
+  const selectedScheme = localStorage.getItem('vrj-contrast') || localStorage.getItem('vrj-theme') || 'dark';
+  applyScheme(selectedScheme);
+  const currentLang = ['en','es','fr','zh'].includes(localStorage.getItem('vrj-language')) ? localStorage.getItem('vrj-language') : 'en';
+  translate(currentLang);
+
+  document.addEventListener('click', function(event) {
+    const target = event.target.closest('button');
+    if (!target) return;
+    if (target.id === 'btn-light-mode') {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      const current = root.dataset.vrjContrast;
+      const next = current === 'light' ? 'dark' : 'light';
+      applyScheme(next);
+      announce(next === 'light' ? 'Light mode is on.' : 'Light mode is off.');
+      return;
+    }
+    if (target.matches('.contrast-option')) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      const scheme = target.dataset.scheme;
+      applyScheme(scheme);
+      const menu = document.getElementById('contrast-menu');
+      if (menu) menu.hidden = true;
+      const button = document.getElementById('btn-contrast');
+      if (button) button.setAttribute('aria-expanded','false');
+      announce('Contrast scheme: ' + target.textContent.trim() + '.', 'contrast-status');
+      return;
+    }
+    if (target.id === 'btn-contrast') {
+      const menu = document.getElementById('contrast-menu');
+      if (menu) menu.hidden = !menu.hidden;
+      target.setAttribute('aria-expanded', menu && !menu.hidden ? 'true' : 'false');
+    }
+    if (target.matches('#language-menu button[data-lang]')) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      translate(target.dataset.lang);
+      const menu = document.getElementById('language-menu');
+      if (menu) menu.hidden = true;
+      const button = document.getElementById('btn-language');
+      if (button) button.setAttribute('aria-expanded','false');
+      announce('Language changed to ' + target.textContent.trim() + '.', 'language-status');
+    }
+    if (target.id === 'btn-increase-font') {
+      const old = parseFloat(localStorage.getItem('vrj-text-scale') || '1');
+      const size = Math.min(old + 0.1, 2);
+      localStorage.setItem('vrj-text-scale', String(size));
+      root.style.fontSize = (size * 100) + '%';
+      announce('Text size increased to ' + Math.round(size * 100) + ' percent of default.');
+    }
+    if (target.id === 'btn-reset-font') {
+      localStorage.setItem('vrj-text-scale','1');
+      root.style.fontSize = '100%';
+      announce('Text size reset to default.');
+    }
+/* Clean site-wide display-control state handling; preserve existing markup and accessibility semantics. */
+(function () {
+  'use strict';
+  const root = document.documentElement;
+  const palette = {
+    dark: {bg:'#000000', fg:'#ffffff', link:'#79b8ff'},
+    light: {bg:'#ffffff', fg:'#111111', link:'#005fcc'},
+    'yellow-black': {bg:'#000000', fg:'#ffff00', link:'#00ffff'},
+    'black-yellow': {bg:'#ffff00', fg:'#000000', link:'#0000aa'},
+    'dark-blue': {bg:'#000033', fg:'#ffff00', link:'#00ffff'},
+    'white-black': {bg:'#000000', fg:'#ffffff', link:'#79b8ff'},
+    'black-white': {bg:'#ffffff', fg:'#000000', link:'#0044cc'}
+  };
+  function apply(name) {
+    const key = palette[name] ? name : 'dark';
+    const p = palette[key];
+    root.dataset.vrjContrast = key;
+    root.style.setProperty('--vrj-bg', p.bg);
+    root.style.setProperty('--vrj-fg', p.fg);
+    root.style.setProperty('--vrj-link', p.link);
+    document.body.style.setProperty('background-color', p.bg, 'important');
+    document.body.style.setProperty('color', p.fg, 'important');
+    document.querySelectorAll('body *').forEach(el => {
+      if (el.matches('a, a *')) el.style.setProperty('color', p.link, 'important');
+      else if (!el.matches('button,input,select,textarea,option,svg,path,img,video,audio,canvas')) el.style.setProperty('color', p.fg, 'important');
+    });
+    document.querySelectorAll('header,main,footer,section,article,nav,figure,blockquote,.press-release-card,.font-control-region').forEach(el => el.style.setProperty('background-color',p.bg,'important'));
+    document.querySelectorAll('button,input,select,textarea').forEach(el => {
+      el.style.setProperty('background-color',p.bg,'important');
+      el.style.setProperty('color',p.fg,'important');
+      el.style.setProperty('border-color',p.fg,'important');
+    });
+    document.querySelectorAll('.contrast-option').forEach(el => el.setAttribute('aria-checked',el.dataset.scheme===key?'true':'false'));
+    const toggle=document.getElementById('btn-light-mode');
+    if(toggle){const on=key==='light';toggle.setAttribute('aria-checked',on?'true':'false');toggle.setAttribute('aria-label',on?'Light mode On':'Light mode Off');const state=document.getElementById('theme-state');if(state)state.textContent=on?'On':'Off';}
+    localStorage.setItem('vrj-contrast',key);
+    localStorage.setItem('vrj-theme',key==='light'?'light':'dark');
+  }
+  function say(message,id){const s=document.getElementById(id||'font-status-message')||document.querySelector('.font-control-region [role="status"]');if(s)s.textContent=message;}
+  const saved=localStorage.getItem('vrj-contrast')||localStorage.getItem('vrj-theme')||'dark';
+  apply(palette[saved]?saved:'dark');
+  const scale=Math.min(2,Math.max(1,parseFloat(localStorage.getItem('vrj-text-scale')||'1')));
+  root.style.fontSize=(scale*100)+'%';
+  if(!document.documentElement.dataset.vrjCleanDisplayBound){
+    document.documentElement.dataset.vrjCleanDisplayBound='true';
+    document.addEventListener('click',function(event){
+      const b=event.target.closest('button');if(!b)return;
+      if(b.id==='btn-light-mode'){event.preventDefault();event.stopImmediatePropagation();const next=root.dataset.vrjContrast==='light'?'dark':'light';apply(next);say(next==='light'?'Light mode is on.':'Light mode is off.');return;}
+      if(b.matches('.contrast-option')){event.preventDefault();event.stopImmediatePropagation();const key=b.dataset.scheme;apply(key);const menu=document.getElementById('contrast-menu'),trigger=document.getElementById('btn-contrast');if(menu)menu.hidden=true;if(trigger)trigger.setAttribute('aria-expanded','false');say('Contrast scheme: '+b.textContent.trim()+'.','contrast-status');return;}
+      if(b.id==='btn-contrast'){const menu=document.getElementById('contrast-menu');if(menu){menu.hidden=!menu.hidden;b.setAttribute('aria-expanded',menu.hidden?'false':'true');}return;}
+      if(b.id==='btn-increase-font'){const n=Math.min(2,Math.max(1,parseFloat(localStorage.getItem('vrj-text-scale')||'1'))+.1);localStorage.setItem('vrj-text-scale',String(n));root.style.fontSize=(n*100)+'%';say('Text size increased to '+Math.round(n*100)+' percent of default.');return;}
+      if(b.id==='btn-reset-font'){localStorage.setItem('vrj-text-scale','1');root.style.fontSize='100%';say('Text size reset to default.');return;}
+      if(b.matches('#language-menu button[data-lang]')){event.preventDefault();event.stopImmediatePropagation();const code=b.dataset.lang;localStorage.setItem('vrj-language',code);root.lang=code;const menu=document.getElementById('language-menu');if(menu)menu.hidden=true;const trigger=document.getElementById('btn-language');if(trigger)trigger.setAttribute('aria-expanded','false');say('Language changed to '+b.textContent.trim()+'.','language-status');return;}
+    },true);
+  }
 })();
