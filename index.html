@@ -12,66 +12,89 @@
 <style>
 /* Center and enlarge desktop controls; retain the original phone layout. */
 @media (min-width: 768px) {
-header > .name-intro, header > .subtitle { text-align: center; }
-header > .font-control-region { width: 100%; margin-left: auto; margin-right: auto; }
-header .font-control-region .control-btn-group { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; }
-header .font-control-region .theme-contrast-controls { display: contents; }
-header .font-control-region .control-btn-group > button,
-header .font-control-region .theme-contrast-controls > button,
-header .font-control-region .contrast-control,
-header .font-control-region .language-control { flex: 1 1 calc((100% - 2rem) / 3); width: auto; min-width: 0; max-width: 100%; box-sizing: border-box; }
-header .font-control-region .accessible-btn,
-header .font-control-region .language-trigger { min-height: 6rem; padding: 1rem .6rem; }
-header .font-control-region .contrast-control > button,
-header .font-control-region .language-control > button { height: 100%; }
-header .font-control-region .theme-switch-track { max-width: 100%; box-sizing: border-box; }
+  header > .name-intro, header > .subtitle { text-align: center; }
+  header > .font-control-region { width: 100%; margin-left: auto; margin-right: auto; }
+  header .font-control-region .control-btn-group { width: 100%; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; }
+  header .font-control-region .theme-contrast-controls { display: contents; }
+  header .font-control-region .control-btn-group > button, header .font-control-region .theme-contrast-controls > button, header .font-control-region .contrast-control, header .font-control-region .language-control { flex: 1 1 calc((100% - 2rem) / 3); width: auto; min-width: 0; max-width: 100%; box-sizing: border-box; }
+  header .font-control-region .accessible-btn, header .font-control-region .language-trigger { min-height: 6rem; padding: 1rem .6rem; }
+  header .font-control-region .contrast-control > button, header .font-control-region .language-control > button { height: 100%; }
+  header .font-control-region .theme-switch-track { max-width: 100%; box-sizing: border-box; }
 }
 @media (min-width: 1280px) {
-header .font-control-region .control-btn-group { flex-wrap: nowrap; }
-header .font-control-region .control-btn-group > button,
-header .font-control-region .theme-contrast-controls > button,
-header .font-control-region .contrast-control,
-header .font-control-region .language-control { flex: 1 1 0; }
+  header .font-control-region .control-btn-group > button, header .font-control-region .theme-contrast-controls > button, header .font-control-region .contrast-control, header .font-control-region .language-control { flex-basis: calc((100% - 3rem) / 4); }
 }
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <header>
-<h1 class="name-intro">Virginia R. Jacobs</h1>
-<span id="name-effect-description" class="sr-only">Name swirls, flickers, and then stays static.</span>
-<p class="subtitle">Official Website &amp; Music Portfolio</p>
-<nav aria-label="Main Website Navigation">
-<ul>
-<li><a href="#press-release">Official Press Release</a></li>
-<li><a href="#portrait">Official Portrait</a></li>
-<li><a href="#streaming">Artist &amp; Streaming Pages</a></li>
-<li><a href="#unverified-press">Press Archive (Status)</a></li>
-<li><a href="#social">Connect &amp; Contact</a></li>
-</ul>
-</nav>
-<section class="font-control-region" aria-label="Font Size Display Controls">
-<p>Display Adjustment:</p>
-<div class="control-btn-group">
-<button class="accessible-btn" type="button">Increase Text Size</button>
-<button class="accessible-btn" type="button">Reset Text Size</button>
-<div class="theme-contrast-controls">
-<div class="theme-switch"><button class="theme-switch-track" type="button">Light mode</button></div>
-<div class="contrast-control"><button type="button">Change Contrast</button></div>
-</div>
-<div class="language-control"><button class="language-trigger" type="button">Languages</button></div>
-</div>
-</section>
+  <div class="name-intro">
+    <h1 id="site-name">Virginia R. Jacobs</h1>
+    <span id="name-effect-description" class="sr-only">Name swirls, flickers, and then stays static.</span>
+    <p id="name-effect-status" class="sr-only" aria-live="polite"></p>
+  </div>
+  <p class="subtitle">Singer-Songwriter • Keyboardist • Storyteller</p>
+  <section class="font-control-region" aria-label="Display controls">
+    <div class="control-btn-group">
+      <button type="button" id="font-increase" class="accessible-btn">Increase Text Size</button>
+      <button type="button" id="font-reset" class="accessible-btn">Reset Text Size</button>
+      <div class="theme-contrast-controls">
+        <button type="button" id="theme-toggle" class="accessible-btn">Light mode</button>
+        <div class="contrast-control"><button type="button" id="contrast-toggle" class="accessible-btn">High contrast</button></div>
+        <div class="language-control">
+          <button type="button" id="language-trigger" class="language-trigger" aria-expanded="false" aria-controls="language-menu">Switch Languages</button>
+          <div id="language-menu" class="language-menu" hidden>
+            <button type="button" data-lang="en" aria-checked="true" role="menuitemradio">English</button>
+            <button type="button" data-lang="es" aria-checked="false" role="menuitemradio">Español</button>
+            <button type="button" data-lang="fr" aria-checked="false" role="menuitemradio">Français</button>
+            <button type="button" data-lang="zh" aria-checked="false" role="menuitemradio">简体中文</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </header>
 <main id="main-content">
-<section id="press-release"><h2>Official Press Release</h2><article><p>Official Press Release — December 2024</p><p><strong>FOR IMMEDIATE RELEASE</strong></p><h3>From the Darkness of Grief to the Light of Healing: Virginia R. Jacobs Releases Emotional New Single "I Wanna Feel"</h3><p>December 2024 - Virginia R. Jacobs, an artist renowned for her emotional depth and powerful vocal presence, releases her latest single, "I Wanna Feel." The song offers a raw and intimate reflection of the artist's journey through grief, depression, and ultimately, healing.</p><p>"I Wanna Feel" is now available for streaming on all major platforms, including Spotify, Apple Music and YouTube.</p><h4>About Virginia R. Jacobs</h4><p>Virginia R. Jacobs is a gifted singer-songwriter whose music bridges emotional vulnerability and artistic expression.</p><h4>Contact Information</h4><p><a href="#social">Connect &amp; Contact</a></p></article></section>
-<section id="portrait"><h2>Official Portrait</h2><figure><img src="virginia-portrait.jpg" alt="Virginia Jacobs official portrait"><figcaption><strong>Official Portrait:</strong> Virginia Jacobs official portrait.</figcaption></figure></section>
-<section id="streaming"><h2>Music Streaming &amp; Artist Pages</h2><p>Official artist profiles and media channels for Virginia R. Jacobs across major platforms:</p><ul><li><a href="https://music.apple.com/us/artist/virginia-r-jacobs/1706319426">Apple Music — Official Artist Page (Virginia R. Jacobs)</a></li><li><a href="https://open.spotify.com/artist/7qjeEx6OEkPL4uIZpj4Yr3">Spotify — Official Artist Page (Virginia R. Jacobs)</a></li><li><a href="https://music.amazon.com/artists/B0CHJXSPBD">Amazon Music — Official Artist Page (Virginia R. Jacobs)</a></li><li><a href="https://youtube.com/@virginiarjacobs">YouTube — Official Channel (@virginiarjacobs)</a></li><li><a href="https://music.apple.com/us/song/i-wanna-feel/1757375707">Apple Music — "I Wanna Feel" Song Release</a></li><li><a href="https://www.tiktok.com/t/ZTfYs5JRB/">TikTok — "I Wanna Feel" Sound Release</a></li><li><a href="https://www.youtube.com/watch?v=GT24dkkjayo">YouTube — "I Wanna Feel" Official Song Video</a></li></ul></section>
-<section id="unverified-press"><h2>Press &amp; Mentions Archive (Verification Record)</h2><p>The following entries are confirmed coverage of Virginia R. Jacobs, with verified links to the original sources:</p><h3>Maryland School for the Blind (MSB) Official Blog (May 14, 2024)</h3><p><a href="https://www.marylandschoolfortheblind.org/virginia-r-jacobs/">Virginia R. Jacobs — Maryland School for the Blind</a></p><h3>National Federation of the Blind — Santa Wrote Me a Letter</h3><p><a href="https://youtu.be/K8ZqfFuzswk">Santa Wrote Me a Letter — National Federation of the Blind</a></p></section>
-<section id="social"><h2>Connect &amp; Media Contact</h2><p>Official contact channels and social profiles for Virginia R. Jacobs:</p><ul><li><a href="https://youtube.com/@virginiarjacobs">YouTube — @virginiarjacobs</a></li><li><a href="mailto:virginia@example.com">Media Contact Email</a></li><li><a href="https://www.tiktok.com/@virginiajacobs90">@virginiajacobs90 (TikTok)</a></li><li><a href="https://www.instagram.com/virginiarjacobs">@virginiarjacobs (Instagram)</a></li><li><a href="https://www.facebook.com/virginiarjacobs/">Virginia R. Jacobs (Facebook)</a></li></ul></section>
-<section id="resources"><h2>Additional Resources</h2><a href="i-wanna-feel-sheet-music.pdf">I Wanna Feel - Sheet Music (PDF)</a></section>
-<section id="covers"><h2>Song Covers</h2><p>Unreleased covers, shared here for you.</p><a href="covers.html">Listen to the song covers</a></section>
+  <section id="announcement" aria-labelledby="announcement-heading">
+    <h2 id="announcement-heading">Official Announcement</h2>
+    <p>Virginia R. Jacobs is a singer-songwriter and keyboardist sharing music that connects memory, movement, and meaning.</p>
+  </section>
+  <section id="music" aria-labelledby="music-heading">
+    <h2 id="music-heading">I Wanna Feel</h2>
+    <p>Listen to the original single and explore the story behind the song.</p>
+    <audio controls preload="metadata"><source src="audio/i-wanna-feel.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+    <p><a href="i-wanna-feel-sheet-music.pdf">I Wanna Feel — Sheet Music (PDF)</a></p>
+  </section>
+  <section id="covers" aria-labelledby="covers-heading">
+    <h2 id="covers-heading">Song Covers</h2>
+    <p>Unreleased covers, shared here for you.</p>
+    <a href="covers.html">Listen to the song covers</a>
+  </section>
 </main>
-<footer><p>© 2026 Virginia R. Jacobs. All rights reserved.</p><p>Semantic HTML5, WCAG AAA contrast standard, and zero external runtime dependencies.</p></footer>
+<footer>
+  <p>© 2026 Virginia R. Jacobs. All rights reserved.</p>
+  <p>Semantic HTML5, WCAG AAA contrast standard, and zero external runtime dependencies.</p>
+</footer>
+<script>
+(() => {
+  const root = document.documentElement;
+  const increase = document.getElementById('font-increase');
+  const reset = document.getElementById('font-reset');
+  const liveRegion = document.getElementById('name-effect-status');
+  let currentScale = 1.0;
+  const applyScale = () => {
+    root.style.fontSize = `${currentScale * 100}%`;
+    try { localStorage.setItem('vrj-text-scale', String(currentScale)); } catch (_) {}
+  };
+  try {
+    const saved = Number(localStorage.getItem('vrj-text-scale'));
+    if (saved >= 0.9 && saved <= 1.2) currentScale = saved;
+  } catch (_) {}
+  applyScale();
+  increase?.addEventListener('click', () => { currentScale = Math.min(1.2, +(currentScale + 0.1).toFixed(1)); applyScale(); if (liveRegion) liveRegion.textContent = `Text size ${Math.round(currentScale * 100)} percent.`; });
+  reset?.addEventListener('click', () => { currentScale = 1.0; applyScale(); if (liveRegion) liveRegion.textContent = 'Text size reset to default.'; });
+})();
+</script>
 </body>
 </html>
