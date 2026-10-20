@@ -5,11 +5,12 @@ html a,html body a{color:#79b8ff;text-decoration:underline;}
 html input,html select,html textarea,html button{background:#000;color:#fff;}
 html body :focus-visible{outline:3px dashed #00ffff;outline-offset:5px;}
 
-/* Navigation toolbar: anchors retain their names, destinations and DOM order. */
-body:not(.covers-page) header nav ul {display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:1rem;padding:0;list-style:none;}
-body:not(.covers-page) header nav li {display:flex;flex:1 1 100%;min-width:0;margin:0;}
-body:not(.covers-page) header nav li a {display:flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:3rem;padding:.75rem .6rem;background:#000;color:#fff;border:.2rem solid #fff;border-radius:.375rem;font-weight:800;text-align:center;text-decoration:underline;overflow-wrap:anywhere;}
-html.light-mode body:not(.covers-page) header nav a {box-shadow:none;}
+/* Homepage portfolio navigation remains a list of links, not button blocks. */
+body:not(.covers-page) header nav ul{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:.75rem 1.25rem;padding:0;list-style:none;}
+body:not(.covers-page) header nav li{display:list-item;flex:0 1 auto;min-width:0;margin:0;}
+body:not(.covers-page) header nav li a{display:inline;color:#79b8ff;background:transparent;border:0;border-radius:0;min-height:0;padding:0;font-weight:400;text-align:left;text-decoration:underline;overflow-wrap:anywhere;}
+body:not(.covers-page) header nav li a:hover{text-decoration-thickness:2px;}
+
 html:has(.covers-page){--scale:1;--fg:#fff;--bg:#000;--accent:#79b8ff;--control-fg:#fff;--control-bg:#000;font-size:calc(100% * var(--scale));}
 .covers-page{margin:0;background:#000;color:#fff;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:1.2rem;line-height:1.75;overflow-wrap:anywhere;}
 .covers-page *{box-sizing:border-box;}
@@ -41,20 +42,38 @@ html:has(.covers-page){--scale:1;--fg:#fff;--bg:#000;--accent:#79b8ff;--control-
 .covers-page input.seek::-webkit-slider-runnable-track{background:transparent;height:100%;}
 .covers-page input.seek::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:12px;height:100%;border:3px solid #fff;background:#000;box-shadow:0 0 0 2px #000;border-radius:4px;}
 .covers-page input.seek::-moz-range-track{background:transparent;}
-
-/* Approved desktop player row; mobile gets a compact stacked flow below. */
 .covers-page .playback-controls{display:flex;align-items:center;justify-content:center;gap:.25rem;flex-wrap:nowrap;margin:.35rem 0 0;min-width:0;}
 .covers-page .playback-controls .play-button{flex:0 1 auto;min-width:0;min-height:44px;padding:.45rem .65rem;}
 .covers-page .playback-controls .time{flex:0 0 auto;white-space:nowrap;}
-@media(max-width:767px){
-  html,html body{overflow-x:hidden;}
-  .covers-page .container{padding:.75rem .75rem;}
-  .covers-page .cover-player{margin:1rem 0;padding:.5rem 0;}
-  .covers-page .wave{height:5rem;min-height:72px;}
-  .covers-page .playback-controls{display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;margin:.45rem auto 0;width:min(100%,22rem);}
-  .covers-page .playback-controls .play-button{width:100%;min-height:44px;padding:.35rem .6rem;}
-  .covers-page .playback-controls .time{width:100%;}
-}
 
-/* Homepage mobile navigation: compact, touch-friendly bars without changing labels or DOM order. */
-@media(max-width:767px), (pointer:coarse) and (max-width:1280px){body:not(.covers-page) header{padding-top:.5rem;}body:not(.covers-page) header > .name-intro{margin:.25rem 0 .35rem;}body:not(.covers-page) header > .subtitle{margin:.25rem 0 .65rem;}body:not(.covers-page) header nav ul{gap:.45rem;margin:.5rem 0 .75rem;}body:not(.covers-page) header nav li{flex:0 1 auto;width:min(100%,22rem);margin:0 auto;}body:not(.covers-page) header nav li a{width:100%;min-height:3rem;padding:.45rem .65rem;border:.2rem solid #fff;border-radius:.5rem;font-family:inherit;line-height:1.25;}}
+/* Homepage accessibility controls: real buttons in a desktop row; stack on phones. */
+body:not(.covers-page) .font-control-region .control-btn-group{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:center;gap:.75rem;width:100%;max-width:100%;}
+body:not(.covers-page) .font-control-region .control-btn-group>button,
+body:not(.covers-page) .font-control-region .theme-contrast-controls>button,
+body:not(.covers-page) .font-control-region .contrast-control>button,
+body:not(.covers-page) .font-control-region .language-control>button{width:auto;max-width:100%;}
+
+@media(max-width:767px){
+ html,html body{overflow-x:hidden;}
+ .covers-page .container{padding:.75rem .75rem;}
+ .covers-page .cover-player{margin:1rem 0;padding:.5rem 0;}
+ .covers-page .wave{height:5rem;min-height:72px;}
+ .covers-page .playback-controls{display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;margin:.45rem auto 0;width:min(100%,20rem);}
+ .covers-page .playback-controls .play-button{width:100%;min-height:44px;padding:.35rem .6rem;}
+ .covers-page .playback-controls .time{width:100%;}
+ body:not(.covers-page) header{padding-top:.5rem;}
+ body:not(.covers-page) header>.name-intro{margin:.25rem 0 .35rem;}
+ body:not(.covers-page) header>.subtitle{margin:.25rem 0 .65rem;}
+ body:not(.covers-page) header nav ul{gap:.45rem .9rem;margin:.5rem 0 .75rem;align-items:baseline;}
+ body:not(.covers-page) header nav li{flex:0 1 auto;width:auto;margin:0;}
+ body:not(.covers-page) header nav li a{width:auto;min-height:0;padding:0;border:0;border-radius:0;font-family:inherit;line-height:1.35;}
+ body:not(.covers-page) .font-control-region .control-btn-group{flex-direction:column;align-items:stretch;gap:.75rem;width:min(100%,20rem);margin:0 auto;}
+ body:not(.covers-page) .font-control-region .control-btn-group>button,
+ body:not(.covers-page) .font-control-region .theme-contrast-controls>button,
+ body:not(.covers-page) .font-control-region .contrast-control>button,
+ body:not(.covers-page) .font-control-region .language-control>button{width:100%;}
+}
+@media (pointer:coarse) and (max-width:1280px){
+ body:not(.covers-page) header nav ul{gap:.45rem .9rem;}
+ body:not(.covers-page) header nav li{width:auto;}
+}
