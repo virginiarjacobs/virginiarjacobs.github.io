@@ -465,3 +465,50 @@ try {
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindRepair); else bindRepair();
 })();
+
+/* Corrective overrides: preserve translated labels while restoring controls and layout. */
+(function () {
+  'use strict';
+  var root = document.documentElement;
+  var allowed = ['en','es','fr','zh'];
+  function get(k, d) { try { var v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } }
+  function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function status(message) { var s = document.getElementById('font-status-message') || document.getElementById('contrast-status'); if (s) s.textContent = message; }
+  function css() {
+    var s = document.getElementById('vrj-final-layout-style');
+    if (!s) { s = document.createElement('style'); s.id = 'vrj-final-layout-style'; document.head.appendChild(s); }
+    s.textContent = 'body:not(.covers-page) header nav ul{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.45rem!important;}body:not(.covers-page) header nav li{display:block!important;width:auto!important;}body:not(.covers-page) .font-control-region{width:100%!important;max-width:none!important;}body:not(.covers-page) .font-control-region .control-btn-group{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:flex-start!important;gap:.6rem!important;width:100%!important;}body:not(.covers-page) .font-control-region .theme-contrast-controls{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;gap:.6rem!important;}body:not(.covers-page) .font-control-region .accessible-btn{display:inline-block!important;box-sizing:border-box!important;min-height:2.75rem!important;padding:.45rem .7rem!important;border:.2rem solid currentColor!important;border-radius:.45rem!important;background:transparent!important;color:var(--vrj-fg,#fff)!important;}@media(max-width:767px){body:not(.covers-page) .font-control-region .control-btn-group,body:not(.covers-page) .font-control-region .theme-contrast-controls{flex-direction:column!important;align-items:stretch!important;width:100%!important;}body:not(.covers-page) .font-control-region .accessible-btn{width:100%!important;max-width:24rem!important;align-self:flex-start!important;}}';
+  }
+  function currentScale() { var n = parseFloat(root.style.fontSize); return isFinite(n) && n > 0 ? n / 100 : parseFloat(get('vrj-text-scale', '1')) || 1; }
+  function applyScale(n) { n = Math.max(.8, Math.min(1.6, n)); root.style.fontSize = (n * 100) + '%'; set('vrj-text-scale', String(n)); }
+  function restore() {
+    css();
+    applyScale(parseFloat(get('vrj-text-scale', '1')) || 1);
+    var theme = get('vrj-theme', 'dark');
+    root.setAttribute('data-vrj-theme', theme);
+    root.style.setProperty('--vrj-fg', theme === 'light' ? '#000' : '#fff');
+    var light = document.getElementById('btn-light-mode');
+    if (light) light.setAttribute('aria-checked', theme === 'light' ? 'true' : 'false');
+    var saved = get('vrj-language', 'en');
+    if (allowed.indexOf(saved) < 0) saved = 'en';
+    var opt = document.querySelector('#language-menu [data-language="' + saved + '"],#language-menu [data-value="' + saved + '"]');
+    if (opt && root.lang !== saved) opt.click();
+    root.lang = saved;
+  }
+  function bind() {
+    if (window.__vrjCorrectiveBound) return;
+    window.__vrjCorrectiveBound = true;
+    document.addEventListener('click', function (e) {
+      var t = e.target && e.target.closest ? e.target.closest('button,a,[role="button"]') : null;
+      if (!t) return;
+      if (t.id === 'btn-increase-font') { e.preventDefault(); applyScale(currentScale() + .1); status('Text size increased.'); }
+      else if (t.id === 'btn-reset-font') { e.preventDefault(); applyScale(1); status('Text size reset to default.'); }
+      else if (t.id === 'btn-light-mode') { e.preventDefault(); var on = get('vrj-theme', 'dark') !== 'light'; set('vrj-theme', on ? 'light' : 'dark'); root.setAttribute('data-vrj-theme', on ? 'light' : 'dark'); root.style.setProperty('--vrj-fg', on ? '#000' : '#fff'); t.setAttribute('aria-checked', on ? 'true' : 'false'); status(on ? 'Light mode is on.' : 'Light mode is off.'); }
+      else if (t.closest('#language-menu')) { var code = t.dataset.language || t.dataset.value; if (allowed.indexOf(code) >= 0) set('vrj-language', code); }
+    }, true);
+    window.addEventListener('pageshow', function () { setTimeout(restore, 0); });
+    window.addEventListener('load', function () { setTimeout(restore, 0); });
+    restore();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind); else bind();
+})();
