@@ -7,9 +7,9 @@
 <meta name="description" content="Official website and press release for singer-songwriter Virginia R. Jacobs, featuring the single I Wanna Feel.">
 <meta property="og:image" content="https://virginiarjacobs.github.io/photo-6bc032c2.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<script src="languages.js?v=7" defer></script>
-<script src="covers.js?v=8" defer></script>
-<link rel="stylesheet" href="covers.css?v=9">
+<script src="languages.js?v=20261021" defer></script>
+<script src="covers.js?v=20261021" defer></script>
+<link rel="stylesheet" href="covers.css?v=20261021">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -33,12 +33,14 @@
 <button type="button" id="btn-increase-font" class="accessible-btn" aria-label="Increase text size for entire website">Increase Text Size</button>
 <button type="button" id="btn-reset-font" class="accessible-btn" aria-label="Reset text size to default">Reset Text Size</button>
 <div class="theme-contrast-controls">
-<button type="button" id="btn-light-mode" class="accessible-btn" role="switch" aria-checked="false" aria-label="Light mode Off"><span aria-hidden="true">Light mode </span><span id="theme-state" aria-hidden="true">Off</span><span class="theme-switch-track" aria-hidden="true"></span></button>
+<button type="button" id="btn-light-mode" class="accessible-btn" role="switch" aria-checked="false" aria-label="Light mode Off"><span id="light-label" aria-hidden="true">Light mode</span> <span id="theme-state" aria-hidden="true">Off</span><span class="theme-switch-track" aria-hidden="true"></span></button>
+<div class="contrast-control"><button type="button" id="btn-contrast" class="accessible-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="contrast-menu">Change Contrast</button><div id="contrast-menu" class="menu" role="menu" aria-label="Change Contrast" hidden></div></div>
 <div class="language-control"><button type="button" class="accessible-btn language-trigger" id="btn-languages" lang="en" aria-label="Switch Languages" aria-haspopup="menu" aria-expanded="false" aria-controls="language-menu"><span aria-hidden="true">Languages</span></button><ul id="language-menu" class="language-menu" role="menu" aria-labelledby="btn-languages" hidden></ul></div>
 </div>
 </div>
 </section>
-<main id="main-content">
+</header>
+<main id="main-content" tabindex="-1">
 <section id="press-release" aria-labelledby="press-release-heading"><h2 id="press-release-heading">Official Press Release</h2><p><strong>For Immediate Release</strong></p><p>Virginia R. Jacobs releases <em>I Wanna Feel</em>, an original song about love, courage, and feeling visible.</p><p>Virginia R. Jacobs is a blind singer-songwriter, pianist, and motivational voice whose music blends honest storytelling with soulful pop.</p><p><strong>About the Single:</strong> <em>I Wanna Feel</em> explores the universal desire to be seen, heard, and emotionally understood.</p><blockquote>“I want people to feel something real when they hear my music.” — Virginia R. Jacobs</blockquote><p>Listen to <em>I Wanna Feel</em> and follow Virginia’s official channels for new music and releases.</p></section>
 <section id="portrait" aria-labelledby="portrait-heading"><h2 id="portrait-heading">Official Portrait</h2><figure><img src="virginia-portrait.jpg" alt="Portrait of Virginia R. Jacobs, blind singer-songwriter and pianist"></figure></section>
 <section id="streaming" aria-labelledby="streaming-heading"><h2 id="streaming-heading">Music Streaming and Artist Pages</h2><ul><li><a href="https://open.spotify.com/artist/5l4c7J7eH1sXkYv3E2M9mM" target="_blank" rel="noopener">Spotify</a></li><li><a href="https://music.apple.com/us/artist/virginia-r-jacobs/1710517076" target="_blank" rel="noopener">Apple Music</a></li><li><a href="https://www.amazon.com/music/player/artists/B0D2T6V3YV/virginia-r-jacobs" target="_blank" rel="noopener">Amazon Music</a></li><li><a href="https://www.deezer.com/artist/259987862" target="_blank" rel="noopener">Deezer</a></li><li><a href="https://music.youtube.com/channel/UCx6jY3d0D9Xc4Q8JjP0r6xg" target="_blank" rel="noopener">YouTube Music</a></li></ul></section>
@@ -49,13 +51,5 @@
 </main>
 <footer><p>© 2026 Virginia R. Jacobs. All rights reserved.</p><p>Semantic HTML5, WCAG AAA contrast standard, and zero external runtime dependencies.</p></footer>
 </div>
-<script>
-(function(){
-  var root=document.documentElement,currentScale=1,liveRegion=document.getElementById('font-status-message'),increase=document.getElementById('btn-increase-font'),reset=document.getElementById('btn-reset-font'),light=document.getElementById('btn-light-mode');
-  if(increase)increase.addEventListener('click',function(){currentScale=Math.min(currentScale+0.1,1.5);root.style.fontSize=(currentScale*100)+'%';if(liveRegion)liveRegion.textContent='Text size increased to '+Math.round(currentScale*100)+' percent of default.';});
-  if(reset)reset.addEventListener('click',function(){currentScale=1;root.style.fontSize='100%';if(liveRegion)liveRegion.textContent='Text size reset to default.';});
-  if(light)light.addEventListener('click',function(){light.setAttribute('aria-checked','false');if(liveRegion)liveRegion.textContent='Light mode is unavailable because black background with white text is permanent.';});
-})();
-</script>
 </body>
 </html>
