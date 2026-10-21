@@ -9,6 +9,43 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="covers.css?v=20261021">
 <script src="languages.js?v=20261021" defer></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title | escape }} — Virginia R. Jacobs</title>
+<meta property="og:image" content="https://virginiarjacobs.github.io/photo-6bc032c2.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/covers.css?v=20261021">
+<script src="/languages.js?v=20261021" defer></script>
+<script src="/covers.js?v=20261021" defer></script>
+<style> .wave{isolation:isolate;} .velvet-stage{position:absolute;inset:0;z-index:5;overflow:hidden;border-radius:.3rem;pointer-events:none;} .velvet-panel{position:absolute;top:0;bottom:0;width:51%;height:100%;background-color:var(--bg);background-image:none;border-bottom:6px double var(--fg);box-shadow:none;transition:transform 1.3s cubic-bezier(.25,.7,.2,1);} .velvet-left{left:0;transform-origin:top left;}.velvet-right{right:0;transform-origin:top right;} .velvet-stage.open .velvet-left{transform:translateX(-101%) scaleX(.75) skewY(-3deg);}.velvet-stage.open .velvet-right{transform:translateX(101%) scaleX(.75) skewY(3deg);} .covers-page .title-burst{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;} .covers-page input.seek{position:relative;} .covers-page .wave:focus-within{outline:3px dashed #00ffff;outline-offset:5px;box-shadow:0 0 0 4px #000,0 0 0 8px #fff,0 0 0 11px #000;} @media(prefers-reduced-motion:reduce){.velvet-panel{transition:none;}} </style>
+</head>
+<body class="covers-page" data-song="{{ page.song | escape }}">
+<a class="skip-link" href="#tracks" data-cover-text="skip">Skip to main content</a>
+<div class="container">
+<header>
+<a href="/covers.html" data-cover-text="backSetlist">Back to Song Covers</a>
+<h1>{{ page.title | escape }}</h1>
+<p data-cover-text="subtitle">Unreleased covers, shared here for you.</p>
+</header>
+<main id="tracks" tabindex="-1"></main>
+<footer><p data-cover-text="footer">All covers performed by Virginia R. Jacobs. Original songs belong to their respective rights holders.</p></footer>
+<div id="display-controls" class="display-panel" role="region" aria-label="Font Size Display Controls">
+<p id="display-label">Display Adjustment:</p>
+<div class="control-row">
+<button id="btn-increase-font" type="button" aria-label="Increase text size for entire website">Increase Text Size</button>
+<button id="btn-reset-font" type="button" aria-label="Reset text size to default">Reset Text Size</button>
+<button id="btn-light-mode" type="button" role="switch" aria-checked="false" aria-label="Light mode"><span id="light-label">Light mode</span> <span id="theme-state" aria-hidden="true">Off</span></button>
+<div class="menu-control"><button id="contrast-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="contrast-menu">Change Contrast</button><div id="contrast-menu" class="menu" role="menu" hidden></div></div>
+<div class="menu-control"><button id="language-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="language-menu" aria-label="Switch Languages">Languages</button><div id="language-menu" class="menu" role="menu" hidden></div></div>
+</div>
+</div>
+</div>
+<script>document.documentElement.lang=document.documentElement.lang||"en";</script>
+</body>
+</html>
 <script src="covers.js?v=20261021" defer></script>
 <style>
 .wave{isolation:isolate;}
