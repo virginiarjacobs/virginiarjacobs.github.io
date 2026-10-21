@@ -23,13 +23,14 @@
 </style>
 </head>
 <body class="covers-page" data-song="{{ page.song | escape }}">
+<a class="skip-link" href="#tracks" data-cover-text="skip">Skip to main content</a>
 <div class="container">
 <header>
 <a href="/covers.html" data-cover-text="backSetlist">Back to Song Covers</a>
 <h1>{{ page.title | escape }}</h1>
 <p data-cover-text="subtitle">Unreleased covers, shared here for you.</p>
 </header>
-<main id="tracks"></main>
+<main id="tracks" tabindex="-1"></main>
 <footer><p data-cover-text="footer">All covers performed by Virginia R. Jacobs. Original songs belong to their respective rights holders.</p></footer>
 <div id="display-controls" class="display-panel" role="region" aria-label="Font Size Display Controls">
 <p id="display-label">Display Adjustment:</p>
@@ -48,6 +49,7 @@
 const tracks=document.getElementById('tracks');
 const decorate=()=>tracks.querySelectorAll('.cover-player:not([data-curtain])').forEach(card=>{
 const wave=card.querySelector('.wave'),audio=card.querySelector('audio');if(!wave||!audio)return;
+if(matchMedia('(prefers-reduced-motion:reduce)').matches){card.dataset.curtain='reduced-motion';return;}
 card.dataset.curtain='ready';
 const overlay=document.createElement('canvas');overlay.className='title-burst';overlay.setAttribute('aria-hidden','true');
 const curtain=document.createElement('div');curtain.className='velvet-stage';curtain.setAttribute('aria-hidden','true');curtain.innerHTML='<div class="velvet-panel velvet-left"></div><div class="velvet-panel velvet-right"></div>';wave.append(overlay,curtain);
