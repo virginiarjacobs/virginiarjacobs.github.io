@@ -1,4 +1,8 @@
-
+/* Desktop player layout: keep transport controls and time aligned in one row across translations. */
+@media (min-width: 768px){
+.playback-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:center;gap:.5rem}
+.playback-controls .time{grid-column:auto;justify-self:start;align-self:center}
+}
 /* Desktop player layout: keep transport controls on one row across translations. */
 @media (min-width: 768px){.playback-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:.5rem}.playback-controls .time{grid-column:1/-1;justify-self:start}}
 /* Shared opaque themes; settings are applied by languages.js. */
