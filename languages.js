@@ -8,6 +8,7 @@ const read=k=>{try{return localStorage.getItem('vrj-'+k)}catch(e){return null}},
 function saved(){const n=Number(read('text-scale'));return{language:languages.includes(read('language'))?read('language'):'en',scheme:schemes.includes(read('contrast'))?read('contrast'):'default',light:read('theme')==='light',scale:Number.isFinite(n)&&n>=1&&n<=1.5?n:1};}
 let state=saved(),data,ready=false;const bindings=[];
 window.vrjDisplay={refresh:()=>{if(ready){state=saved();render()}}};
+if(document.readyState==='loading')await new Promise(resolve=>document.addEventListener('DOMContentLoaded',resolve,{once:true}));
 try{const r=await fetch('/translations.txt?v=20261021');if(!r.ok)throw Error('translations');data=await r.json();}catch(e){const s=$('#font-status-message,#player-status');if(s)s.textContent='The display controls could not load. Please refresh the page.';return;}
 const t=id=>data[state.language][id],c=()=>data.contrast[state.language];
 const say=s=>{const n=$('#font-status-message,#player-status');if(n)n.textContent=s;};
@@ -25,7 +26,7 @@ function close(focus=false){list.hidden=true;trigger.setAttribute('aria-expanded
 function open(i=0){all('[role=menu]').forEach(m=>{if(m!==list){m.hidden=true;const b=document.querySelector('[aria-controls="'+m.id+'"]');if(b)b.setAttribute('aria-expanded','false')}});list.hidden=false;trigger.setAttribute('aria-expanded','true');items[i].focus()}
 trigger.addEventListener('click',()=>list.hidden?open(Math.max(0,items.findIndex(b=>b.getAttribute('aria-checked')==='true'))):close(true));
 trigger.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();open(e.key==='ArrowUp'?items.length-1:0)}});
-list.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();const b=items.find(x=>x===document.activeElement);if(b){select(b.dataset.value);close(true)}}else if(e.key==='Escape'){e.preventDefault();close(true)}else if(e.key==='Tab'){close()}else if(['ArrowDown','ArrowUp','Home','End'].includes(e.key)){e.preventDefault();let i=items.indexOf(document.activeElement);i=e.key==='Home'?0:e.key==='End'?items.length-1:(i+(e.key==='ArrowDown'?1:-1)+items.length)%items.length;items[i].focus()}});
+list.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();const b=items.find(x=>x===document.activeElement);if(b){select(options[items.indexOf(b)]);close(true)}}else if(e.key==='Escape'){e.preventDefault();close(true)}else if(e.key==='Tab'){close()}else if(['ArrowDown','ArrowUp','Home','End'].includes(e.key)){e.preventDefault();let i=items.indexOf(document.activeElement);i=e.key==='Home'?0:e.key==='End'?items.length-1:(i+(e.key==='ArrowDown'?1:-1)+items.length)%items.length;items[i].focus()}});
 document.addEventListener('pointerdown',e=>{if(!trigger.parentElement.contains(e.target))close()});return items;
 }
 const languageTrigger=$('#btn-languages,#language-trigger'),contrastTrigger=$('#btn-contrast,#contrast-trigger');
@@ -44,8 +45,8 @@ const region=$('#display-controls,.font-control-region');if(region)region.setAtt
 if(increase){increase.textContent=t(19);increase.setAttribute('aria-label',t(20))}if(reset){reset.textContent=t(21);reset.setAttribute('aria-label',t(22))}
 if(toggle){toggle.setAttribute('role','switch');toggle.setAttribute('aria-checked',String(state.light));toggle.setAttribute('aria-label',t(23));const label=$('#light-label');if(label)label.textContent=t(23);const status=$('#theme-state');if(status)status.textContent=t(state.light?25:24);}
 const names={en:['Languages','Switch Languages'],es:['Idiomas','Cambiar idioma'],fr:['Langues','Changer de langue'],zh:['语言','切换语言']};if(languageTrigger){languageTrigger.lang=state.language;const label=languageTrigger.querySelector('#language-label,span:not(.globe)');if(label)label.textContent=names[state.language][0];else languageTrigger.textContent=names[state.language][0];languageTrigger.setAttribute('aria-label',names[state.language][1]);$('#language-menu').setAttribute('aria-label',names[state.language][1]);}
-langItems.forEach((b,n)=>{b.textContent=['English','Español','Français','简体中文'][n];b.lang=languages[n];b.setAttribute('aria-checked',String(b.dataset.value===state.language))});
-if(contrastTrigger){contrastTrigger.textContent=c().button;contrastTrigger.setAttribute('aria-label',c().button);$('#contrast-menu').setAttribute('aria-label',c().button)}contrastItems.forEach((b,n)=>{b.textContent=c()[b.dataset.value];b.setAttribute('aria-label',b.textContent+', '+c().descriptions[n]);b.setAttribute('aria-checked',String(b.dataset.value===state.scheme))});
+langItems.forEach((b,n)=>{b.textContent=['English','Español','Français','简体中文'][n];b.lang=languages[n];b.setAttribute('aria-checked',String(languages[n]===state.language))});
+if(contrastTrigger){contrastTrigger.textContent=c().button;contrastTrigger.setAttribute('aria-label',c().button);$('#contrast-menu').setAttribute('aria-label',c().button)}contrastItems.forEach((b,n)=>{b.textContent=c()[schemes[n]];b.setAttribute('aria-label',b.textContent+', '+c().descriptions[n]);b.setAttribute('aria-checked',String(schemes[n]===state.scheme))});
 say(state.scale===1?t(28):t(26)+Math.round(state.scale*100)+t(27));
 window.dispatchEvent(new CustomEvent('vrj:display'));
 }
