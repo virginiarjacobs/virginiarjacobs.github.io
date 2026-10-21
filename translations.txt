@@ -1,86 +1,94 @@
 {
   "contrast": {
-  "en": {
-    "button": "Change Contrast",
-    "default": "Default",
-    "yellow-black": "Yellow on Black",
-    "black-yellow": "Black on Yellow",
-    "dark-blue": "Dark Blue",
-    "white-black": "White on Black",
-    "black-white": "Black on White",
-    "changed": "Contrast scheme: {scheme}.",
-    "light": "Returned to Default contrast. Light mode is on.",
-    "dark": "Returned to Default contrast. Light mode is off.",
-    "descriptions": [
-      "the site’s normal dark and light themes",
-      "bright yellow text on a black background",
-      "black text on a bright yellow background",
-      "bright yellow text on a dark blue background",
-      "white text on a black background",
-      "black text on a white background"
-    ]
+    "en": {
+      "button": "Change Contrast",
+      "default": "Default",
+      "yellow-black": "Yellow on Black",
+      "black-yellow": "Black on Yellow",
+      "white-black": "White on Black",
+      "black-white": "Black on White",
+      "changed": "Contrast scheme: {scheme}.",
+      "light": "Returned to Default contrast. Light mode is on.",
+      "dark": "Returned to Default contrast. Light mode is off.",
+      "descriptions": [
+        "the site’s normal dark and light themes",
+        "black text on a white background",
+        "white text on a black background",
+        "black text on a pure fluorescent yellow background",
+        "pure fluorescent yellow text on a black background",
+        "bright blue text on a black background",
+        "black text on a bright blue background"
+      ],
+      "blue-black": "Blue on Black",
+      "black-blue": "Black on Blue"
+    },
+    "es": {
+      "button": "Cambiar contraste",
+      "default": "Predeterminado",
+      "yellow-black": "Amarillo sobre negro",
+      "black-yellow": "Negro sobre amarillo",
+      "white-black": "Blanco sobre negro",
+      "black-white": "Negro sobre blanco",
+      "changed": "Esquema de contraste: {scheme}.",
+      "light": "Se ha restablecido el contraste predeterminado. El modo claro está activado.",
+      "dark": "Se ha restablecido el contraste predeterminado. El modo claro está desactivado.",
+      "descriptions": [
+        "los temas habituales oscuro y claro del sitio",
+        "texto negro sobre fondo blanco",
+        "texto blanco sobre fondo negro",
+        "texto negro sobre fondo amarillo fluorescente puro",
+        "texto amarillo fluorescente puro sobre fondo negro",
+        "texto azul brillante sobre fondo negro",
+        "texto negro sobre fondo azul brillante"
+      ],
+      "blue-black": "Azul sobre negro",
+      "black-blue": "Negro sobre azul"
+    },
+    "fr": {
+      "button": "Modifier le contraste",
+      "default": "Par défaut",
+      "yellow-black": "Jaune sur noir",
+      "black-yellow": "Noir sur jaune",
+      "white-black": "Blanc sur noir",
+      "black-white": "Noir sur blanc",
+      "changed": "Palette de contraste : {scheme}.",
+      "light": "Le contraste par défaut a été rétabli. Le mode clair est activé.",
+      "dark": "Le contraste par défaut a été rétabli. Le mode clair est désactivé.",
+      "descriptions": [
+        "les thèmes sombre et clair habituels du site",
+        "texte noir sur fond blanc",
+        "texte blanc sur fond noir",
+        "texte noir sur fond jaune fluorescent pur",
+        "texte jaune fluorescent pur sur fond noir",
+        "texte bleu vif sur fond noir",
+        "texte noir sur fond bleu vif"
+      ],
+      "blue-black": "Bleu sur noir",
+      "black-blue": "Noir sur bleu"
+    },
+    "zh": {
+      "button": "调整对比度",
+      "default": "默认",
+      "yellow-black": "黑底黄字",
+      "black-yellow": "黄底黑字",
+      "white-black": "黑底白字",
+      "black-white": "白底黑字",
+      "changed": "对比度配色：{scheme}。",
+      "light": "已恢复默认对比度，浅色模式已开启。",
+      "dark": "已恢复默认对比度，浅色模式已关闭。",
+      "descriptions": [
+        "网站原有的深色和浅色主题",
+        "白色背景上的黑色文字",
+        "黑色背景上的白色文字",
+        "纯荧光黄色背景上的黑色文字",
+        "黑色背景上的纯荧光黄色文字",
+        "黑色背景上的亮蓝色文字",
+        "亮蓝色背景上的黑色文字"
+      ],
+      "blue-black": "黑底蓝字",
+      "black-blue": "蓝底黑字"
+    }
   },
-  "es": {
-    "button": "Cambiar contraste",
-    "default": "Predeterminado",
-    "yellow-black": "Amarillo sobre negro",
-    "black-yellow": "Negro sobre amarillo",
-    "dark-blue": "Azul oscuro",
-    "white-black": "Blanco sobre negro",
-    "black-white": "Negro sobre blanco",
-    "changed": "Esquema de contraste: {scheme}.",
-    "light": "Se ha restablecido el contraste predeterminado. El modo claro está activado.",
-    "dark": "Se ha restablecido el contraste predeterminado. El modo claro está desactivado.",
-    "descriptions": [
-      "los temas habituales del sitio, oscuro y claro",
-      "texto amarillo brillante sobre fondo negro",
-      "texto negro sobre fondo amarillo brillante",
-      "texto amarillo brillante sobre fondo azul oscuro",
-      "texto blanco sobre fondo negro",
-      "texto negro sobre fondo blanco"
-    ]
-  },
-  "fr": {
-    "button": "Modifier le contraste",
-    "default": "Par défaut",
-    "yellow-black": "Jaune sur noir",
-    "black-yellow": "Noir sur jaune",
-    "dark-blue": "Bleu foncé",
-    "white-black": "Blanc sur noir",
-    "black-white": "Noir sur blanc",
-    "changed": "Palette de contraste : {scheme}.",
-    "light": "Le contraste par défaut a été rétabli. Le mode clair est activé.",
-    "dark": "Le contraste par défaut a été rétabli. Le mode clair est désactivé.",
-    "descriptions": [
-      "les thèmes sombre et clair habituels du site",
-      "texte jaune vif sur fond noir",
-      "texte noir sur fond jaune vif",
-      "texte jaune vif sur fond bleu foncé",
-      "texte blanc sur fond noir",
-      "texte noir sur fond blanc"
-    ]
-  },
-  "zh": {
-    "button": "调整对比度",
-    "default": "默认",
-    "yellow-black": "黑底黄字",
-    "black-yellow": "黄底黑字",
-    "dark-blue": "深蓝色",
-    "white-black": "黑底白字",
-    "black-white": "白底黑字",
-    "changed": "对比度配色：{scheme}。",
-    "light": "已恢复默认对比度，浅色模式已开启。",
-    "dark": "已恢复默认对比度，浅色模式已关闭。",
-    "descriptions": [
-      "网站原有的深色和浅色主题",
-      "黑色背景上的亮黄色文字",
-      "亮黄色背景上的黑色文字",
-      "深蓝色背景上的亮黄色文字",
-      "黑色背景上的白色文字",
-      "白色背景上的黑色文字"
-    ]
-  }
-},
   "es": {
     "1": "Virginia R. Jacobs — Sitio web oficial y comunicado de prensa",
     "2": "Sitio web oficial y comunicado de prensa de la cantautora Virginia R. Jacobs, con información sobre su sencillo I Wanna Feel.",
@@ -344,5 +352,315 @@
     "84": "I Wanna Feel 乐谱，下载 PDF 文件",
     "85": "© 2026 Virginia R. Jacobs。保留所有权利。",
     "86": "采用语义化 HTML5、符合 WCAG AAA 对比度标准，且运行时不依赖任何外部资源。"
-  }
+  },
+  "en": {
+    "17": "Font Size Display Controls",
+    "18": "Display Adjustment:",
+    "19": "Increase Text Size",
+    "20": "Increase text size for entire website",
+    "21": "Reset Text Size",
+    "22": "Reset text size to default",
+    "23": "Light mode",
+    "24": "Off",
+    "25": "On",
+    "26": "Text size increased to ",
+    "27": " percent of default.",
+    "28": "Text size reset to default."
+  },
+  "home": [
+    [
+      "Virginia R. Jacobs — Official Website & Press Release",
+      "Virginia R. Jacobs — Sitio web oficial y comunicado de prensa",
+      "Virginia R. Jacobs — Site officiel et communiqué de presse",
+      "Virginia R. Jacobs — 官方网站与新闻稿"
+    ],
+    [
+      "Skip to main content",
+      "Saltar al contenido principal",
+      "Aller au contenu principal",
+      "跳转至主要内容"
+    ],
+    [
+      "Official Website & Music Portfolio",
+      "Sitio web oficial y portafolio musical",
+      "Site officiel et portfolio musical",
+      "官方网站与音乐作品集"
+    ],
+    [
+      "Official Press Release",
+      "Comunicado de prensa oficial",
+      "Communiqué de presse officiel",
+      "官方新闻稿"
+    ],
+    [
+      "Official Portrait",
+      "Retrato oficial",
+      "Portrait officiel",
+      "官方肖像照"
+    ],
+    [
+      "Artist & Streaming Pages",
+      "Páginas de la artista y plataformas de streaming",
+      "Pages de l’artiste et plateformes de streaming",
+      "艺人主页与流媒体平台"
+    ],
+    [
+      "Press Archive (Status)",
+      "Archivo de prensa (estado)",
+      "Archives de presse (statut)",
+      "媒体报道档案（状态）"
+    ],
+    [
+      "Connect & Media Contact",
+      "Redes y contacto",
+      "Réseaux et contact",
+      "社交平台与联系方式"
+    ],
+    [
+      "Music Streaming and Artist Pages",
+      "Música en streaming y páginas de la artista",
+      "Streaming musical et pages de l’artiste",
+      "音乐流媒体与艺人主页"
+    ],
+    [
+      "Confirmed coverage",
+      "Cobertura confirmada",
+      "Couverture confirmée",
+      "已确认报道"
+    ],
+    [
+      "Additional Resources",
+      "Recursos adicionales",
+      "Ressources complémentaires",
+      "更多资源"
+    ],
+    [
+      "I Wanna Feel - Sheet Music (PDF)",
+      "I Wanna Feel - Partitura (PDF)",
+      "I Wanna Feel - Partition (PDF)",
+      "I Wanna Feel - 乐谱（PDF）"
+    ],
+    [
+      "© 2026 Virginia R. Jacobs. All rights reserved.",
+      "© 2026 Virginia R. Jacobs. Todos los derechos reservados.",
+      "© 2026 Virginia R. Jacobs. Tous droits réservés.",
+      "© 2026 Virginia R. Jacobs。保留所有权利。"
+    ],
+    [
+      "Semantic HTML5, WCAG AAA contrast standard, and zero external runtime dependencies.",
+      "HTML5 semántico, estándar de contraste WCAG AAA y cero dependencias externas en tiempo de ejecución.",
+      "HTML5 sémantique, norme de contraste WCAG AAA et aucune dépendance externe à l’exécution.",
+      "采用语义化 HTML5、符合 WCAG AAA 对比度标准，且运行时不依赖任何外部资源。"
+    ],
+    [
+      "Official website and press release for singer-songwriter Virginia R. Jacobs, featuring the single I Wanna Feel.",
+      "Sitio web oficial y comunicado de prensa de la cantautora Virginia R. Jacobs, con información sobre su sencillo I Wanna Feel.",
+      "Site officiel et communiqué de presse de l’auteure-compositrice-interprète Virginia R. Jacobs, présentant son single I Wanna Feel.",
+      "创作型歌手 Virginia R. Jacobs 的官方网站及新闻稿，介绍其单曲 I Wanna Feel。"
+    ],
+    [
+      "Main Website Navigation",
+      "Navegación principal del sitio web",
+      "Navigation principale du site",
+      "网站主导航"
+    ],
+    [
+      "Official Press Release section",
+      "Sección del comunicado de prensa oficial",
+      "Section du communiqué de presse officiel",
+      "官方新闻稿栏目"
+    ],
+    [
+      "Official Portrait section",
+      "Sección del retrato oficial",
+      "Section du portrait officiel",
+      "官方肖像照栏目"
+    ],
+    [
+      "Music Streaming and Artist Pages section",
+      "Sección de música en streaming y páginas de la artista",
+      "Section consacrée au streaming musical et aux pages de l’artiste",
+      "音乐流媒体与艺人主页栏目"
+    ],
+    [
+      "Press and Mentions Archive status section",
+      "Sección del estado del archivo de prensa y menciones en los medios",
+      "Section du statut des archives de presse et des mentions dans les médias",
+      "媒体报道与相关提及档案状态栏目"
+    ],
+    [
+      "Connect and Media Contact section",
+      "Sección de redes y contacto para medios",
+      "Section des réseaux et du contact presse",
+      "社交平台与媒体联系栏目"
+    ],
+    [
+      "For Immediate Release",
+      "PARA DIFUSIÓN INMEDIATA",
+      "POUR DIFFUSION IMMÉDIATE",
+      "即刻发布"
+    ],
+    [
+      "Official contact channels and social profiles for Virginia R. Jacobs:",
+      "Canales oficiales de contacto y perfiles en redes sociales de Virginia R. Jacobs:",
+      "Coordonnées officielles et profils sur les réseaux sociaux de Virginia R. Jacobs :",
+      "Virginia R. Jacobs 的官方联系方式及社交媒体主页："
+    ],
+    [
+      "Official YouTube Channel:",
+      "Canal oficial de YouTube:",
+      "Chaîne YouTube officielle :",
+      "YouTube 官方频道："
+    ],
+    [
+      "Media Contact Email:",
+      "Correo electrónico de contacto para medios:",
+      "Adresse e-mail pour les demandes de presse :",
+      "媒体联系邮箱："
+    ],
+    [
+      "Name swirls, flickers, and then stays static.",
+      "El nombre gira y luego queda inmóvil.",
+      "Le nom tourbillonne puis reste immobile.",
+      "姓名旋转后保持静止。"
+    ],
+    [
+      "Song Covers",
+      "Versiones de canciones",
+      "Reprises de chansons",
+      "翻唱作品"
+    ],
+    [
+      "Display Adjustment",
+      "Ajustar la visualización",
+      "Réglage de l’affichage",
+      "显示调整"
+    ],
+    [
+      "Text size is at default.",
+      "El texto tiene el tamaño predeterminado.",
+      "Le texte est à sa taille par défaut.",
+      "文字为默认大小。"
+    ],
+    [
+      "Virginia R. Jacobs releases",
+      "Virginia R. Jacobs presenta",
+      "Virginia R. Jacobs présente",
+      "Virginia R. Jacobs 推出"
+    ],
+    [
+      ", an original song about love, courage, and feeling visible.",
+      ", una canción original sobre el amor, el valor y sentirse visible.",
+      ", une chanson originale sur l’amour, le courage et le sentiment d’être visible.",
+      "，这是一首关于爱、勇气和被看见的原创歌曲。"
+    ],
+    [
+      "Virginia R. Jacobs is a blind singer-songwriter, pianist, and motivational voice whose music blends honest storytelling with soulful pop.",
+      "Virginia R. Jacobs es una cantautora y pianista ciega, una voz inspiradora cuya música combina historias sinceras con pop lleno de alma.",
+      "Virginia R. Jacobs est une auteure-compositrice-interprète et pianiste aveugle, une voix inspirante dont la musique mêle récits sincères et pop empreinte de soul.",
+      "Virginia R. Jacobs 是一位盲人创作歌手、钢琴家和励志之声，她的音乐将真诚的叙事与深情的流行乐融为一体。"
+    ],
+    [
+      "About the Single:",
+      "Sobre el sencillo:",
+      "À propos du single :",
+      "关于这首单曲："
+    ],
+    [
+      "explores the universal desire to be seen, heard, and emotionally understood.",
+      "explora el deseo universal de ser vistos, escuchados y comprendidos emocionalmente.",
+      "explore le désir universel d’être vu, entendu et compris émotionnellement.",
+      "探索了人们渴望被看见、被听见并在情感上被理解的共同愿望。"
+    ],
+    [
+      "“I want people to feel something real when they hear my music.” — Virginia R. Jacobs",
+      "«Quiero que las personas sientan algo real al escuchar mi música». — Virginia R. Jacobs",
+      "« Je veux que les gens ressentent quelque chose de vrai en écoutant ma musique. » — Virginia R. Jacobs",
+      "“我希望人们听到我的音乐时能感受到真实的情感。” — Virginia R. Jacobs"
+    ],
+    [
+      "Listen to",
+      "Escucha",
+      "Écoutez",
+      "聆听"
+    ],
+    [
+      "and follow Virginia’s official channels for new music and releases.",
+      "y sigue los canales oficiales de Virginia para descubrir sus novedades musicales.",
+      "et suivez les chaînes officielles de Virginia pour découvrir ses nouvelles créations.",
+      "并关注 Virginia 的官方频道，了解新音乐和发行动态。"
+    ],
+    [
+      "Press and Mentions Archive",
+      "Archivo de prensa y menciones",
+      "Archives de presse et mentions",
+      "媒体报道与相关提及档案"
+    ],
+    [
+      "Unverified status",
+      "Estado sin verificar",
+      "Statut non vérifié",
+      "未经核实"
+    ],
+    [
+      "Maryland School for the Blind Official Blog",
+      "Blog oficial de la Escuela para Personas Ciegas de Maryland",
+      "Blog officiel de la Maryland School for the Blind",
+      "马里兰州盲人学校官方博客"
+    ],
+    [
+      "Virginia R. Jacobs — Maryland School for the Blind",
+      "Virginia R. Jacobs — Escuela para Personas Ciegas de Maryland",
+      "Virginia R. Jacobs — Maryland School for the Blind",
+      "Virginia R. Jacobs — 马里兰州盲人学校"
+    ],
+    [
+      ". Listed as a past feature; verify current availability before citing.",
+      ". Incluido como reportaje anterior; verifica su disponibilidad actual antes de citarlo.",
+      ". Mentionné comme un ancien portrait ; vérifiez sa disponibilité actuelle avant de le citer.",
+      "。列为往期报道；引用前请核实目前是否可用。"
+    ],
+    [
+      "National Federation of the Blind — Santa Wrote Me a Letter",
+      "Federación Nacional de Personas Ciegas — Santa Wrote Me a Letter",
+      "National Federation of the Blind — Santa Wrote Me a Letter",
+      "全国盲人联合会 — Santa Wrote Me a Letter"
+    ],
+    [
+      "Santa Wrote Me a Letter — National Federation of the Blind",
+      "Santa Wrote Me a Letter — Federación Nacional de Personas Ciegas",
+      "Santa Wrote Me a Letter — National Federation of the Blind",
+      "Santa Wrote Me a Letter — 全国盲人联合会"
+    ],
+    [
+      ". Virginia reads a letter from Santa in this NFB video about Braille letters and raised-line pictures for blind children.",
+      ". Virginia lee una carta de Santa Claus en este video de la NFB sobre cartas en braille y dibujos en relieve para niños ciegos.",
+      ". Virginia lit une lettre du père Noël dans cette vidéo de la NFB sur les lettres en braille et les images en relief pour les enfants aveugles.",
+      "。在这段 NFB 视频中，Virginia 朗读了一封圣诞老人来信，介绍为盲童准备的盲文信件和凸线图画。"
+    ],
+    [
+      "Unreleased covers, shared here for you.",
+      "Versiones inéditas, compartidas aquí para ti.",
+      "Des reprises inédites, partagées ici pour vous.",
+      "在这里与你分享尚未发行的翻唱作品。"
+    ],
+    [
+      "Listen to the song covers",
+      "Escuchar las versiones",
+      "Écouter les reprises",
+      "聆听翻唱作品"
+    ],
+    [
+      "Open Song Covers setlist page",
+      "Abrir la lista de versiones de canciones",
+      "Ouvrir la liste des reprises de chansons",
+      "打开翻唱曲目列表"
+    ],
+    [
+      "Portrait of Virginia R. Jacobs, blind singer-songwriter and pianist",
+      "Retrato de Virginia R. Jacobs, cantautora y pianista ciega",
+      "Portrait de Virginia R. Jacobs, auteure-compositrice-interprète et pianiste aveugle",
+      "盲人创作歌手、钢琴家 Virginia R. Jacobs 的肖像"
+    ]
+  ]
 }
