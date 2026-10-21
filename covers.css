@@ -1,3 +1,6 @@
+
+/* Desktop player layout: keep transport controls on one row across translations. */
+@media (min-width: 768px){.playback-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:.5rem}.playback-controls .time{grid-column:1/-1;justify-self:start}}
 /* Shared opaque themes; settings are applied by languages.js. */
 :root{--scale:1;--bg:#000;--fg:#fff;--accent:#79b8ff;--control-bg:#000;--control-fg:#fff;font-size:calc(100% * var(--scale));color-scheme:dark;}
 *,*::before,*::after{box-sizing:border-box;}
