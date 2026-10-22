@@ -34,7 +34,26 @@
 :root[data-contrast="blue-black"]{--quote-bar:#8aaeb0;}
 :root[data-contrast="black-blue"]{--quote-bar:#3c5860;}
 #press-release blockquote{position:relative;}
-@media (min-width: 768px){
+
+
+/* Anchor the desktop song-page language menu. */
+@media (min-width:768px){
+  @supports (anchor-name: --vrj-song-language) and (position-anchor: --vrj-song-language) and (top: anchor(bottom)){
+    body.covers-page[data-song] #language-trigger{
+      anchor-name:--vrj-song-language;
+    }
+    body.covers-page[data-song] #language-menu{
+      position:fixed;
+      position-anchor:--vrj-song-language;
+      left:auto;
+      right:anchor(right);
+      top:anchor(bottom);
+      position-try-fallbacks:flip-block;
+      margin-top:.4rem;
+      max-width:min(22rem,calc(100vw - 3rem));
+    }
+  }
+}@media (min-width: 768px){
 @supports (anchor-name: --vrj-language) and (position-anchor: --vrj-language) and (top: anchor(bottom)){
 body[data-setlist] #language-trigger{anchor-name:--vrj-language}
 body[data-setlist] #language-menu{position:fixed;position-anchor:--vrj-language;left:auto;right:anchor(right);top:anchor(bottom);bottom:.4rem;margin-top:.4rem}
