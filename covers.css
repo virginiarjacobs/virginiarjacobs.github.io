@@ -24,3 +24,14 @@
 .display-panel .control-row>button,.display-panel .control-row>.menu-control>button{padding:.45rem .65rem;line-height:1.25;overflow-wrap:anywhere}
 .display-panel .control-row>.menu-control>button{width:100%;height:auto;min-height:3.25rem}
 }
+/* Homepage quote accent: use the existing root scheme selectors. */
+:root{--quote-bar:#7fa687;}
+:root.light-mode{--quote-bar:#466a50;}
+:root[data-contrast="black-white"]{--quote-bar:#466a50;}
+:root[data-contrast="white-black"]{--quote-bar:#7fa687;}
+:root[data-contrast="black-yellow"]{--quote-bar:#746832;}
+:root[data-contrast="yellow-black"]{--quote-bar:#b5a163;}
+:root[data-contrast="blue-black"]{--quote-bar:#8aaeb0;}
+:root[data-contrast="black-blue"]{--quote-bar:#3c5860;}
+#press-release blockquote{position:relative;}
+#press-release blockquote::before{content:"";position:absolute;left:-1.5rem;top:0;bottom:0;width:.5rem;background:var(--quote-bar);}
