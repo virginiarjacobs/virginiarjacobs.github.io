@@ -34,8 +34,23 @@
 :root[data-contrast="blue-black"]{--quote-bar:#8aaeb0;}
 :root[data-contrast="black-blue"]{--quote-bar:#3c5860;}
 #press-release blockquote{position:relative;}
-
-
+@media (min-width: 768px){
+@supports (anchor-name: --vrj-language) and (position-anchor: --vrj-language) and (top: anchor(bottom)){
+body[data-setlist] #language-trigger{anchor-name:--vrj-language}
+body[data-setlist] #language-menu{position:fixed;position-anchor:--vrj-language;left:auto;right:anchor(right);top:anchor(bottom);bottom:.4rem;margin-top:.4rem}
+}
+}
+#press-release blockquote::before{content:"";position:absolute;left:-1.5rem;top:0;bottom:0;width:.5rem;background:var(--quote-bar);}
+@media (min-width:768px){
+@supports (anchor-name: --vrj-home-language) and (position-anchor: --vrj-home-language) and (top: anchor(bottom)){
+body:not(.covers-page) #btn-languages{anchor-name:--vrj-home-language}
+body:not(.covers-page) #language-menu{
+position:fixed;position-anchor:--vrj-home-language;left:auto;
+right:anchor(right);top:anchor(bottom);
+position-try-fallbacks:flip-block;margin-top:.4rem;
+max-width:min(22rem,calc(100vw - 3rem))}
+}
+}
 /* Anchor the desktop song-page language menu. */
 @media (min-width:768px){
   @supports (anchor-name: --vrj-song-language) and (position-anchor: --vrj-song-language) and (top: anchor(bottom)){
@@ -53,20 +68,4 @@
       max-width:min(22rem,calc(100vw - 3rem));
     }
   }
-}@media (min-width: 768px){
-@supports (anchor-name: --vrj-language) and (position-anchor: --vrj-language) and (top: anchor(bottom)){
-body[data-setlist] #language-trigger{anchor-name:--vrj-language}
-body[data-setlist] #language-menu{position:fixed;position-anchor:--vrj-language;left:auto;right:anchor(right);top:anchor(bottom);bottom:.4rem;margin-top:.4rem}
-}
-}
-#press-release blockquote::before{content:"";position:absolute;left:-1.5rem;top:0;bottom:0;width:.5rem;background:var(--quote-bar);}
-@media (min-width:768px){
-@supports (anchor-name: --vrj-home-language) and (position-anchor: --vrj-home-language) and (top: anchor(bottom)){
-body:not(.covers-page) #btn-languages{anchor-name:--vrj-home-language}
-body:not(.covers-page) #language-menu{
-position:fixed;position-anchor:--vrj-home-language;left:auto;
-right:anchor(right);top:anchor(bottom);
-position-try-fallbacks:flip-block;margin-top:.4rem;
-max-width:min(22rem,calc(100vw - 3rem))}
-}
 }
