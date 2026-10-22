@@ -41,3 +41,13 @@ body[data-setlist] #language-menu{position:fixed;position-anchor:--vrj-language;
 }
 }
 #press-release blockquote::before{content:"";position:absolute;left:-1.5rem;top:0;bottom:0;width:.5rem;background:var(--quote-bar);}
+@media (min-width:768px){
+@supports (anchor-name: --vrj-home-language) and (position-anchor: --vrj-home-language) and (top: anchor(bottom)){
+body:not(.covers-page) #btn-languages{anchor-name:--vrj-home-language}
+body:not(.covers-page) #language-menu{
+position:fixed;position-anchor:--vrj-home-language;left:auto;
+right:anchor(right);top:anchor(bottom);
+position-try-fallbacks:flip-block;margin-top:.4rem;
+max-width:min(22rem,calc(100vw - 3rem))}
+}
+}
