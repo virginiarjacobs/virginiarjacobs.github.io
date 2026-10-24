@@ -18,6 +18,7 @@
 .display-panel .control-row>.menu-control{display:contents}
 }
 @media (max-width: 767px){
+.menu,.language-menu{max-width:100%}
 .display-panel .control-row{width:100%;align-items:center;gap:.6rem}
 .display-panel .control-row>button,.display-panel .control-row>.menu-control{box-sizing:border-box;width:min(100%,18rem);max-width:100%;min-height:3.25rem;height:auto;aspect-ratio:auto}
 .display-panel .control-row>.menu-control{align-items:stretch;gap:.6rem}
